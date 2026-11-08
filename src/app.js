@@ -1,5 +1,8 @@
 import { createRouter } from './router.js';
 import { qs } from './ui/dom.js';
+import { requestPersistence } from './db.js';
+
+requestPersistence();
 
 const routes = {
   '/lists': () => import('./views/lists.js'),
