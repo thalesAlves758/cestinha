@@ -22,7 +22,7 @@ async function register() {
     // network, bypassing GitHub Pages' HTTP cache, so a new version is detected promptly.
     const registration = await navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' });
 
-    // A new version installed earlier and still waiting (e.g. the user tapped "Agora não").
+    // A new version installed earlier and still waiting (e.g. the user dismissed the banner with "✕").
     if (registration.waiting && navigator.serviceWorker.controller) promptUpdate(registration.waiting);
 
     registration.addEventListener('updatefound', () => {
