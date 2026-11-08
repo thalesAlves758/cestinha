@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: P
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF01, RF04, RN11]
 depende_de: [CARD-002, CARD-004]
 ---
@@ -32,12 +32,12 @@ Implementar a tela `#/templates`: listar os templates com nome e quantidade de i
 - Nomes renderizados via helper `html` (escapados).
 
 ## Critérios de aceite
-- [ ] Dado que não há templates, quando abrir a aba, então aparece o estado vazio com o botão "Criar template".
-- [ ] Dado o nome "Compra do mês", quando confirmar a criação, então o template é salvo vazio e o app abre o detalhe dele (RF01).
-- [ ] Nome vazio não cria template (RN11).
-- [ ] A aba lista todos os templates com nome e quantidade de itens, com o plural correto (RF04).
-- [ ] Ao voltar do detalhe de um template editado, ele aparece no topo (ordem `updatedAt` desc).
-- [ ] Nome com caracteres como `<b>` aparece como texto literal.
+- [x] Dado que não há templates, quando abrir a aba, então aparece o estado vazio com o botão "Criar template".
+- [x] Dado o nome "Compra do mês", quando confirmar a criação, então o template é salvo vazio e o app abre o detalhe dele (RF01).
+- [x] Nome vazio não cria template (RN11).
+- [x] A aba lista todos os templates com nome e quantidade de itens, com o plural correto (RF04).
+- [x] Ao voltar do detalhe de um template editado, ele aparece no topo (ordem `updatedAt` desc).
+- [x] Nome com caracteres como `<b>` aparece como texto literal.
 
 ## Observações
 Nomes de template repetidos são permitidos: o refinamento não proíbe.
