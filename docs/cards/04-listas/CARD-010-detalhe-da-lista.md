@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF07, RF08, RF11, RF12]
 depende_de: [CARD-005, CARD-009]
 ---
@@ -50,13 +50,13 @@ Toda alteração é salva na hora.
   - **Não encontrada:** mensagem com link para Listas.
 
 ## Critérios de aceite
-- [ ] Adicionar, editar e remover itens atualiza a tela e persiste após recarregar (RF07).
-- [ ] A adição rápida cria o item com quantidade 1 e unidade `un`, sem valor, e mantém o foco no campo.
-- [ ] Informar ou editar o valor salva `priceCents` e passa a mostrar o subtotal = quantidade × valor (RF11, RF12).
-- [ ] Renomear e excluir funcionam pelo cabeçalho. Excluir pede confirmação (RF08).
-- [ ] Editar itens da lista não altera o template de origem (RN08).
-- [ ] Se `putList` falhar, aparece o aviso com "Tentar de novo", e tentar de novo salva o estado atual.
-- [ ] Abrir `#/list/id-inexistente` mostra "Lista não encontrada", sem erro no console.
+- [x] Adicionar, editar e remover itens atualiza a tela e persiste após recarregar (RF07).
+- [x] A adição rápida cria o item com quantidade 1 e unidade `un`, sem valor, e mantém o foco no campo.
+- [x] Informar ou editar o valor salva `priceCents` e passa a mostrar o subtotal = quantidade × valor (RF11, RF12).
+- [x] Renomear e excluir funcionam pelo cabeçalho. Excluir pede confirmação (RF08).
+- [x] Editar itens da lista não altera o template de origem (RN08).
+- [x] Se `putList` falhar, aparece o aviso com "Tentar de novo", e tentar de novo salva o estado atual.
+- [x] Abrir `#/list/id-inexistente` mostra "Lista não encontrada", sem erro no console.
 
 ## Observações
 - No fluxo F3, o item adicionado na hora "já é marcado". Aqui, a adição cria o item desmarcado, e o usuário marca com um toque no checkbox (CARD-011). Um atalho "adicionar já marcado" pode ser avaliado no uso real.
@@ -64,8 +64,6 @@ Toda alteração é salva na hora.
 - Item com nome repetido é permitido (padrão da pergunta 4 do refinamento).
 
 ## Pendências
-- [ ] [CARD-005 — Editor de item](../02-componentes/CARD-005-editor-de-item.md)
-- [ ] [CARD-009 — Nova lista](../04-listas/CARD-009-nova-lista.md)
 
 ## Fora do escopo
 - Checkbox, ordenação de marcados, resumo de totais e progresso (CARD-011).
