@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF02, RF07, RF11, RF12, RN01, RN02, RN03, RN04, RNF06]
 depende_de: [CARD-003, CARD-004]
 ---
@@ -54,15 +54,15 @@ Criar o editor de item reutilizável. Ele valida os campos, mostra o subtotal ao
 - Devolve `{ name: name.trim(), quantity, unit, priceCents }`. Quem chama define `id`, `order` e `checked` e persiste.
 
 ## Critérios de aceite
-- [ ] Novo item abre com quantidade `1`, unidade `un` e valor vazio, com o foco no nome.
-- [ ] Com `focus: 'price'`, o foco vai direto para o campo de valor.
-- [ ] Nome vazio ou quantidade ≤ 0 bloqueiam o salvar, com mensagem no próprio campo (estado de validação da T04).
-- [ ] Ao trocar a unidade para `kg`, o rótulo do valor muda para "Valor por kg".
-- [ ] Dado quantidade `0,3`, unidade `kg` e valor `39,90`, o subtotal exibido é `R$ 11,97`. Com `1,5` × `40` é `R$ 60,00` (RN04).
-- [ ] Valor vazio é aceito: salva `priceCents: null` e não mostra subtotal.
-- [ ] Quantidade e valor aceitam vírgula ou ponto, e o teclado aberto é o numérico decimal (RNF06).
-- [ ] "Excluir" só aparece ao editar item existente com `onDelete` informado.
-- [ ] Editar um item existente preenche todos os campos com os valores atuais (valor como `12,90`).
+- [x] Novo item abre com quantidade `1`, unidade `un` e valor vazio, com o foco no nome.
+- [x] Com `focus: 'price'`, o foco vai direto para o campo de valor.
+- [x] Nome vazio ou quantidade ≤ 0 bloqueiam o salvar, com mensagem no próprio campo (estado de validação da T04).
+- [x] Ao trocar a unidade para `kg`, o rótulo do valor muda para "Valor por kg".
+- [x] Dado quantidade `0,3`, unidade `kg` e valor `39,90`, o subtotal exibido é `R$ 11,97`. Com `1,5` × `40` é `R$ 60,00` (RN04).
+- [x] Valor vazio é aceito: salva `priceCents: null` e não mostra subtotal.
+- [x] Quantidade e valor aceitam vírgula ou ponto, e o teclado aberto é o numérico decimal (RNF06).
+- [x] "Excluir" só aparece ao editar item existente com `onDelete` informado.
+- [x] Editar um item existente preenche todos os campos com os valores atuais (valor como `12,90`).
 
 ## Observações
 - O editor não conhece templates nem listas, só dados de item. Isso garante o reuso na T03 e na T06.
