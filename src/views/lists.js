@@ -33,7 +33,7 @@ function renderCard(list) {
           <span class="block h-full bg-primary" style="width: ${percent}%"></span>
         </span>
         <span class="flex justify-between gap-2 text-sm tabular-nums">
-          <span>${checked}/${total} marcados</span>
+          <span>${checked}/${total}</span>
           <span><span class="text-muted">Previsto </span>${plannedLabel(list.items)}</span>
         </span>
       </a>
