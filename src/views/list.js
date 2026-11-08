@@ -55,7 +55,7 @@ function renderSummary(items) {
   const { plannedCents, inCartCents } = listTotals(items);
   const done = total > 0 && checked === total;
   return html`
-    <section aria-label="Resumo da lista" class="sticky top-0 z-10 -mx-4 px-4 py-3 mb-4 bg-surface border-b border-line">
+    <section aria-label="Resumo da lista" class="sticky top-[calc(3rem+1px+env(safe-area-inset-top))] z-10 -mx-4 px-4 py-3 mb-4 bg-surface border-b border-line">
       <div class="flex items-end justify-between gap-3">
         <div>
           <p class="text-sm text-muted">No carrinho</p>
@@ -123,8 +123,8 @@ export function render(container, { id } = {}) {
       ${renderSummary(items)}
       ${items.length === 0
         ? html`<p class="text-muted mb-4">Lista vazia. Adicione o primeiro item.</p>`
-        : html`<ul class="flex flex-col gap-2 mb-4">${items.map(renderItem)}</ul>`}
-      <form data-quick novalidate class="flex gap-2 pb-24">
+        : html`<ul class="flex flex-col gap-2 mb-20">${items.map(renderItem)}</ul>`}
+      <form data-quick novalidate class="sticky bottom-0 z-10 -mx-4 -mb-4 flex gap-2 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-surface border-t border-line">
         <label for="quick-name" class="sr-only">Adicionar item</label>
         <input id="quick-name" name="name" type="text" autocomplete="off" autocapitalize="sentences" placeholder="Adicionar item" class="${FIELD} flex-1 min-w-0">
         <button type="submit" class="${BTN_PRIMARY}">Adicionar</button>
@@ -239,6 +239,8 @@ export function render(container, { id } = {}) {
     if (!found) return notFound();
     list = found;
     fab = renderFab({ label: 'Novo item', onClick: openNewItem });
+    // Lift the FAB above the fixed quick-add bar (no tabs on this screen).
+    fab.classList.replace('bottom-[calc(4.5rem+env(safe-area-inset-bottom))]', 'bottom-[calc(6rem+env(safe-area-inset-bottom))]');
     draw();
   }).catch(showError);
 
