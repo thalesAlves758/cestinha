@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cestinha</title>
+  <link rel="stylesheet" href="styles/output.css">
+  <script src="version.js"></script>
+</head>
+<body class="bg-page text-ink min-h-dvh flex flex-col">
+  <header class="sticky top-0 z-10 flex items-center justify-between bg-surface border-b border-line pl-4 pr-1 pt-[env(safe-area-inset-top)]">
+    <h1 class="text-lg font-semibold text-primary">Cestinha</h1>
+    <a href="#/settings" aria-label="Configurações" class="flex items-center justify-center w-12 h-12 text-xl rounded-full" data-settings-link>⚙️</a>
+  </header>
+
+  <main id="view" class="flex-1 w-full max-w-2xl mx-auto p-4"></main>
+
+  <nav id="tabs" aria-label="Navegação principal" class="sticky bottom-0 z-10 grid grid-cols-2 bg-surface border-t border-line pb-[env(safe-area-inset-bottom)]">
+    <a href="#/lists" data-tab="/lists" class="flex flex-col items-center justify-center min-h-14 py-1 text-sm text-muted aria-[current=page]:text-primary aria-[current=page]:font-semibold aria-[current=page]:underline underline-offset-4">
+      <span aria-hidden="true">🛒</span><span>Listas</span>
+    </a>
+    <a href="#/templates" data-tab="/templates" class="flex flex-col items-center justify-center min-h-14 py-1 text-sm text-muted aria-[current=page]:text-primary aria-[current=page]:font-semibold aria-[current=page]:underline underline-offset-4">
+      <span aria-hidden="true">📋</span><span>Templates</span>
+    </a>
+  </nav>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

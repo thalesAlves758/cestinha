@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RNF04, RNF06, RNF08, RNF10]
 depende_de: []
 ---
@@ -102,12 +102,12 @@ Com isso, cada tela pode ser implementada como um módulo independente.
 - [ ] Tocar nas abas troca o hash e a view, a aba ativa fica marcada (`aria-current`) e o botão voltar do navegador funciona.
 - [ ] Hash vazio ou inexistente leva a `#/lists`.
 - [ ] Abrir direto uma URL com `#/template/abc` renderiza a view correspondente com `params.id === 'abc'`.
-- [ ] O `styles/output.css` é gerado pela CLI, e nenhum CDN do Tailwind é usado.
-- [ ] Nenhum caminho com `/` inicial em `index.html` e nos imports.
+- [x] O `styles/output.css` é gerado pela CLI, e nenhum CDN do Tailwind é usado.
+- [x] Nenhum caminho com `/` inicial em `index.html` e nos imports.
 - [ ] Adicionar `class="dark"` manualmente no `<html>` troca as cores de fundo, superfície, texto e primária.
-- [ ] A aba Network mostra só arquivos locais: nenhuma fonte, script ou chamada externa (RNF04).
+- [x] A aba Network mostra só arquivos locais: nenhuma fonte, script ou chamada externa (RNF04).
 - [ ] Abas e engrenagem têm alvo de toque ≥ 44 px, e o layout não rola na horizontal a 360 px de largura (RNF06).
-- [ ] Identificadores, arquivos e rotas estão em inglês, e os textos da interface em pt-BR (RNF10).
+- [x] Identificadores, arquivos e rotas estão em inglês, e os textos da interface em pt-BR (RNF10).
 
 ## Observações
 - No Tailwind v4 a configuração fica no CSS: não existe `tailwind.config.js`.

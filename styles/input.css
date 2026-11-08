@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --page: #F7F8F6; --surface: #FFFFFF; --primary: #1F5A3D; --on-primary: #FFFFFF;
+  --ink: #1A1F1C; --muted: #5B6660; --line: #DDE3DF; --danger: #B3261E;
+}
+.dark {
+  --page: #0F1512; --surface: #18201C; --primary: #5FB98A; --on-primary: #0F1512;
+  --ink: #E6ECE8; --muted: #9AA8A0; --line: #2A3530; --danger: #F2B8B5;
+}
+@theme inline {
+  --color-page: var(--page); --color-surface: var(--surface);
+  --color-primary: var(--primary); --color-on-primary: var(--on-primary);
+  --color-ink: var(--ink); --color-muted: var(--muted);
+  --color-line: var(--line); --color-danger: var(--danger);
+}
