@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF08, RF09, RN09, RN12, RNF08]
 depende_de: [CARD-002, CARD-003, CARD-004]
 ---
@@ -44,14 +44,14 @@ Implementar `#/lists`, com:
 - Valores com `tabular-nums`. O conteúdo tem padding inferior para não ficar atrás do botão "+" e das abas.
 
 ## Critérios de aceite
-- [ ] Dado 5 listas de datas diferentes, quando abrir o app, então elas aparecem da mais recente para a mais antiga, cada uma com nome, data, barra de progresso, "marcados/total" e total previsto (RF09).
-- [ ] O progresso é indicado também por texto, não só pela cor (RNF08).
-- [ ] Renomear pelo menu atualiza o card. Nome vazio é recusado.
-- [ ] Excluir pede confirmação e remove a lista da tela e do banco (RF08).
-- [ ] Sem listas, aparece o estado vazio com os dois atalhos.
-- [ ] Com o IndexedDB indisponível (ex.: simular erro em `openDb`), aparece o estado de erro em vez de tela em branco.
-- [ ] Não existe nenhum botão ou estado de "finalizar" lista (RN09).
-- [ ] Qualquer quantidade de listas é exibida (RN12).
+- [x] Dado 5 listas de datas diferentes, quando abrir o app, então elas aparecem da mais recente para a mais antiga, cada uma com nome, data, barra de progresso, "marcados/total" e total previsto (RF09).
+- [x] O progresso é indicado também por texto, não só pela cor (RNF08).
+- [x] Renomear pelo menu atualiza o card. Nome vazio é recusado.
+- [x] Excluir pede confirmação e remove a lista da tela e do banco (RF08).
+- [x] Sem listas, aparece o estado vazio com os dois atalhos.
+- [x] Com o IndexedDB indisponível (ex.: simular erro em `openDb`), aparece o estado de erro em vez de tela em branco.
+- [x] Não existe nenhum botão ou estado de "finalizar" lista (RN09).
+- [x] Qualquer quantidade de listas é exibida (RN12).
 
 ## Observações
 - A tela inicial cresce sem limite (risco 2 do refinamento). No MVP, renderizar tudo. Agrupar por mês ou buscar fica para depois do uso real.
