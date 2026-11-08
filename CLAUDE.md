@@ -17,14 +17,14 @@ Cestinha is an offline grocery-list PWA (Android/Chrome, single user, personal u
 
 ## Commands (planned)
 
-No build tooling exists yet. Per the spec, the only build step is Tailwind:
+No build tooling exists yet. Per the spec, the only build step is Tailwind, using the v4 standalone binary saved at the repo root as `tailwindcss.exe` (gitignored; development machine is Windows):
 
 ```sh
 # compile CSS (add --watch during development, --minify for deploy)
-./tailwindcss -i styles/input.css -o styles/output.css
+./tailwindcss.exe -i styles/input.css -o styles/output.css
 ```
 
-`styles/output.css` is generated — edit `styles/input.css` instead. Serve the repo root with any static server on `localhost` (service workers require localhost or HTTPS).
+`styles/output.css` is generated — edit `styles/input.css` instead. The machine has no Python or Node, so serve the repo root with the VS Code **Live Server** extension (service workers require localhost or HTTPS).
 
 ## Architecture (planned, see spec section 12)
 
