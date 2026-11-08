@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: media
-status: todo
+status: done
 requisitos: [RF16, RNF02, RNF04, RNF05]
 depende_de: [CARD-004, CARD-014]
 ---
@@ -59,8 +59,8 @@ Criar o Service Worker com:
 - [ ] Recarregar offline em qualquer rota (ex.: `#/list/<id>`) funciona.
 - [ ] Ao mudar `APP_VERSION` em `version.js`, o navegador detecta a nova versão, aparece o aviso "Nova versão disponível", "Atualizar" carrega a versão nova e o cache antigo é apagado.
 - [ ] Sem tocar em "Atualizar", a página atual não recarrega sozinha (não interrompe uma compra em andamento).
-- [ ] Se um arquivo do `APP_SHELL` não existir, a instalação falha de forma visível no console (o `addAll` é atômico). Toda a lista é revisada e existe.
-- [ ] Nenhuma requisição para outra origem é feita ou cacheada (RNF04).
+- [x] Se um arquivo do `APP_SHELL` não existir, a instalação falha de forma visível no console (o `addAll` é atômico). Toda a lista é revisada e existe.
+- [x] Nenhuma requisição para outra origem é feita ou cacheada (RNF04).
 - [ ] O app abre rápido offline, servido do cache (RNF05).
 
 ## Observações
@@ -71,6 +71,17 @@ Criar o Service Worker com:
 - A detecção de mudança depende de o navegador comparar o `version.js` importado. Os navegadores atuais comparam os scripts importados na checagem de atualização, mas confirmar no teste do critério de versão. Se falhar, mover a constante de versão para dentro do `sw.js`.
 - `tests/` e `tools/` ficam fora do cache.
 - Atualização automática com `skipWaiting` imediato foi descartada: poderia recarregar o app no meio da compra.
+
+### Implementação (desvios e decisões)
+- A lista `APP_SHELL` do detalhamento acima ficou desatualizada. A lista real, em `sw.js`, foi montada a partir dos arquivos existentes: inclui `src/ui/buttons.js` e o novo `src/pwa.js`. Foi conferida por script nos dois sentidos (todo caminho existe e todo arquivo do app está na lista).
+- O registro e o fluxo de atualização ficaram em `src/pwa.js` (`registerServiceWorker()`), chamado por `src/app.js`, em vez de direto no `app.js`.
+- Ajustes para o cache HTTP do GitHub Pages (`max-age=600`):
+  - a instalação busca os arquivos com `cache: 'reload'`, para não montar o cache novo com arquivos da versão anterior;
+  - o registro usa `updateViaCache: 'none'`, para que a checagem de atualização leia o `version.js` novo.
+- `controllerchange` só recarrega a página se o usuário tocou em "Atualizar". Na primeira instalação, o `clients.claim()` também dispara esse evento, e isso não pode recarregar.
+- O aviso de nova versão não some sozinho e tem também "Agora não". Se for dispensado, volta a aparecer na próxima abertura, porque o SW continua em `waiting`.
+- O app também checa atualização quando volta ao primeiro plano (`visibilitychange`). O PWA instalado pode ficar aberto por dias.
+- Os critérios não marcados dependem de teste no navegador (offline, recarga em rota, fluxo de versão) e ficam para validação manual.
 
 ## Pendências
 - [ ] [CARD-004 — Componentes base](../02-componentes/CARD-004-paineis-dialogos-e-avisos.md) (aviso de atualização)

@@ -44,8 +44,10 @@ No package manager, linter or bundler. The only build step is Tailwind, using th
 - **Data:** `src/db.js` is the only module touching IndexedDB (db `cestinha`; stores `templates` [index `updatedAt`] and `lists` [indexes `createdAt`, `templateId`]). Its API (`getAll*`, `get*`, `put*`, `delete*`) returns promises; `put*` sets `updatedAt`; `getAllTemplates`/`getAllLists` return newest first. Schema changes go in a new `if (event.oldVersion < N)` block — never edit the v1 block. `src/model.js` has pure record factories (`createTemplate`, `createList`, `createItem`, `listFromTemplate`, `nextOrder`).
 - **Calculations:** `src/calc.js` holds pure functions for subtotals, totals, progress, pt-BR formatting/parsing and `normalizeName`. Totals/subtotals/progress are always computed, never stored.
 - **Styling:** `styles/input.css` defines semantic color tokens as CSS variables swapped by the `.dark` class on `<html>` (Tailwind v4 `@custom-variant dark`), exposed as utilities `bg-page`, `bg-surface`, `text-ink`, `text-muted`, `border-line`, `bg-primary`/`text-on-primary`, `text-danger`. Use these instead of raw colors or `dark:` variants. Never build class names dynamically (the Tailwind scanner only sees complete strings).
-- **Version:** `version.js` sets `self.APP_VERSION`, the single source for the settings screen and (planned, CARD-015) the service worker cache name.
-- **Planned, not yet built:** theme switching in `src/theme.js` with localStorage key `cestinha.theme` applied by an inline `<head>` script (CARD-013); `manifest.webmanifest` + icons (CARD-014); `sw.js` with versioned cache and user-confirmed updates (CARD-015).
+- **Theme:** `src/theme.js` (modes auto/light/dark, localStorage key `cestinha.theme`); an inline `<head>` script in `index.html` applies it before first paint — the key is duplicated there, keep both in sync.
+- **Version:** `version.js` sets `self.APP_VERSION`, the single source for the settings screen and the service worker cache name (`sw.js` loads it via `importScripts`).
+- **Offline (service worker):** `sw.js` precaches the `APP_SHELL` list into `cestinha-<APP_VERSION>` (cache-first; navigations get the cached `index.html`; old `cestinha-*` caches deleted on activate). `src/pwa.js` registers it with `updateViaCache: 'none'` and shows a "Nova versão disponível" toast; the new version only takes over when the user taps "Atualizar" (no automatic reload mid-shopping).
+- **During development:** with the SW active the browser serves cached files — keep DevTools › Application › Service Workers › "Update on reload" checked, or changes won't show.
 
 ## Domain rules that are easy to get wrong
 
@@ -60,5 +62,6 @@ No package manager, linter or bundler. The only build step is Tailwind, using th
 ## Deployment gotchas
 
 - Served under a subpath (`/cestinha/` on GitHub Pages): every URL must be relative — no leading `/` in `index.html`, imports, manifest (`start_url`, `scope`), or SW registration.
-- On every deploy bump `APP_VERSION` and add any new file to the SW app-shell list, or installed phones get stuck on an old version / break offline.
+- **Every new app file (JS module, icon, etc.) must be added to `APP_SHELL` in `sw.js`** — `cache.addAll` is atomic, so a missing or misspelled path fails the whole install, and an unlisted file breaks the app offline.
+- On every deploy bump `APP_VERSION` in `version.js`; otherwise installed phones never see the new version.
 - UI: touch targets ≥ 44px, WCAG AA contrast in both themes, `tabular-nums` for money, state never conveyed by color alone.

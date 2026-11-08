@@ -2,9 +2,11 @@ import { createRouter } from './router.js';
 import { qs } from './ui/dom.js';
 import { requestPersistence } from './db.js';
 import { watchSystemTheme } from './theme.js';
+import { registerServiceWorker } from './pwa.js';
 
 requestPersistence();
 watchSystemTheme();
+registerServiceWorker();
 
 const routes = {
   '/lists': () => import('./views/lists.js'),
