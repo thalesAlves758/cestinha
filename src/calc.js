@@ -34,6 +34,15 @@ export function listProgress(items) {
   return { checked, total, percent };
 }
 
+/** Display order (RN14): unchecked by `order` asc, then checked by `order` asc. Returns a new array. */
+export function sortItemsForDisplay(items) {
+  const byOrder = (a, b) => a.order - b.order;
+  return [
+    ...items.filter((item) => !item.checked).sort(byOrder),
+    ...items.filter((item) => item.checked).sort(byOrder),
+  ];
+}
+
 /** 123456 -> 'R$ 1.234,56' (Intl uses a non-breaking space after 'R$'). */
 export function formatMoney(cents) {
   return moneyFormat.format(cents / 100);

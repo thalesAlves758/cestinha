@@ -1,7 +1,9 @@
 import { html, qs } from '../ui/dom.js';
 import { getList, putList, deleteList } from '../db.js';
 import { createItem, nextOrder } from '../model.js';
-import { formatQuantity, formatMoney, itemSubtotalCents } from '../calc.js';
+import {
+  formatQuantity, formatMoney, itemSubtotalCents, listTotals, listProgress, sortItemsForDisplay,
+} from '../calc.js';
 import { promptText } from '../ui/prompt.js';
 import { confirmDialog } from '../ui/confirm.js';
 import { openActionSheet } from '../ui/actionSheet.js';
@@ -31,11 +33,13 @@ function addItem(list, data) {
 function renderItem(item) {
   const priced = item.priceCents != null;
   return html`
-    <li class="flex items-stretch gap-2 rounded-lg bg-surface border border-line">
-      <div data-check-slot class="w-11 shrink-0" aria-hidden="true"></div>
+    <li class="flex items-stretch gap-2 rounded-lg bg-surface border border-line ${item.checked ? 'text-muted' : ''}">
+      <label class="flex items-center justify-center w-11 shrink-0 cursor-pointer">
+        <input type="checkbox" data-check="${item.id}" ${item.checked ? 'checked' : ''} aria-label="No carrinho: ${item.name}" class="size-6 accent-primary">
+      </label>
       <button type="button" data-item="${item.id}" class="flex-1 min-w-0 min-h-14 py-3 text-left">
-        <span class="block font-semibold break-words">${item.name}</span>
-        <span class="block text-sm text-muted tabular-nums">${formatQuantity(item.quantity, item.unit)}</span>
+        <span class="block font-semibold break-words ${item.checked ? 'line-through' : ''}">${item.name}</span>
+        <span class="block text-sm text-muted tabular-nums ${item.checked ? 'line-through' : ''}">${formatQuantity(item.quantity, item.unit)}</span>
       </button>
       <button type="button" data-price="${item.id}" aria-label="Editar valor de ${item.name}" class="flex flex-col items-end justify-center shrink-0 min-h-14 min-w-11 pr-4 pl-1 text-sm tabular-nums">
         ${priced
@@ -44,6 +48,29 @@ function renderItem(item) {
           : html`<span class="text-muted">Definir valor</span>`}
       </button>
     </li>`;
+}
+
+function renderSummary(items) {
+  const { checked, total, percent } = listProgress(items);
+  const { plannedCents, inCartCents } = listTotals(items);
+  const done = total > 0 && checked === total;
+  return html`
+    <section aria-label="Resumo da lista" class="sticky top-0 z-10 -mx-4 px-4 py-3 mb-4 bg-surface border-b border-line">
+      <div class="flex items-end justify-between gap-3">
+        <div>
+          <p class="text-sm text-muted">No carrinho</p>
+          <p class="text-2xl font-bold tabular-nums">${formatMoney(inCartCents)}</p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm text-muted">Previsto</p>
+          <p class="font-semibold tabular-nums">${formatMoney(plannedCents)}</p>
+        </div>
+      </div>
+      <div role="progressbar" aria-label="Progresso da lista" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}" class="mt-2 h-2 rounded-full bg-line overflow-hidden">
+        <div class="h-full bg-primary" style="width: ${percent}%"></div>
+      </div>
+      <p class="mt-1 text-sm tabular-nums ${done ? 'text-primary font-semibold' : 'text-muted'}">${done ? '✓ Tudo no carrinho! · ' : ''}${checked} de ${total} ${total === 1 ? 'item' : 'itens'}</p>
+    </section>`;
 }
 
 export function render(container, { id } = {}) {
@@ -86,13 +113,14 @@ export function render(container, { id } = {}) {
   }
 
   function draw() {
-    const items = [...list.items].sort((a, b) => a.order - b.order);
+    const items = sortItemsForDisplay(list.items);
     container.innerHTML = html`
       <header class="flex items-center gap-1 mb-4">
         <a href="#/lists" aria-label="Voltar para Listas" class="${ICON_BTN}">←</a>
         <button type="button" data-rename class="flex-1 min-h-11 px-2 text-left text-xl font-semibold break-words min-w-0">${list.name}</button>
         <button type="button" data-menu aria-label="Mais ações" class="${ICON_BTN}">⋮</button>
       </header>
+      ${renderSummary(items)}
       ${items.length === 0
         ? html`<p class="text-muted mb-4">Lista vazia. Adicione o primeiro item.</p>`
         : html`<ul class="flex flex-col gap-2 mb-4">${items.map(renderItem)}</ul>`}
@@ -113,6 +141,9 @@ export function render(container, { id } = {}) {
     container.querySelectorAll('[data-item]').forEach((button) => {
       button.addEventListener('click', () => editItem(button.dataset.item));
     });
+    container.querySelectorAll('[data-check]').forEach((box) => {
+      box.addEventListener('change', () => toggleChecked(box.dataset.check));
+    });
     container.querySelectorAll('[data-price]').forEach((button) => {
       button.addEventListener('click', () => editItem(button.dataset.price, 'price'));
     });
@@ -122,6 +153,13 @@ export function render(container, { id } = {}) {
       qs('#quick-name', container).focus();
     }
     if (fab) container.appendChild(fab);
+  }
+
+  function toggleChecked(itemId) {
+    const item = list.items.find((it) => it.id === itemId);
+    if (!item) return;
+    item.checked = !item.checked;
+    save();
   }
 
   function quickAdd(event) {
