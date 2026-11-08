@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF02, RF03, RN11, RN13]
 depende_de: [CARD-005, CARD-006]
 ---
@@ -43,13 +43,13 @@ Toda alteração é salva na hora.
   - **Não encontrado** (id inválido ou excluído): mensagem com link para Templates.
 
 ## Critérios de aceite
-- [ ] Adicionar, editar e remover itens persiste na hora: recarregar a página mostra o estado atualizado (RF02).
-- [ ] Renomear com nome vazio é recusado (RN11). Renomear com nome válido atualiza o cabeçalho e a aba Templates.
-- [ ] Excluir pede confirmação. Ao confirmar, o template some da aba Templates (RF03).
-- [ ] Dado uma lista gerada a partir do template, quando o template é excluído, então a lista continua existindo com todos os itens (RN13).
-- [ ] Itens aparecem na ordem de inserção. Valor ausente não mostra "R$".
-- [ ] Abrir `#/template/id-inexistente` mostra "Template não encontrado", sem erro no console.
-- [ ] Alterar o template não altera listas já geradas a partir dele (RN08).
+- [x] Adicionar, editar e remover itens persiste na hora: recarregar a página mostra o estado atualizado (RF02).
+- [x] Renomear com nome vazio é recusado (RN11). Renomear com nome válido atualiza o cabeçalho e a aba Templates.
+- [x] Excluir pede confirmação. Ao confirmar, o template some da aba Templates (RF03).
+- [x] Dado uma lista gerada a partir do template, quando o template é excluído, então a lista continua existindo com todos os itens (RN13).
+- [x] Itens aparecem na ordem de inserção. Valor ausente não mostra "R$".
+- [x] Abrir `#/template/id-inexistente` mostra "Template não encontrado", sem erro no console.
+- [x] Alterar o template não altera listas já geradas a partir dele (RN08).
 
 ## Observações
 - Item com nome repetido no mesmo template é permitido: é o padrão da pergunta 4 do refinamento.
