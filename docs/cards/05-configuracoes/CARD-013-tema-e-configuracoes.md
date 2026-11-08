@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: P
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF15, RNF08, RNF09]
 depende_de: [CARD-001]
 ---
@@ -54,13 +54,13 @@ Implementar também a tela `#/settings`, com o seletor de tema e a versão do ap
   - Rodapé "Versão {self.APP_VERSION}" (de `version.js`, CARD-001).
 
 ## Critérios de aceite
-- [ ] Escolher Claro, Escuro ou Automático muda a interface na hora (RF15).
-- [ ] A escolha persiste ao recarregar e ao reabrir o app.
-- [ ] No modo Automático, trocar o tema do sistema muda o app sem recarregar (RNF09).
-- [ ] Ao abrir o app com o tema escuro salvo, não aparece um "flash" claro antes da renderização.
-- [ ] Componentes nativos (checkbox, campos) acompanham o tema.
-- [ ] Textos, bordas, botões e a barra de progresso têm contraste AA nos dois temas (RNF08).
-- [ ] A versão exibida é a de `version.js`.
+- [x] Escolher Claro, Escuro ou Automático muda a interface na hora (RF15).
+- [x] A escolha persiste ao recarregar e ao reabrir o app.
+- [x] No modo Automático, trocar o tema do sistema muda o app sem recarregar (RNF09).
+- [x] Ao abrir o app com o tema escuro salvo, não aparece um "flash" claro antes da renderização.
+- [x] Componentes nativos (checkbox, campos) acompanham o tema.
+- [x] Textos, bordas, botões e a barra de progresso têm contraste AA nos dois temas (RNF08).
+- [x] A versão exibida é a de `version.js`.
 
 ## Observações
 - A chave `cestinha.theme` aparece em dois lugares (script inline e `theme.js`). Deixar um comentário nos dois.

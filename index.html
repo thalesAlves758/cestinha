@@ -4,6 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cestinha</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <script>
+    // Applies the saved theme before first paint (no flash). Key 'cestinha.theme' is duplicated in src/theme.js; keep both in sync.
+    (function () {
+      try {
+        var mode = localStorage.getItem('cestinha.theme') || 'auto';
+        var dark = mode === 'dark' || (mode === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#18201C' : '#FFFFFF');
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="styles/output.css">
   <script src="version.js"></script>
 </head>

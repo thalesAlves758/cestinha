@@ -15,3 +15,7 @@
   --color-ink: var(--ink); --color-muted: var(--muted);
   --color-line: var(--line); --color-danger: var(--danger);
 }
+
+/* Native controls (checkbox, scrollbars, fields) follow the theme. */
+:root { color-scheme: light; }
+.dark { color-scheme: dark; }
