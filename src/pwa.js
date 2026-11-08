@@ -1,23 +1,18 @@
-import { showToast } from './ui/toast.js';
+import { showUpdateBanner } from './ui/updateBanner.js';
 
 // Reload only when the user asked for the update. On the very first install,
 // clients.claim() also fires 'controllerchange', and that must not reload the page.
 let updateAccepted = false;
 
 function promptUpdate(worker) {
-  showToast({
-    message: 'Nova versão disponível',
-    timeout: 0,
-    actions: [
-      {
-        label: 'Atualizar',
-        onSelect: () => {
-          updateAccepted = true;
-          worker.postMessage({ type: 'SKIP_WAITING' });
-        },
-      },
-      { label: 'Agora não' },
-    ],
+  showUpdateBanner({
+    onUpdate: () => {
+      updateAccepted = true;
+      worker.postMessage({ type: 'SKIP_WAITING' });
+      // Safety net: if the new worker never takes control, reload anyway. The
+      // waiting worker survives the reload, so the banner simply shows up again.
+      setTimeout(() => location.reload(), 4000);
+    },
   });
 }
 

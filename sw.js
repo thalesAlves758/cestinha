@@ -32,6 +32,7 @@ const APP_SHELL = [
   'src/ui/prompt.js',
   'src/ui/sheet.js',
   'src/ui/toast.js',
+  'src/ui/updateBanner.js',
   'src/views/list.js',
   'src/views/lists.js',
   'src/views/settings.js',

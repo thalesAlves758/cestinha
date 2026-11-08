@@ -79,7 +79,7 @@ Criar o Service Worker com:
   - a instalação busca os arquivos com `cache: 'reload'`, para não montar o cache novo com arquivos da versão anterior;
   - o registro usa `updateViaCache: 'none'`, para que a checagem de atualização leia o `version.js` novo.
 - `controllerchange` só recarrega a página se o usuário tocou em "Atualizar". Na primeira instalação, o `clients.claim()` também dispara esse evento, e isso não pode recarregar.
-- O aviso de nova versão não some sozinho e tem também "Agora não". Se for dispensado, volta a aparecer na próxima abertura, porque o SW continua em `waiting`.
+- O aviso de nova versão virou um **banner** fixo logo abaixo do cabeçalho (`src/ui/updateBanner.js`), no lugar do toast: fica visível ao trocar de tela e não é substituído por outros avisos. Tem "Atualizar" e "✕" (dispensar). Se for dispensado, volta a aparecer na próxima abertura, porque o SW continua em `waiting`. Se a troca de versão não acontecer em 4 s depois de "Atualizar", a página recarrega mesmo assim (rede de segurança).
 - O app também checa atualização quando volta ao primeiro plano (`visibilitychange`). O PWA instalado pode ficar aberto por dias.
 - Os critérios não marcados dependem de teste no navegador (offline, recarga em rota, fluxo de versão) e ficam para validação manual.
 
