@@ -36,13 +36,15 @@ Os cards de uma mesma onda podem ser feitos em qualquer ordem, ou em paralelo.
 |---|---|---|
 | 1 | 001 | Projeto navegável com shell e tokens de tema |
 | 2 | 002 · 003 · 004 · 013 · 014 | Dados, cálculos, componentes, tema e manifest |
-| 3 | 005 · 006 · 008 · 015 | Editor de item, aba Templates, tela inicial, offline |
+| 3 | 005 · 006 · 008 | Editor de item, aba Templates, tela inicial |
 | 4 | 007 | Templates completos (F1) |
 | 5 | 009 | Gerar lista do dia (F2) |
 | 6 | 010 | Ajustar a lista |
 | 7 | 011 · 012 | Compra no mercado (F3), com sugestão ao template |
-| 8 | 016 | **MVP publicado e validado no Android** |
+| 8 | 015 · 016 | Offline (015, antes do 016) e **MVP publicado e validado no Android** |
 | Pós-MVP | 017 · 018 · 019 · 020 | Conforme prioridade após o uso real |
+
+> **Nota (CARD-015 movido para a onda 8):** o CARD-015 saiu da onda 3 e deve ser feito imediatamente antes do CARD-016. A lista de arquivos do app shell que o Service Worker coloca em cache só fica estável quando todos os arquivos do app estão prontos; fazê-lo antes obrigaria a revisar a lista a cada card novo. As dependências (004, 014) já estão done.
 
 ## Grafo de dependências
 
