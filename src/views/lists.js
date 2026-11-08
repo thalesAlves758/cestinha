@@ -7,13 +7,9 @@ import { openActionSheet } from '../ui/actionSheet.js';
 import { showToast } from '../ui/toast.js';
 import { renderFab } from '../ui/fab.js';
 import { BTN_PRIMARY, BTN_SECONDARY } from '../ui/buttons.js';
+import { openNewListSheet } from '../ui/newListSheet.js';
 
 const dateFormat = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-
-// Stub until CARD-009 provides openNewListSheet().
-function openNewListSheet() {
-  showToast({ message: 'Nova lista: em breve.' });
-}
 
 function plannedLabel(items) {
   const hasPrice = items.some((item) => item.priceCents != null);
