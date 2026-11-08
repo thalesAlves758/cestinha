@@ -1,11 +1,11 @@
 ---
 id: CARD-012
 titulo: Sugestão "adicionar ao template" (RF14)
-contexto: listas
+contexto: pos-mvp
 tipo: feature
 camadas: [front, banco]
 complexidade: P
-prioridade: mvp
+prioridade: depois
 incerteza: baixa
 status: todo
 requisitos: [RF14, RN08, RN10, RN13]

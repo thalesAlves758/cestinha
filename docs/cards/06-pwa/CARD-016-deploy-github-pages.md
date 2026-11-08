@@ -9,7 +9,7 @@ prioridade: mvp
 incerteza: baixa
 status: todo
 requisitos: [RF16, RNF01, RNF02, RNF05, RNF06, RNF08]
-depende_de: [CARD-007, CARD-011, CARD-012, CARD-013, CARD-015]
+depende_de: [CARD-007, CARD-011, CARD-013, CARD-015]
 ---
 
 # CARD-016 — Deploy no GitHub Pages e validação no Android
@@ -60,7 +60,6 @@ Publicar o app no GitHub Pages e validar no Android real: instalação, offline,
 - [ ] Repositório criado no GitHub, com acesso para push e Pages habilitado
 - [ ] [CARD-007 — Detalhe do template](../03-templates/CARD-007-detalhe-do-template.md)
 - [ ] [CARD-011 — Modo compra](../04-listas/CARD-011-modo-compra.md)
-- [ ] [CARD-012 — Sugestão adicionar ao template](../04-listas/CARD-012-sugestao-adicionar-ao-template.md)
 - [ ] [CARD-013 — Tema e Configurações](../05-configuracoes/CARD-013-tema-e-configuracoes.md)
 - [ ] [CARD-015 — Service Worker e funcionamento offline](../06-pwa/CARD-015-service-worker-offline.md)
 

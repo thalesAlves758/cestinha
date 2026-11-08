@@ -50,7 +50,7 @@ No package manager, linter or bundler. The only build step is Tailwind, using th
 ## Domain rules that are easy to get wrong
 
 - Items are embedded in their template/list record (`items` array). Template and list items share `id, name, quantity, unit, priceCents, order`; list items add `checked`. Generating a list copies each item with a **new `id`** and `checked: false`.
-- A generated list is an independent copy (RN08). The only link back is the RF14 suggestion: when a new item is added to a list whose source template still exists and has no item with the same normalized name (case/accents/extra spaces ignored), offer to add it to the template — name, quantity and unit only, no price. Deleting a template never deletes its lists.
+- A generated list is an independent copy (RN08). The RF14 suggestion (offer to add a new list item to the source template) was dropped from the MVP and moved to "depois" (CARD-012) — do not build it. Deleting a template never deletes its lists.
 - Money is integer cents (`priceCents`, nullable). Subtotal = `Math.round(quantity * priceCents)`. Unpriced items have no subtotal and are excluded from both totals but count toward progress.
 - Total previsto = all priced items; total no carrinho = checked priced items; progress = checked / all (0% when empty).
 - Quantity required, > 0, up to 3 decimals, default 1; unit `un` | `kg` (default `un`); price is per unit or per kg, up to 2 decimals. Inputs accept comma or dot and use `inputmode="decimal"`; display via `Intl.NumberFormat('pt-BR')` (R$ 1.234,56, 1,5 kg).

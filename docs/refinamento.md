@@ -85,7 +85,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF11 | Usuário informa ou edita o valor de um item (preço por unidade ou por kg) → valor é salvo e subtotal calculado | MVP |
 | RF12 | Sistema exibe o subtotal de cada item com valor (quantidade × valor) | MVP |
 | RF13 | Sistema exibe na lista o **total previsto** (todos os itens com valor) e o **total no carrinho** (itens marcados com valor) | MVP |
-| RF14 | Usuário adiciona à lista um item que não existe no template de origem → sistema pergunta se quer adicioná-lo também ao template; se sim, o item é incluído no template | MVP |
+| RF14 | Usuário adiciona à lista um item que não existe no template de origem → sistema pergunta se quer adicioná-lo também ao template; se sim, o item é incluído no template | Depois (descartado do MVP) |
 | RF15 | Usuário troca o tema nas configurações (claro, escuro ou automático) → interface muda na hora e a escolha fica salva | MVP |
 | RF16 | Usuário instala o app na tela inicial do Android e o utiliza sem internet → todas as funcionalidades continuam disponíveis | MVP |
 | RF17 | Usuário compartilha uma lista com outra pessoa, que pode editá-la em tempo real | Depois |

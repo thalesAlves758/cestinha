@@ -1,7 +1,7 @@
 # 🧺 Cestinha — Quadro de cards
 
 > **Fonte:** [docs/refinamento.md](../refinamento.md), refinamento de 08/11/2026 (versão com RNF10, código em inglês)
-> **Gerado em:** 08/11/2026 · **Total:** 20 cards (16 MVP + 4 depois)
+> **Gerado em:** 08/11/2026 · **Total:** 20 cards (15 MVP + 5 depois)
 
 ## Cards
 
@@ -18,15 +18,15 @@
 | [CARD-009](04-listas/CARD-009-nova-lista.md) | Nova lista: template ou em branco (T02) | listas | feature | M | mvp | done | 007, 008 |
 | [CARD-010](04-listas/CARD-010-detalhe-da-lista.md) | Detalhe da lista: itens, renomear, excluir (T03.1) | listas | feature | M | mvp | done | 005, 009 |
 | [CARD-011](04-listas/CARD-011-modo-compra.md) | Modo compra: marcar, progresso e totais (T03.2) | listas | feature | M | mvp | done | 003, 010 |
-| [CARD-012](04-listas/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) | listas | feature | P | mvp | todo | 010 |
 | [CARD-013](05-configuracoes/CARD-013-tema-e-configuracoes.md) | Tema claro/escuro e Configurações (T07) | configuracoes | feature | P | mvp | done | 001 |
 | [CARD-014](06-pwa/CARD-014-manifest-e-icones.md) | Manifest e ícones | pwa | infra | P | mvp | done | 001 |
 | [CARD-015](06-pwa/CARD-015-service-worker-offline.md) | Service Worker e funcionamento offline | pwa | infra | M | mvp | todo | 004, 014 |
-| [CARD-016](06-pwa/CARD-016-deploy-github-pages.md) | Deploy no GitHub Pages e validação no Android | pwa | infra | M | mvp | todo | 007, 011, 012, 013, 015 |
+| [CARD-016](06-pwa/CARD-016-deploy-github-pages.md) | Deploy no GitHub Pages e validação no Android | pwa | infra | M | mvp | todo | 007, 011, 013, 015 |
 | [CARD-017](07-pos-mvp/CARD-017-backup-exportar-importar.md) | Backup: exportar e importar dados | pos-mvp | feature | M | depois | todo | 002, 013 |
 | [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | Preço sugerido com base na última compra | pos-mvp | feature | M | depois | todo | 011 |
 | [CARD-019](07-pos-mvp/CARD-019-categorias-do-mercado.md) | Categorias/setores do mercado | pos-mvp | feature | M | depois | todo | 011 |
 | [CARD-020](07-pos-mvp/CARD-020-spike-compartilhamento.md) | Spike: compartilhamento e sincronização | pos-mvp | spike | M | depois | todo | 002 |
+| [CARD-012](07-pos-mvp/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) — descartada do MVP | pos-mvp | feature | P | depois | todo | 010 |
 
 ## Ordem sugerida de execução (ondas)
 
@@ -40,9 +40,9 @@ Os cards de uma mesma onda podem ser feitos em qualquer ordem, ou em paralelo.
 | 4 | 007 | Templates completos (F1) |
 | 5 | 009 | Gerar lista do dia (F2) |
 | 6 | 010 | Ajustar a lista |
-| 7 | 011 · 012 | Compra no mercado (F3), com sugestão ao template |
+| 7 | 011 | Compra no mercado (F3) |
 | 8 | 015 · 016 | Offline (015, antes do 016) e **MVP publicado e validado no Android** |
-| Pós-MVP | 017 · 018 · 019 · 020 | Conforme prioridade após o uso real |
+| Pós-MVP | 012 · 017 · 018 · 019 · 020 | Conforme prioridade após o uso real |
 
 > **Nota (CARD-015 movido para a onda 8):** o CARD-015 saiu da onda 3 e deve ser feito imediatamente antes do CARD-016. A lista de arquivos do app shell que o Service Worker coloca em cache só fica estável quando todos os arquivos do app estão prontos; fazê-lo antes obrigaria a revisar a lista a cada card novo. As dependências (004, 014) já estão done.
 
@@ -70,15 +70,14 @@ flowchart TD
     C009 --> C010
     C003 --> C011[011 Modo compra]
     C010 --> C011
-    C010 --> C012[012 Sugestão RF14]
     C004 --> C015[015 Service Worker]
     C014 --> C015
     C007 --> C016[016 Deploy + Android]
     C011 --> C016
-    C012 --> C016
     C013 --> C016
     C015 --> C016
 
+    C010 -.-> C012[012 Sugestão RF14]
     C002 -.-> C017[017 Backup]
     C013 -.-> C017
     C011 -.-> C018[018 Preço sugerido]
@@ -86,7 +85,7 @@ flowchart TD
     C002 -.-> C020[020 Spike compartilhamento]
 
     classDef depois fill:#eee,stroke:#999,color:#555;
-    class C017,C018,C019,C020 depois;
+    class C012,C017,C018,C019,C020 depois;
 ```
 
 ## Matriz de rastreabilidade
@@ -108,7 +107,7 @@ flowchart TD
 | RF11 Informar valor | MVP | 005, 010 |
 | RF12 Subtotal | MVP | 003, 005, 010, 011 |
 | RF13 Totais previsto/no carrinho | MVP | 003, 011 |
-| RF14 Sugestão adicionar ao template | MVP | 012 |
+| RF14 Sugestão adicionar ao template | Depois (descartado do MVP) | 012 |
 | RF15 Tema | MVP | 013 |
 | RF16 Instalável e offline | MVP | 014, 015, 016 |
 | RF17 Lista compartilhada | Depois | 020 (spike) |
@@ -122,12 +121,12 @@ flowchart TD
 |---|---|
 | RN01–RN03 Unidade, quantidade, valor | 003, 005 |
 | RN04–RN07 Subtotal, totais, progresso | 003, 011 |
-| RN08 Lista é cópia independente | 002, 009, 010, 012 |
+| RN08 Lista é cópia independente | 002, 009, 010 |
 | RN09 Sem estado "finalizada" | 008, 011 |
-| RN10 Comparação de nomes normalizada | 003, 012 |
+| RN10 Comparação de nomes normalizada | 003 |
 | RN11 Nome obrigatório e pré-preenchido | 004, 006, 007, 009 |
 | RN12 Listas ilimitadas | 008 |
-| RN13 Excluir template preserva listas | 002, 007, 012 |
+| RN13 Excluir template preserva listas | 002, 007 |
 | RN14 Marcados riscados e no fim | 011 |
 | RN15 Formato pt-BR | 003 |
 | RNF01 PWA instalável | 014, 016 |
@@ -182,15 +181,15 @@ flowchart TD
 | # | Pergunta | Padrão adotado nos cards |
 |---|---|---|
 | 4 | Permitir item com nome repetido na mesma lista? | Permitir (CARD-007, CARD-010) |
-| 5 | Levar o valor para o template ao aceitar a sugestão do RF14? | Não (CARD-012). Rever com o CARD-018 |
+| 5 | Levar o valor para o template ao aceitar a sugestão do RF14? | Pendente: o CARD-012 foi movido para "depois" (a primeira versão foi removida por UX ruim) |
 | Risco 2 | A tela inicial cresce sem limite | Renderizar tudo no MVP e reavaliar após o uso real (CARD-008) |
 
 ## Resumo
 
 | | P | M | G | Total |
 |---|---|---|---|---|
-| **MVP** | 4 | 12 | 0 | 16 |
-| **Depois** | 0 | 4 | 0 | 4 |
+| **MVP** | 3 | 12 | 0 | 15 |
+| **Depois** | 1 | 4 | 0 | 5 |
 | **Total** | 4 | 16 | 0 | **20** |
 
 Por tipo: 14 feature · 3 infra · 1 setup · 1 dados · 1 spike.
