@@ -1,8 +1,6 @@
 // Pure record factories (no I/O). Totals, subtotals and progress are never stored (see calc.js).
 
-import { normalizeName } from './calc.js';
-
-const now =() => new Date().toISOString();
+const now = () => new Date().toISOString();
 
 export function createTemplate(name) {
   const ts = now();
@@ -30,12 +28,6 @@ export function listFromTemplate(template, name) {
     order: item.order,
   }));
   return createList({ name, templateId: template.id, items });
-}
-
-// RN10: same item when names match ignoring case, accents and extra spaces.
-export function templateHasItem(template, name) {
-  const target = normalizeName(name);
-  return template.items.some((item) => normalizeName(item.name) === target);
 }
 
 export function nextOrder(items) {

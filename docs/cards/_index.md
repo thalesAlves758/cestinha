@@ -18,7 +18,7 @@
 | [CARD-009](04-listas/CARD-009-nova-lista.md) | Nova lista: template ou em branco (T02) | listas | feature | M | mvp | done | 007, 008 |
 | [CARD-010](04-listas/CARD-010-detalhe-da-lista.md) | Detalhe da lista: itens, renomear, excluir (T03.1) | listas | feature | M | mvp | done | 005, 009 |
 | [CARD-011](04-listas/CARD-011-modo-compra.md) | Modo compra: marcar, progresso e totais (T03.2) | listas | feature | M | mvp | done | 003, 010 |
-| [CARD-012](04-listas/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) | listas | feature | P | mvp | done | 010 |
+| [CARD-012](04-listas/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) | listas | feature | P | mvp | todo | 010 |
 | [CARD-013](05-configuracoes/CARD-013-tema-e-configuracoes.md) | Tema claro/escuro e Configurações (T07) | configuracoes | feature | P | mvp | done | 001 |
 | [CARD-014](06-pwa/CARD-014-manifest-e-icones.md) | Manifest e ícones | pwa | infra | P | mvp | done | 001 |
 | [CARD-015](06-pwa/CARD-015-service-worker-offline.md) | Service Worker e funcionamento offline | pwa | infra | M | mvp | todo | 004, 014 |

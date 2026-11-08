@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: P
 prioridade: mvp
 incerteza: baixa
-status: done
+status: todo
 requisitos: [RF14, RN08, RN10, RN13]
 depende_de: [CARD-010]
 ---
@@ -36,14 +36,14 @@ Ao adicionar um item novo numa lista gerada de template, mostrar um aviso não b
 - Nomes no aviso via texto escapado.
 
 ## Critérios de aceite
-- [x] Dado uma lista gerada do template "Compra do mês", quando o usuário adiciona "Iogurte" (que não existe no template), então aparece "Adicionar 'Iogurte' ao template Compra do mês?" sem bloquear a tela (RF14).
-- [x] Aceitando, o template passa a ter "Iogurte" com o mesmo nome, quantidade e unidade, sem valor.
-- [x] Ignorando (timeout) ou tocando em "Agora não", o template não muda.
-- [x] Adicionar "iogurte " ou "IOGURTE" quando o template já tem "Iogurte" não mostra sugestão (RN10).
-- [x] Em lista criada em branco não aparece sugestão.
-- [x] Em lista cujo template foi excluído não aparece sugestão, e nada quebra (RN13).
-- [x] Vale tanto para a adição rápida quanto para a adição pelo editor.
-- [x] Aceitar a sugestão não altera outras listas já geradas desse template (RN08).
+- [ ] Dado uma lista gerada do template "Compra do mês", quando o usuário adiciona "Iogurte" (que não existe no template), então aparece "Adicionar 'Iogurte' ao template Compra do mês?" sem bloquear a tela (RF14).
+- [ ] Aceitando, o template passa a ter "Iogurte" com o mesmo nome, quantidade e unidade, sem valor.
+- [ ] Ignorando (timeout) ou tocando em "Agora não", o template não muda.
+- [ ] Adicionar "iogurte " ou "IOGURTE" quando o template já tem "Iogurte" não mostra sugestão (RN10).
+- [ ] Em lista criada em branco não aparece sugestão.
+- [ ] Em lista cujo template foi excluído não aparece sugestão, e nada quebra (RN13).
+- [ ] Vale tanto para a adição rápida quanto para a adição pelo editor.
+- [ ] Aceitar a sugestão não altera outras listas já geradas desse template (RN08).
 
 ## Observações
 - Levar o valor para o template ficou como "não" (padrão da pergunta 5 do refinamento). Rever junto com o preço sugerido (CARD-018).

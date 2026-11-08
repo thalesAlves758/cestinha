@@ -1,6 +1,6 @@
 import { html, qs } from '../ui/dom.js';
-import { getList, putList, deleteList, getTemplate, putTemplate } from '../db.js';
-import { createItem, nextOrder, templateHasItem } from '../model.js';
+import { getList, putList, deleteList } from '../db.js';
+import { createItem, nextOrder } from '../model.js';
 import {
   formatQuantity, formatMoney, itemSubtotalCents, listTotals, listProgress, sortItemsForDisplay,
 } from '../calc.js';
@@ -15,38 +15,12 @@ import { BTN_PRIMARY, FIELD } from '../ui/buttons.js';
 const ICON_BTN = 'inline-flex items-center justify-center min-h-11 min-w-11 rounded-lg text-xl';
 
 /**
- * RF14: suggest adding the new item to the source template (name, quantity and unit only).
- * Called by addItem() after every item addition (quick or via the editor).
- * Fire-and-forget: any failure is silently ignored so adding the item never breaks.
+ * Extension point for RF14 (suggest adding the new item to the source template).
+ * Called by addItem() after every item addition (quick or via the editor), once the item
+ * is already in list.items. Intentionally empty: the behavior is implemented in CARD-012.
  */
-async function onItemAdded(list, item) {
-  try {
-    if (list.templateId == null) return;
-    const template = await getTemplate(list.templateId);
-    if (!template || templateHasItem(template, item.name)) return; // RN13 / RN10
-    showToast({
-      message: `Adicionar '${item.name}' ao template ${template.name}?`,
-      actions: [{ label: 'Adicionar', onSelect: () => addToTemplate(list.templateId, item) }, { label: 'Agora não' }],
-    });
-  } catch {
-    // Suggestion is optional; ignore storage errors.
-  }
-}
-
-async function addToTemplate(templateId, item) {
-  try {
-    const template = await getTemplate(templateId); // reload: it may have changed
-    if (!template || templateHasItem(template, item.name)) return;
-    template.items.push(createItem(
-      { name: item.name, quantity: item.quantity, unit: item.unit },
-      nextOrder(template.items),
-    ));
-    await putTemplate(template);
-    showToast({ message: 'Adicionado ao template' });
-  } catch {
-    showToast({ message: 'Não foi possível salvar no template.' });
-  }
-}
+// eslint-disable-next-line no-unused-vars
+function onItemAdded(list, item) {}
 
 /** Single entry point for adding an item to a list (quick add and full editor). */
 function addItem(list, data) {
