@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: P
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RNF01, RF16]
 depende_de: [CARD-001]
 ---
@@ -51,10 +51,10 @@ Criar o manifest e os ícones (incluindo maskable) e ligá-los ao `index.html`, 
   - Sem Node nem Python na máquina, exportar os PNGs com uma página auxiliar `tools/export-icons.html`, que desenha o SVG num `<canvas>` e baixa os PNGs, ou com uma ferramenta de design (Figma, Inkscape).
 
 ## Critérios de aceite
-- [ ] DevTools › Application › Manifest mostra nome, ícones e `start_url` sem erros nem avisos.
-- [ ] `start_url` e `scope` resolvem para a pasta do app, tanto em `localhost` quanto em `/cestinha/` no GitHub Pages.
-- [ ] O ícone maskable aparece sem cortes no visualizador de máscaras do DevTools.
-- [ ] O favicon SVG aparece na aba do navegador.
+- [x] DevTools › Application › Manifest mostra nome, ícones e `start_url` sem erros nem avisos.
+- [x] `start_url` e `scope` resolvem para a pasta do app, tanto em `localhost` quanto em `/cestinha/` no GitHub Pages.
+- [x] O ícone maskable aparece sem cortes no visualizador de máscaras do DevTools.
+- [x] O favicon SVG aparece na aba do navegador.
 
 ## Observações
 - Com caminhos relativos, o `start_url` é resolvido a partir da URL do manifest. Por isso funciona em `/cestinha/` sem fixar o subcaminho.
