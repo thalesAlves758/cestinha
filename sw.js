@@ -18,6 +18,7 @@ const APP_SHELL = [
   'src/app.js',
   'src/calc.js',
   'src/db.js',
+  'src/listSort.js',
   'src/model.js',
   'src/pwa.js',
   'src/router.js',

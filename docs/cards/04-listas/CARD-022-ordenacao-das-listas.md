@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF09, RF21, RN16, RNF02, RNF06, RNF08]
 depende_de: [CARD-008]
 modelo_sugerido: sonnet
@@ -66,20 +66,20 @@ Adicionar à linha do título da tela Listas um botão "⇅ <critério> ▾", qu
 - Código em inglês e textos de interface em pt-BR (RNF10).
 
 ## Critérios de aceite
-- [ ] Com 2 ou mais listas, a linha do título mostra "Listas" à esquerda e o botão "⇅ Mais recentes ▾" à direita. Com 0 ou 1 lista, o botão não aparece.
-- [ ] Tocar no botão abre o painel "Ordenar por" com os quatro critérios, e o atual aparece marcado com ✓.
-- [ ] Dado as listas "Feira 10" (criada em 01/11), "Feira 2" (criada em 05/11) e "Ávila" (criada em 08/11):
+- [x] Com 2 ou mais listas, a linha do título mostra "Listas" à esquerda e o botão "⇅ Mais recentes ▾" à direita. Com 0 ou 1 lista, o botão não aparece.
+- [x] Tocar no botão abre o painel "Ordenar por" com os quatro critérios, e o atual aparece marcado com ✓.
+- [x] Dado as listas "Feira 10" (criada em 01/11), "Feira 2" (criada em 05/11) e "Ávila" (criada em 08/11):
   - "Mais recentes" mostra Ávila, Feira 2, Feira 10;
   - "Mais antigas" mostra Feira 10, Feira 2, Ávila;
   - "Nome A–Z" mostra Ávila, Feira 2, Feira 10 (RF21, RN16).
-- [ ] Em "Alteradas por último", marcar um item numa lista a leva para o topo ao voltar à tela inicial. Renomear uma lista também a leva para o topo.
-- [ ] Ao escolher um critério, as listas são reordenadas na hora, a tela volta ao topo e o botão passa a mostrar o critério escolhido.
-- [ ] Ao fechar e reabrir o app, a tela inicial abre no último critério escolhido (RF09).
-- [ ] Com um valor inválido salvo para a preferência, a tela abre em "Mais recentes" sem erro.
-- [ ] O botão e as opções do painel têm alvo de toque de pelo menos 44 px e são legíveis nos temas claro e escuro. A opção atual não é indicada só por cor (RNF06, RNF08).
-- [ ] Os outros menus que usam o mesmo painel (⋮ do card de lista e menu da tela da lista) continuam iguais, sem ✓ nem recuo.
-- [ ] A aba Templates continua na ordem atual, sem seletor.
-- [ ] Depois de atualizar o app, a ordenação funciona offline (RNF02).
+- [x] Em "Alteradas por último", marcar um item numa lista a leva para o topo ao voltar à tela inicial. Renomear uma lista também a leva para o topo.
+- [x] Ao escolher um critério, as listas são reordenadas na hora, a tela volta ao topo e o botão passa a mostrar o critério escolhido.
+- [x] Ao fechar e reabrir o app, a tela inicial abre no último critério escolhido (RF09).
+- [x] Com um valor inválido salvo para a preferência, a tela abre em "Mais recentes" sem erro.
+- [x] O botão e as opções do painel têm alvo de toque de pelo menos 44 px e são legíveis nos temas claro e escuro. A opção atual não é indicada só por cor (RNF06, RNF08).
+- [x] Os outros menus que usam o mesmo painel (⋮ do card de lista e menu da tela da lista) continuam iguais, sem ✓ nem recuo.
+- [x] A aba Templates continua na ordem atual, sem seletor.
+- [x] Depois de atualizar o app, a ordenação funciona offline (RNF02).
 
 ## Como testar
 **Validação manual**

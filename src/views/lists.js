@@ -8,6 +8,7 @@ import { showToast } from '../ui/toast.js';
 import { renderFab } from '../ui/fab.js';
 import { BTN_PRIMARY, BTN_SECONDARY } from '../ui/buttons.js';
 import { openNewListSheet } from '../ui/newListSheet.js';
+import { LIST_SORTS, getListSort, setListSort, sortLists } from '../listSort.js';
 
 const dateFormat = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
 
@@ -42,6 +43,7 @@ const TITLE = html`<h2 class="text-xl font-semibold mb-4">Listas</h2>`;
 export function render(container) {
   let disposed = false;
   let lists = [];
+  let sort = getListSort();
 
   const fab = renderFab({ label: 'Nova lista', onClick: openNewListSheet });
 
@@ -64,9 +66,13 @@ export function render(container) {
         </div>`;
       qs('[data-new]', container).addEventListener('click', openNewListSheet);
     } else {
+      const sortLabel = LIST_SORTS.find((o) => o.id === sort).label;
       container.innerHTML = html`
-        ${TITLE}
-        <ul class="flex flex-col gap-2 pb-24">${lists.map(renderCard)}</ul>`;
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <h2 class="text-xl font-semibold">Listas</h2>
+          ${lists.length >= 2 ? html`<button type="button" data-sort class="inline-flex items-center gap-1 min-h-11 px-3 rounded-lg bg-surface text-ink border border-line text-sm font-semibold"><span aria-hidden="true">⇅</span>${sortLabel}<span aria-hidden="true">▾</span></button>` : ''}
+        </div>
+        <ul class="flex flex-col gap-2 pb-24">${sortLists(lists, sort).map(renderCard)}</ul>`;
     }
     container.appendChild(fab);
   }
@@ -106,6 +112,22 @@ export function render(container) {
   }
 
   const onClick = (event) => {
+    if (event.target.closest('[data-sort]')) {
+      openActionSheet({
+        title: 'Ordenar por',
+        actions: LIST_SORTS.map((o) => ({
+          label: o.label,
+          selected: o.id === sort,
+          onSelect: () => {
+            sort = o.id;
+            setListSort(o.id);
+            draw();
+            window.scrollTo({ top: 0 });
+          },
+        })),
+      });
+      return;
+    }
     const button = event.target.closest('[data-menu]');
     if (!button) return;
     const list = lists.find((l) => l.id === button.dataset.menu);
