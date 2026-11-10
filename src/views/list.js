@@ -89,6 +89,7 @@ export function render(container, { id } = {}) {
 
   const showError = () => {
     if (disposed) return;
+    container.classList.remove('flex', 'flex-col'); // may run after draw()
     container.innerHTML = html`
       <p role="alert" class="text-danger mb-2">Não foi possível acessar o armazenamento do aparelho.</p>
       <a href="#/lists" class="text-primary underline inline-flex items-center min-h-11">Voltar para Listas</a>`;
@@ -114,6 +115,9 @@ export function render(container, { id } = {}) {
 
   function draw() {
     const items = sortItemsForDisplay(list.items);
+    // Column layout so `mt-auto` pins the quick-add bar to the bottom even with few items
+    // (sticky alone only sticks once the content overflows). Removed in cleanup: #view is shared.
+    container.classList.add('flex', 'flex-col');
     container.innerHTML = html`
       <header class="flex items-center gap-1 mb-4">
         <a href="#/lists" aria-label="Voltar para Listas" class="${ICON_BTN}">←</a>
@@ -124,7 +128,7 @@ export function render(container, { id } = {}) {
       ${items.length === 0
         ? html`<p class="text-muted mb-4">Lista vazia. Adicione o primeiro item.</p>`
         : html`<ul class="flex flex-col gap-2 mb-20">${items.map(renderItem)}</ul>`}
-      <form data-quick novalidate class="sticky bottom-0 z-10 -mx-4 -mb-4 flex gap-2 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-surface border-t border-line">
+      <form data-quick novalidate class="sticky bottom-0 z-10 mt-auto -mx-4 -mb-4 flex gap-2 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-surface border-t border-line">
         <label for="quick-name" class="sr-only">Adicionar item</label>
         <input id="quick-name" name="name" type="text" autocomplete="off" autocapitalize="sentences" placeholder="Adicionar item" class="${FIELD} flex-1 min-w-0">
         <button type="submit" class="${BTN_PRIMARY}">Adicionar</button>
@@ -247,5 +251,6 @@ export function render(container, { id } = {}) {
   return () => {
     disposed = true;
     fab?.remove();
+    container.classList.remove('flex', 'flex-col');
   };
 }
