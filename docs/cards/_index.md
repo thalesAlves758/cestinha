@@ -22,7 +22,7 @@
 | [CARD-014](06-pwa/CARD-014-manifest-e-icones.md) | Manifest e ícones | pwa | infra | P | mvp | done | 001 | — |
 | [CARD-015](06-pwa/CARD-015-service-worker-offline.md) | Service Worker e funcionamento offline | pwa | infra | M | mvp | done | 004, 014 | — |
 | [CARD-016](06-pwa/CARD-016-deploy-github-pages.md) | Deploy no GitHub Pages e validação no Android | pwa | infra | M | mvp | done | 007, 011, 013, 015 | — |
-| [CARD-021](04-listas/CARD-021-nome-sugerido-com-data.md) | Nome sugerido da lista com a data de hoje | listas | feature | P | mvp | todo | 009 | haiku |
+| [CARD-021](04-listas/CARD-021-nome-sugerido-com-data.md) | Nome sugerido da lista com a data de hoje | listas | feature | P | mvp | done | 009 | haiku |
 | [CARD-022](04-listas/CARD-022-ordenacao-das-listas.md) | Ordenação das listas na tela inicial | listas | feature | M | mvp | todo | 008 | sonnet |
 | [CARD-017](07-pos-mvp/CARD-017-backup-exportar-importar.md) | Backup: exportar e importar dados | pos-mvp | feature | M | depois | todo | 002, 013 | — |
 | [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | Preço sugerido com base na última compra | pos-mvp | feature | M | depois | todo | 011 | — |

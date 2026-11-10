@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: P
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RN11, RF05, RF06]
 depende_de: [CARD-009]
 modelo_sugerido: haiku
@@ -39,15 +39,15 @@ Pré-preencher o nome da lista nova com a data local do aparelho no formato DD/M
 - Nenhum arquivo novo, então o `APP_SHELL` do `sw.js` não muda. Sem mudança no IndexedDB: a lista guarda `name` como qualquer outro texto.
 
 ## Critérios de aceite
-- [ ] Dado que hoje é 10/11/2026, quando o usuário toca em "+" com um template selecionado, então o campo "Nome da lista" vem com `10/11/2026` (RN11).
-- [ ] Ao selecionar "Lista em branco", o nome continua `10/11/2026`. Voltar para um template também não muda o nome.
-- [ ] Dado que o usuário editou o nome para "Feira", quando troca a origem no painel, então o nome continua "Feira".
-- [ ] Dia e mês de um dígito aparecem com zero à esquerda (ex.: `05/03/2026`).
-- [ ] A data é a do horário do aparelho: às 22h no horário de Brasília, a sugestão é o dia de hoje, não o de amanhã.
-- [ ] Apagar o nome e tocar em "Criar" mostra "Informe um nome." e não cria a lista (RN11).
-- [ ] A lista criada, de template ou em branco, aparece na tela inicial com o nome `10/11/2026` e com os itens esperados (RF05, RF06).
-- [ ] O título do painel e o botão "+" continuam dizendo "Nova lista".
-- [ ] Listas criadas antes desta mudança mantêm os nomes que tinham.
+- [x] Dado que hoje é 10/11/2026, quando o usuário toca em "+" com um template selecionado, então o campo "Nome da lista" vem com `10/11/2026` (RN11).
+- [x] Ao selecionar "Lista em branco", o nome continua `10/11/2026`. Voltar para um template também não muda o nome.
+- [x] Dado que o usuário editou o nome para "Feira", quando troca a origem no painel, então o nome continua "Feira".
+- [x] Dia e mês de um dígito aparecem com zero à esquerda (ex.: `05/03/2026`).
+- [x] A data é a do horário do aparelho: às 22h no horário de Brasília, a sugestão é o dia de hoje, não o de amanhã.
+- [x] Apagar o nome e tocar em "Criar" mostra "Informe um nome." e não cria a lista (RN11).
+- [x] A lista criada, de template ou em branco, aparece na tela inicial com o nome `10/11/2026` e com os itens esperados (RF05, RF06).
+- [x] O título do painel e o botão "+" continuam dizendo "Nova lista".
+- [x] Listas criadas antes desta mudança mantêm os nomes que tinham.
 
 ## Como testar
 **Validação manual**

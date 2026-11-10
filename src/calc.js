@@ -6,6 +6,7 @@ const quantityFormat = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 3,
 });
+const shortDateFormat = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 /** Subtotal in cents, or null when the item has no price. */
 export function itemSubtotalCents(item) {
@@ -52,6 +53,9 @@ export function formatMoney(cents) {
 export function formatQuantity(quantity, unit) {
   return `${quantityFormat.format(quantity)} ${unit}`;
 }
+
+/** new Date(2026, 2, 5) -> '05/03/2026' (local time zone). */
+export function formatShortDate(date) { return shortDateFormat.format(date); }
 
 /**
  * Parses a user-typed non-negative decimal. Accepts ',' or '.' as separator;

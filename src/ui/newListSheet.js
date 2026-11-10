@@ -3,10 +3,10 @@ import { openSheet } from './sheet.js';
 import { BTN_PRIMARY, BTN_SECONDARY, FIELD } from './buttons.js';
 import { getAllTemplates, putList } from '../db.js';
 import { createList, listFromTemplate } from '../model.js';
+import { formatShortDate } from '../calc.js';
 import { showToast } from './toast.js';
 
 const BLANK = 'blank';
-const DEFAULT_NAME = 'Nova lista';
 const OPTION = 'flex items-center gap-3 min-h-11 px-3 py-2 rounded-lg bg-page border border-line';
 
 function itemCountLabel(count) {
@@ -44,7 +44,7 @@ export async function openNewListSheet() {
       const nameId = `newlist-name-${uid}`;
       const hasTemplates = templates.length > 0;
       let selected = hasTemplates ? templates[0].id : BLANK;
-      let nameEdited = false;
+      const suggestedName = formatShortDate(new Date());
       let busy = false;
 
       const options = [
@@ -88,18 +88,15 @@ export async function openNewListSheet() {
       const radios = [...body.querySelectorAll('input[type="radio"]')];
 
       const templateById = (id) => templates.find((t) => t.id === id) ?? null;
-      const defaultName = () => templateById(selected)?.name ?? DEFAULT_NAME;
 
       radios.forEach((radio) => { radio.checked = radio.value === selected; });
-      nameInput.value = defaultName();
+      nameInput.value = suggestedName;
 
       form.addEventListener('change', (event) => {
         if (!event.target.matches('input[type="radio"]')) return;
         selected = event.target.value;
-        if (!nameEdited) nameInput.value = defaultName();
       });
       nameInput.addEventListener('input', () => {
-        nameEdited = true;
         error.hidden = true;
         nameInput.removeAttribute('aria-invalid');
       });
