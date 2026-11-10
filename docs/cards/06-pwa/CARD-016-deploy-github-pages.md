@@ -7,7 +7,7 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: todo
+status: done
 requisitos: [RF16, RNF01, RNF02, RNF05, RNF06, RNF08]
 depende_de: [CARD-007, CARD-011, CARD-013, CARD-015]
 ---
@@ -43,25 +43,25 @@ Publicar o app no GitHub Pages e validar no Android real: instalação, offline,
 - **Acessibilidade:** Lighthouse (Accessibility e PWA) nos dois temas e correção dos problemas de contraste encontrados.
 
 ## Critérios de aceite
-- [ ] O app está acessível em `https://<usuario>.github.io/cestinha/`, sem 404 em nenhum recurso (caminhos relativos funcionando no subcaminho).
-- [ ] O app instala no Android e abre em tela cheia, sem a barra do navegador (RNF01).
-- [ ] Em modo avião, todos os fluxos do MVP funcionam: criar template, gerar lista, marcar, informar valor, ver totais e sugestão RF14 (RF16, RNF02).
-- [ ] Marcar itens e editar valores respondem na hora no aparelho (RNF05).
-- [ ] Alvos de toque confortáveis com uma mão e teclado decimal nos campos numéricos (RNF06).
-- [ ] O Lighthouse Accessibility não aponta erro de contraste nos temas claro e escuro (RNF08).
-- [ ] Um segundo deploy com versão incrementada chega ao celular pelo aviso "Nova versão disponível".
-- [ ] O `docs/deploy.md` existe com o checklist.
+- [x] O app está acessível em `https://<usuario>.github.io/cestinha/`, sem 404 em nenhum recurso (caminhos relativos funcionando no subcaminho).
+- [x] O app instala no Android e abre em tela cheia, sem a barra do navegador (RNF01).
+- [x] Em modo avião, todos os fluxos do MVP funcionam: criar template, gerar lista, marcar, informar valor, ver totais (RF16, RNF02). A sugestão RF14 saiu do MVP (CARD-012).
+- [x] Marcar itens e editar valores respondem na hora no aparelho (RNF05).
+- [x] Alvos de toque confortáveis com uma mão e teclado decimal nos campos numéricos (RNF06).
+- [x] O Lighthouse Accessibility não aponta erro de contraste nos temas claro e escuro (RNF08).
+- [x] Um segundo deploy com versão incrementada chega ao celular pelo aviso "Nova versão disponível".
+- [x] O `docs/deploy.md` existe com o checklist.
 
 ## Observações
 - Gerar o CSS por GitHub Actions foi descartado no MVP: commitar o `output.css` é mais simples e não depende de CI.
 - Problemas encontrados no aparelho que exijam mudanças maiores viram cards novos, em vez de ampliar este.
 
 ## Pendências
-- [ ] Repositório criado no GitHub, com acesso para push e Pages habilitado
-- [ ] [CARD-007 — Detalhe do template](../03-templates/CARD-007-detalhe-do-template.md)
-- [ ] [CARD-011 — Modo compra](../04-listas/CARD-011-modo-compra.md)
-- [ ] [CARD-013 — Tema e Configurações](../05-configuracoes/CARD-013-tema-e-configuracoes.md)
-- [ ] [CARD-015 — Service Worker e funcionamento offline](../06-pwa/CARD-015-service-worker-offline.md)
+- [x] Repositório criado no GitHub, com acesso para push e Pages habilitado
+- [x] [CARD-007 — Detalhe do template](../03-templates/CARD-007-detalhe-do-template.md)
+- [x] [CARD-011 — Modo compra](../04-listas/CARD-011-modo-compra.md)
+- [x] [CARD-013 — Tema e Configurações](../05-configuracoes/CARD-013-tema-e-configuracoes.md)
+- [x] [CARD-015 — Service Worker e funcionamento offline](../06-pwa/CARD-015-service-worker-offline.md)
 
 ## Referências
 Refinamento: seção 7 (hospedagem), seção 12 (subcaminho e atualização do SW), sinais de sucesso (seção 1), RF16, RNF01, RNF02, RNF05, RNF06 e RNF08.
