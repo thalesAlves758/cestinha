@@ -1,32 +1,34 @@
 # 🧺 Cestinha — Quadro de cards
 
-> **Fonte:** [docs/refinamento.md](../refinamento.md), refinamento de 08/11/2026 (versão com RNF10, código em inglês)
-> **Gerado em:** 08/11/2026 · **Total:** 20 cards (15 MVP + 5 depois)
+> **Fonte:** [docs/refinamento.md](../refinamento.md), refinamento de 08/11/2026 (versão com RNF10, código em inglês), com a revisão de 10/11/2026 (nome sugerido com a data e ordenação das listas)
+> **Gerado em:** 08/11/2026 · **Atualizado em:** 10/11/2026 (CARD-021 e CARD-022) · **Total:** 22 cards (17 MVP + 5 depois)
 
 ## Cards
 
-| ID | Título | Contexto | Tipo | Compl. | Prioridade | Status | Depende de |
-|---|---|---|---|---|---|---|---|
-| [CARD-001](01-fundacao/CARD-001-setup-projeto-app-shell.md) | Setup do projeto e app shell | fundacao | setup | M | mvp | done | — |
-| [CARD-002](01-fundacao/CARD-002-camada-de-dados-indexeddb.md) | Camada de dados com IndexedDB | fundacao | dados | M | mvp | done | 001 |
-| [CARD-003](01-fundacao/CARD-003-calculos-e-formatacao.md) | Cálculos, formatação e entrada numérica pt-BR | fundacao | feature | M | mvp | done | 001 |
-| [CARD-004](02-componentes/CARD-004-paineis-dialogos-e-avisos.md) | Componentes base: painel, diálogos e avisos | componentes | feature | M | mvp | done | 001 |
-| [CARD-005](02-componentes/CARD-005-editor-de-item.md) | Editor de item (T04) | componentes | feature | M | mvp | done | 003, 004 |
-| [CARD-006](03-templates/CARD-006-aba-templates.md) | Aba Templates: listar e criar (T05) | templates | feature | P | mvp | done | 002, 004 |
-| [CARD-007](03-templates/CARD-007-detalhe-do-template.md) | Detalhe do template (T06) | templates | feature | M | mvp | done | 005, 006 |
-| [CARD-008](04-listas/CARD-008-tela-inicial-listas.md) | Tela inicial: Listas (T01) | listas | feature | M | mvp | done | 002, 003, 004 |
-| [CARD-009](04-listas/CARD-009-nova-lista.md) | Nova lista: template ou em branco (T02) | listas | feature | M | mvp | done | 007, 008 |
-| [CARD-010](04-listas/CARD-010-detalhe-da-lista.md) | Detalhe da lista: itens, renomear, excluir (T03.1) | listas | feature | M | mvp | done | 005, 009 |
-| [CARD-011](04-listas/CARD-011-modo-compra.md) | Modo compra: marcar, progresso e totais (T03.2) | listas | feature | M | mvp | done | 003, 010 |
-| [CARD-013](05-configuracoes/CARD-013-tema-e-configuracoes.md) | Tema claro/escuro e Configurações (T07) | configuracoes | feature | P | mvp | done | 001 |
-| [CARD-014](06-pwa/CARD-014-manifest-e-icones.md) | Manifest e ícones | pwa | infra | P | mvp | done | 001 |
-| [CARD-015](06-pwa/CARD-015-service-worker-offline.md) | Service Worker e funcionamento offline | pwa | infra | M | mvp | done | 004, 014 |
-| [CARD-016](06-pwa/CARD-016-deploy-github-pages.md) | Deploy no GitHub Pages e validação no Android | pwa | infra | M | mvp | done | 007, 011, 013, 015 |
-| [CARD-017](07-pos-mvp/CARD-017-backup-exportar-importar.md) | Backup: exportar e importar dados | pos-mvp | feature | M | depois | todo | 002, 013 |
-| [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | Preço sugerido com base na última compra | pos-mvp | feature | M | depois | todo | 011 |
-| [CARD-019](07-pos-mvp/CARD-019-categorias-do-mercado.md) | Categorias/setores do mercado | pos-mvp | feature | M | depois | todo | 011 |
-| [CARD-020](07-pos-mvp/CARD-020-spike-compartilhamento.md) | Spike: compartilhamento e sincronização | pos-mvp | spike | M | depois | todo | 002 |
-| [CARD-012](07-pos-mvp/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) — descartada do MVP | pos-mvp | feature | P | depois | todo | 010 |
+| ID | Título | Contexto | Tipo | Compl. | Prioridade | Status | Depende de | Modelo |
+|---|---|---|---|---|---|---|---|---|
+| [CARD-001](01-fundacao/CARD-001-setup-projeto-app-shell.md) | Setup do projeto e app shell | fundacao | setup | M | mvp | done | — | — |
+| [CARD-002](01-fundacao/CARD-002-camada-de-dados-indexeddb.md) | Camada de dados com IndexedDB | fundacao | dados | M | mvp | done | 001 | — |
+| [CARD-003](01-fundacao/CARD-003-calculos-e-formatacao.md) | Cálculos, formatação e entrada numérica pt-BR | fundacao | feature | M | mvp | done | 001 | — |
+| [CARD-004](02-componentes/CARD-004-paineis-dialogos-e-avisos.md) | Componentes base: painel, diálogos e avisos | componentes | feature | M | mvp | done | 001 | — |
+| [CARD-005](02-componentes/CARD-005-editor-de-item.md) | Editor de item (T04) | componentes | feature | M | mvp | done | 003, 004 | — |
+| [CARD-006](03-templates/CARD-006-aba-templates.md) | Aba Templates: listar e criar (T05) | templates | feature | P | mvp | done | 002, 004 | — |
+| [CARD-007](03-templates/CARD-007-detalhe-do-template.md) | Detalhe do template (T06) | templates | feature | M | mvp | done | 005, 006 | — |
+| [CARD-008](04-listas/CARD-008-tela-inicial-listas.md) | Tela inicial: Listas (T01) | listas | feature | M | mvp | done | 002, 003, 004 | — |
+| [CARD-009](04-listas/CARD-009-nova-lista.md) | Nova lista: template ou em branco (T02) | listas | feature | M | mvp | done | 007, 008 | — |
+| [CARD-010](04-listas/CARD-010-detalhe-da-lista.md) | Detalhe da lista: itens, renomear, excluir (T03.1) | listas | feature | M | mvp | done | 005, 009 | — |
+| [CARD-011](04-listas/CARD-011-modo-compra.md) | Modo compra: marcar, progresso e totais (T03.2) | listas | feature | M | mvp | done | 003, 010 | — |
+| [CARD-013](05-configuracoes/CARD-013-tema-e-configuracoes.md) | Tema claro/escuro e Configurações (T07) | configuracoes | feature | P | mvp | done | 001 | — |
+| [CARD-014](06-pwa/CARD-014-manifest-e-icones.md) | Manifest e ícones | pwa | infra | P | mvp | done | 001 | — |
+| [CARD-015](06-pwa/CARD-015-service-worker-offline.md) | Service Worker e funcionamento offline | pwa | infra | M | mvp | done | 004, 014 | — |
+| [CARD-016](06-pwa/CARD-016-deploy-github-pages.md) | Deploy no GitHub Pages e validação no Android | pwa | infra | M | mvp | done | 007, 011, 013, 015 | — |
+| [CARD-021](04-listas/CARD-021-nome-sugerido-com-data.md) | Nome sugerido da lista com a data de hoje | listas | feature | P | mvp | todo | 009 | haiku |
+| [CARD-022](04-listas/CARD-022-ordenacao-das-listas.md) | Ordenação das listas na tela inicial | listas | feature | M | mvp | todo | 008 | sonnet |
+| [CARD-017](07-pos-mvp/CARD-017-backup-exportar-importar.md) | Backup: exportar e importar dados | pos-mvp | feature | M | depois | todo | 002, 013 | — |
+| [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | Preço sugerido com base na última compra | pos-mvp | feature | M | depois | todo | 011 | — |
+| [CARD-019](07-pos-mvp/CARD-019-categorias-do-mercado.md) | Categorias/setores do mercado | pos-mvp | feature | M | depois | todo | 011 | — |
+| [CARD-020](07-pos-mvp/CARD-020-spike-compartilhamento.md) | Spike: compartilhamento e sincronização | pos-mvp | spike | M | depois | todo | 002 | — |
+| [CARD-012](07-pos-mvp/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) — descartada do MVP | pos-mvp | feature | P | depois | todo | 010 | — |
 
 ## Ordem sugerida de execução (ondas)
 
@@ -42,6 +44,7 @@ Os cards de uma mesma onda podem ser feitos em qualquer ordem, ou em paralelo.
 | 6 | 010 | Ajustar a lista |
 | 7 | 011 | Compra no mercado (F3) |
 | 8 | 015 · 016 | Offline (015, antes do 016) e **MVP publicado e validado no Android** |
+| 9 | 021 · 022 | Revisão de 10/11: nome sugerido com a data e ordenação das listas (independentes entre si); depois, deploy com `APP_VERSION` aumentado |
 | Pós-MVP | 012 · 017 · 018 · 019 · 020 | Conforme prioridade após o uso real |
 
 > **Nota (CARD-015 movido para a onda 8):** o CARD-015 saiu da onda 3 e deve ser feito imediatamente antes do CARD-016. A lista de arquivos do app shell que o Service Worker coloca em cache só fica estável quando todos os arquivos do app estão prontos; fazê-lo antes obrigaria a revisar a lista a cada card novo. As dependências (004, 014) já estão done.
@@ -76,6 +79,8 @@ flowchart TD
     C011 --> C016
     C013 --> C016
     C015 --> C016
+    C009 --> C021[021 Nome com a data]
+    C008 --> C022[022 Ordenação das listas]
 
     C010 -.-> C012[012 Sugestão RF14]
     C002 -.-> C017[017 Backup]
@@ -98,11 +103,11 @@ flowchart TD
 | RF02 Editar template | MVP | 007, 005 |
 | RF03 Excluir template | MVP | 007 |
 | RF04 Listar templates | MVP | 006 |
-| RF05 Lista a partir de template | MVP | 009 |
-| RF06 Lista em branco | MVP | 009, 008 |
+| RF05 Lista a partir de template | MVP | 009, 021 |
+| RF06 Lista em branco | MVP | 009, 008, 021 |
 | RF07 Editar itens da lista | MVP | 010, 005 |
 | RF08 Renomear/excluir lista | MVP | 008, 010 |
-| RF09 Tela inicial | MVP | 008 |
+| RF09 Tela inicial | MVP | 008, 022 |
 | RF10 Marcar item | MVP | 011 |
 | RF11 Informar valor | MVP | 005, 010 |
 | RF12 Subtotal | MVP | 003, 005, 010, 011 |
@@ -114,6 +119,7 @@ flowchart TD
 | RF18 Categorias | Depois | 019 |
 | RF19 Preço sugerido | Depois | 018 |
 | RF20 Exportar/importar | Depois | 017 |
+| RF21 Ordenar listas | MVP | 022 |
 
 ### Regras de negócio e requisitos não funcionais
 
@@ -124,19 +130,20 @@ flowchart TD
 | RN08 Lista é cópia independente | 002, 009, 010 |
 | RN09 Sem estado "finalizada" | 008, 011 |
 | RN10 Comparação de nomes normalizada | 003 |
-| RN11 Nome obrigatório e pré-preenchido | 004, 006, 007, 009 |
+| RN11 Nome obrigatório e pré-preenchido (com a data de hoje desde a revisão 10/11) | 004, 006, 007, 009, 021 |
 | RN12 Listas ilimitadas | 008 |
 | RN13 Excluir template preserva listas | 002, 007 |
 | RN14 Marcados riscados e no fim | 011 |
-| RN15 Formato pt-BR | 003 |
+| RN15 Formato pt-BR | 003, 021 |
+| RN16 Regras de ordenação das listas | 022 |
 | RNF01 PWA instalável | 014, 016 |
-| RNF02 Offline total | 015, 016 |
+| RNF02 Offline total | 015, 016, 022 |
 | RNF03 IndexedDB nativo | 002 |
 | RNF04 Nenhum dado sai do aparelho | 001, 015 |
 | RNF05 Resposta imediata | 011, 015, 016 |
-| RNF06 Uso com uma mão, teclado decimal | 001, 004, 005, 011, 016 |
+| RNF06 Uso com uma mão, teclado decimal | 001, 004, 005, 011, 016, 022 |
 | RNF07 `storage.persist()` | 002 |
-| RNF08 Acessibilidade básica | 001, 004, 008, 011, 013, 016 |
+| RNF08 Acessibilidade básica | 001, 004, 008, 011, 013, 016, 022 |
 | RNF09 Tema segue o sistema | 013 |
 | RNF10 Código em inglês, UI em pt-BR | 001 (vale para todos) |
 
@@ -175,6 +182,11 @@ flowchart TD
 - Item adicionado na hora entra desmarcado, e o usuário marca com um toque.
 - Excluir item pelo editor não pede confirmação.
 - A data do card de lista usa o formato `08 de nov. de 2026`.
+- (Revisão 10/11) A formatação `DD/MM/AAAA` do nome sugerido fica em `calc.js` (`formatShortDate`), junto das outras formatações pt-BR (CARD-021).
+- (Revisão 10/11) A preferência e as regras de ordenação ficam num módulo novo, `src/listSort.js`, no padrão de `src/theme.js`, e esse módulo entra no `APP_SHELL` (CARD-022).
+- (Revisão 10/11) O painel de opções (`openActionSheet`) ganha a propriedade opcional `selected` para marcar a opção atual com ✓. Os chamadores atuais não mudam (CARD-022).
+- (Revisão 10/11) Os cards 021 e 022 não têm testes automatizados (CLAUDE.md, "No unit tests"). A validação é manual, pelo roteiro de cada card.
+- Os cards criados até o CARD-020 não têm `modelo_sugerido` e são implementados direto na sessão principal. Os cards a partir do CARD-021 têm o campo e seguem a delegação a subagente descrita no CLAUDE.md.
 
 ## Perguntas em aberto (herdadas do refinamento)
 
@@ -182,14 +194,28 @@ flowchart TD
 |---|---|---|
 | 4 | Permitir item com nome repetido na mesma lista? | Permitir (CARD-007, CARD-010) |
 | 5 | Levar o valor para o template ao aceitar a sugestão do RF14? | Pendente: o CARD-012 foi movido para "depois" (a primeira versão foi removida por UX ruim) |
-| Risco 2 | A tela inicial cresce sem limite | Renderizar tudo no MVP e reavaliar após o uso real (CARD-008) |
+| Risco 2 | A tela inicial cresce sem limite | Renderizar tudo no MVP e reavaliar após o uso real (CARD-008). A ordenação (CARD-022) ajuda a achar listas, mas não resolve o crescimento |
+| 8 | Esconder a data repetida no card quando o nome já é a data? | Manter as duas por enquanto (CARD-021) |
+| Riscos 9 e 10 | Nomes iguais no mesmo dia; "Nome A–Z" não é cronológico com nomes em data | Aceitos (CARD-021, CARD-022) |
 
 ## Resumo
 
 | | P | M | G | Total |
 |---|---|---|---|---|
-| **MVP** | 3 | 12 | 0 | 15 |
+| **MVP** | 4 | 13 | 0 | 17 |
 | **Depois** | 1 | 4 | 0 | 5 |
-| **Total** | 4 | 16 | 0 | **20** |
+| **Total** | 5 | 17 | 0 | **22** |
 
-Por tipo: 14 feature · 3 infra · 1 setup · 1 dados · 1 spike.
+Por tipo: 16 feature · 3 infra · 1 setup · 1 dados · 1 spike.
+
+Por modelo sugerido: 1 haiku (021) · 1 sonnet (022) · 20 sem campo (anteriores à regra).
+
+## Instruções para quem implementar um card
+
+Valem as regras do [CLAUDE.md](../../CLAUDE.md), que prevalecem sobre o card. Em resumo:
+- Leia o card inteiro, as premissas deste índice e as seções do refinamento em "Referências". Confira se os cards de `depende_de` estão `done`.
+- Siga o Detalhamento técnico e respeite o "Fora do escopo". Se precisar desviar, registre o motivo em Observações.
+- Não crie testes automatizados nem páginas de teste.
+- Todo arquivo novo do app entra no `APP_SHELL` do `sw.js`. Classes Tailwind novas exigem regerar o `styles/output.css`.
+- **Card com `modelo_sugerido`:** a sessão principal delega a implementação a um subagente com esse modelo, revisa o diff contra os critérios de aceite e leva as dúvidas ao usuário. O subagente não commita nem muda o status.
+- Ao concluir, marque `status: done` no card **e** nesta tabela, e commite com o prefixo do card (ex.: `CARD-021: nome sugerido com a data`).
