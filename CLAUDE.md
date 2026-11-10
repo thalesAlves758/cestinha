@@ -13,6 +13,20 @@ Work is split into cards in `docs/cards/`. [docs/cards/_index.md](docs/cards/_in
 - Stay within the card's scope ("Fora do escopo" is binding); respect `depende_de`.
 - When done: check every acceptance criterion, set `status: done` in the card frontmatter **and** in the `_index.md` table, and commit with a message prefixed by the card ID (e.g. `CARD-003: cálculos e formatação pt-BR`).
 
+### Model per card (subagent delegation)
+
+Cards may carry `modelo_sugerido: haiku | sonnet | opus` in the frontmatter. When generating new cards, always fill it in:
+- `haiku` — small, mechanical changes with low uncertainty (copy/text, a default value, a single-file tweak).
+- `sonnet` — the usual feature card (complexity P/M, uncertainty low/medium).
+- `opus` — complexity G, uncertainty high, spikes, or risky areas (IndexedDB schema migrations, service worker/caching, cross-cutting refactors).
+
+When the user asks to implement a card that has `modelo_sugerido`, this is standing authorization to delegate: the main session coordinates and a subagent implements.
+1. **Main session:** read the card, check that every `depende_de` card is `done`, then spawn a `general-purpose` subagent with `model` set to the card's `modelo_sugerido`.
+2. **Subagent prompt** must include: the card path; instructions to read `CLAUDE.md`, the `_index.md` assumptions and the spec sections under "Referências"; stay within scope ("Fora do escopo" is binding); follow the project rules (no tests, add new files to `APP_SHELL`, rebuild `styles/output.css` when adding classes); **not** commit and **not** change `status`; when blocked on a decision that belongs to the user, stop and report the question instead of guessing. Its final report lists changed files, each acceptance criterion with how it was met, and any open questions.
+3. **Main session afterwards:** review the diff against the acceptance criteria; relay open questions to the user and resume the same subagent (SendMessage) with the answers; when everything checks out, set `status: done` (card + `_index.md`) and commit as above.
+
+Cards without `modelo_sugerido` are implemented directly in the main session, as before.
+
 ## No unit tests
 
 **Do not create unit test files, test pages or test harnesses** (e.g. `tests/calc.test.html`, `tests/*.test.js`). This overrides any card that asks for them (CARD-003, CARD-011 and the `_index.md` premise mention a browser test page — skip that part). Verify logic by reasoning through the card's acceptance examples; the user validates behavior manually in the browser.
