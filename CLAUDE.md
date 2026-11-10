@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Cestinha is an offline grocery-list PWA (Android/Chrome, single user, personal use). The spec is [docs/refinamento.md](docs/refinamento.md) (in Portuguese): requirements RF01–RF20, business rules RN01–RN15, non-functional RNF01–RNF10, screens T01–T07, data model. Only "MVP" items are in scope; "Depois" items and the non-goals (login/backend, "finish purchase" state, combining templates, grams unit, price history) must not be built.
+Cestinha is an offline grocery-list PWA (Android/Chrome, single user, personal use). The spec is [docs/refinamento.md](docs/refinamento.md) (in Portuguese): requirements RF01–RF21, business rules RN01–RN16, non-functional RNF01–RNF10, screens T01–T07, data model. Only "MVP" items are in scope; "Depois" items and the non-goals (login/backend, "finish purchase" state, combining templates, grams unit, price history) must not be built.
 
 ## Workflow: task cards
 

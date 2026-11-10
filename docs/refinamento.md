@@ -1,6 +1,8 @@
 # 🧺 Cestinha — Documento de Refinamento
 
 > **Data:** 08/11/2026 · **Autor:** Thales Alves · **Status:** MVP refinado, pronto para iniciar o desenvolvimento
+>
+> **Revisão 10/11/2026:** nome sugerido da lista passa a ser a data de hoje (RN11 alterada) e as listas ganham seletor de ordenação (RF09 alterado, RF21 e RN16 novos, T01 alterada).
 
 ---
 
@@ -39,6 +41,8 @@ Lista do dia pronta em segundos a partir de uma base confiável, que melhora a c
 - Barra de progresso por lista (itens marcados / total).
 - Sugestão de "adicionar ao template" ao incluir item novo numa lista gerada de template.
 - Lista única na tela inicial, que funciona também como histórico.
+- Ordenação das listas na tela inicial por critério (mais recentes, mais antigas, alteradas por último, nome A–Z), com a escolha lembrada.
+- Nome da lista nova sugerido com a data de hoje (DD/MM/AAAA).
 - Tema claro e escuro.
 - Funcionamento 100% offline e instalável no celular.
 
@@ -55,6 +59,8 @@ Lista do dia pronta em segundos a partir de uma base confiável, que melhora a c
 - Combinar vários templates numa mesma lista (para isso, cria-se um template novo).
 - Unidade em gramas (usa-se `kg` com decimais, ex.: 0,3 kg).
 - Histórico de preços por item.
+- Reordenar listas manualmente (arrastar) ou fixar listas no topo — o seletor de critério atende à necessidade.
+- Ordenação na aba Templates (segue por data de alteração, da mais recente para a mais antiga).
 
 ---
 
@@ -80,7 +86,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF06 | Usuário cria uma lista em branco → sistema cria uma lista vazia | MVP |
 | RF07 | Usuário adiciona, edita ou remove itens de uma lista → lista é atualizada e totais/progresso recalculados | MVP |
 | RF08 | Usuário renomeia ou exclui uma lista → sistema aplica a alteração (exclusão com confirmação) | MVP |
-| RF09 | Usuário abre o app → tela inicial exibe todas as listas, da mais recente para a mais antiga, com barra de progresso e total previsto | MVP |
+| RF09 | Usuário abre o app → tela inicial exibe todas as listas, na ordem escolhida pelo RF21 (padrão: da mais recente para a mais antiga), com barra de progresso e total previsto | MVP |
 | RF10 | Usuário marca/desmarca um item → item muda de estado ("no carrinho"), progresso e total no carrinho são recalculados | MVP |
 | RF11 | Usuário informa ou edita o valor de um item (preço por unidade ou por kg) → valor é salvo e subtotal calculado | MVP |
 | RF12 | Sistema exibe o subtotal de cada item com valor (quantidade × valor) | MVP |
@@ -92,6 +98,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF18 | Sistema organiza os itens da lista por categoria/setor do mercado | Depois |
 | RF19 | Sistema sugere o valor de um item com base na última compra | Depois |
 | RF20 | Usuário exporta e importa seus dados em arquivo | Depois |
+| RF21 | Usuário escolhe a ordem das listas na tela inicial (Mais recentes, Mais antigas, Alteradas por último, Nome A–Z) → listas são reordenadas na hora e a escolha fica salva para as próximas aberturas | MVP |
 
 ### Critérios de aceite (principais)
 
@@ -124,6 +131,21 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 - **Dado** que existem 5 listas, de datas diferentes
 - **Quando** o usuário abre o app
 - **Então** as listas aparecem da mais recente para a mais antiga, cada uma com nome, data, barra de progresso (marcados/total) e total previsto
+- **E** se o usuário escolheu antes outro critério (RF21), as listas aparecem nesse critério
+
+**RN11 — Nome sugerido com a data**
+- **Dado** que hoje é 10/11/2026, no horário do aparelho (inclusive às 22h)
+- **Quando** o usuário abre o painel "Nova lista"
+- **Então** o campo de nome vem preenchido com "10/11/2026", tanto com um template selecionado quanto com "Lista em branco"
+- **E** trocar a origem no painel não altera o nome; um nome já editado pelo usuário é mantido
+- **E** o usuário pode apagar e digitar outro nome; nome vazio continua bloqueando a criação
+
+**RF21 — Ordenar listas**
+- **Dado** as listas "Feira 10" (criada em 01/11, alterada hoje), "Feira 2" (criada em 05/11, sem alteração depois) e "Ávila" (criada em 08/11)
+- **Quando** o usuário toca no seletor e escolhe cada critério
+- **Então** "Mais recentes" mostra Ávila, Feira 2, Feira 10; "Mais antigas" mostra Feira 10, Feira 2, Ávila; "Alteradas por último" mostra Feira 10 primeiro; "Nome A–Z" mostra Ávila, Feira 2, Feira 10 (ignora acentos e usa ordem natural de números)
+- **E** a tela volta ao topo, o botão passa a exibir o critério escolhido e, ao fechar e reabrir o app, a ordem escolhida é mantida
+- **E** com 0 ou 1 lista, o seletor não aparece
 
 ---
 
@@ -141,11 +163,12 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RN08 | Uma lista gerada de template é uma **cópia independente**: editar o template não altera listas existentes e editar a lista não altera o template (exceto via RF14 aceito). |
 | RN09 | Não existe estado "finalizada". A lista permanece como o usuário deixou, e o conjunto de listas forma o histórico. |
 | RN10 | A sugestão do RF14 só ocorre em listas cujo template de origem ainda existe, e compara nomes ignorando maiúsculas/minúsculas, acentos e espaços extras. |
-| RN11 | Nome de lista e de template é obrigatório. Ao criar a lista, o nome vem pré-preenchido (nome do template ou "Nova lista") e o usuário pode alterá-lo. |
+| RN11 | Nome de lista e de template é obrigatório. Ao criar a lista (de template ou em branco), o nome vem pré-preenchido com a **data local do aparelho** no formato DD/MM/AAAA (ex.: 10/11/2026), calculada ao abrir o painel, e o usuário pode alterá-lo. Trocar a origem no painel não muda o nome sugerido. Nomes repetidos são permitidos. |
 | RN12 | Pode haver qualquer número de listas ao mesmo tempo. |
 | RN13 | Excluir um template não exclui as listas geradas a partir dele; essas listas apenas deixam de receber a sugestão do RF14. |
 | RN14 | Na lista, itens marcados ficam riscados e descem para o final; itens desmarcados mantêm a ordem de inserção. |
 | RN15 | Valores são exibidos no formato monetário brasileiro (R$ 1.234,56) e quantidades com vírgula decimal (1,5 kg). |
+| RN16 | Ordenação das listas (RF21): **Mais recentes** = `createdAt` decrescente (padrão); **Mais antigas** = `createdAt` crescente; **Alteradas por último** = `updatedAt` decrescente (marcar item, editar item ou renomear contam como alteração); **Nome A–Z** = alfabética pt-BR ignorando maiúsculas/minúsculas e acentos, com ordem natural de números ("Feira 2" antes de "Feira 10"). Empates são desempatados pela mais recente (`createdAt` decrescente). A ordem é calculada na exibição, nunca armazenada. A escolha fica salva no aparelho; se estiver ausente ou inválida, vale "Mais recentes". |
 
 ---
 
@@ -192,7 +215,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 ### F2 — Criar a lista do dia a partir de um template
 1. Aba **Listas** → toca em **"+"**.
 2. Escolhe um template (ou "Lista em branco").
-3. Confirma/edita o nome da lista.
+3. Confirma o nome sugerido (a data de hoje, ex.: 10/11/2026) ou digita outro.
 4. Lista criada com todos os itens do template → remove o que não precisa e adiciona extras.
 
 ### F3 — Fazer a compra no mercado (fluxo central)
@@ -204,8 +227,14 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 4. Ao terminar, simplesmente fecha o app: a lista fica salva como parou e passa a fazer parte do histórico.
 
 ### F4 — Consultar compras antigas
-1. Na tela inicial, rola até as listas mais antigas.
+1. Na tela inicial, rola até as listas mais antigas (ou escolhe "Mais antigas" no seletor de ordenação).
 2. Abre a lista para ver itens, valores e totais daquela compra.
+
+### F5 — Ordenar as listas
+1. Na tela inicial (com 2 ou mais listas), toca no botão de ordenação ao lado do título ("⇅ Mais recentes ▾").
+2. Escolhe o critério no painel de opções (o atual aparece com ✓).
+3. As listas são reordenadas na hora e a tela volta ao topo; o botão passa a mostrar o critério escolhido.
+4. Nas próximas aberturas do app, a tela inicial já abre nesse critério.
 
 ### Diagrama do fluxo central (F2 + F3)
 
@@ -253,21 +282,51 @@ flowchart TD
 ## 10. Telas
 
 ### T01 — Listas (tela inicial)
-- **Objetivo:** ver todas as listas (em andamento e antigas) e criar uma nova.
+- **Objetivo:** ver todas as listas (em andamento e antigas), ordená-las e criar uma nova.
 - **Elementos:**
   - Cabeçalho: nome do app e ícone de engrenagem.
-  - Conteúdo: cards de lista, do mais recente para o mais antigo, cada um com nome, data, barra de progresso, contagem "marcados/total" e total previsto.
-  - Ações: tocar no card abre a lista; botão "+" abre T02; menu do card permite renomear e excluir.
+  - Linha do título: "Listas" à esquerda; à direita, botão de ordenação com ícone e o critério atual ("⇅ Mais recentes ▾"), visível só com 2 ou mais listas. O botão abre o painel de opções (o mesmo componente do menu do card) com título "Ordenar por" e os quatro critérios, o atual marcado com ✓ (não só por cor).
+  - Conteúdo: cards de lista na ordem escolhida (RN16), cada um com nome, data, barra de progresso, contagem "marcados/total" e total previsto. A data continua no card mesmo quando repete o nome.
+  - Ações: tocar no card abre a lista; botão "+" abre T02; menu do card permite renomear e excluir; trocar o critério reordena na hora e volta ao topo.
   - Rodapé: abas Listas · Templates.
+- **Wireframe (validado):**
+  ```
+  ┌────────────────────────────────────┐
+  │ Cestinha                        ⚙  │
+  ├────────────────────────────────────┤
+  │ Listas          [⇅ Mais recentes ▾]│
+  │ ┌────────────────────────────────┐ │
+  │ │ 10/11/2026     10 de nov. 2026 ⋮│ │
+  │ │ ████████░░░░░░░░               │ │
+  │ │ 8/20            Previsto R$ 312│ │
+  │ └────────────────────────────────┘ │
+  │ ┌────────────────────────────────┐ │
+  │ │ 03/11/2026      3 de nov. 2026 ⋮│ │
+  │ └────────────────────────────────┘ │
+  │                              ( + ) │
+  ├────────────────────────────────────┤
+  │      Listas      │    Templates    │
+  └────────────────────────────────────┘
+
+  Painel de opções do seletor:
+  ┌────────────────────────────────────┐
+  │ Ordenar por                        │
+  │ ✓ Mais recentes                    │
+  │   Mais antigas                     │
+  │   Alteradas por último             │
+  │   Nome A–Z                         │
+  └────────────────────────────────────┘
+  ```
 - **Estados:**
-  - Vazio: mensagem convidando a criar o primeiro template ou a primeira lista.
+  - Vazio: mensagem convidando a criar o primeiro template ou a primeira lista (sem seletor).
+  - Uma lista só: card sem seletor.
   - Carregando: esqueleto dos cards (leitura do IndexedDB).
   - Erro: aviso caso o armazenamento esteja indisponível.
-- **RFs:** RF06, RF08, RF09.
+- **RFs:** RF06, RF08, RF09, RF21.
 
 ### T02 — Nova lista (painel inferior)
 - **Objetivo:** escolher a origem da lista e dar um nome.
-- **Elementos:** opções de templates existentes + "Lista em branco"; campo de nome pré-preenchido; botão "Criar".
+- **Elementos:** opções de templates existentes + "Lista em branco"; campo de nome pré-preenchido com a data de hoje (DD/MM/AAAA, RN11), igual para qualquer origem; botão "Criar".
 - **Estados:**
   - Sem templates: só a opção "Lista em branco", com um atalho para criar template.
 - **RFs:** RF05, RF06.
@@ -323,7 +382,7 @@ flowchart TD
 | RF06 | T01, T02 |
 | RF07 | T03, T04 |
 | RF08 | T01, T03 |
-| RF09 | T01 |
+| RF09, RF21 | T01 |
 | RF10, RF13, RF14 | T03 |
 | RF11, RF12 | T03, T04 |
 | RF15 | T07 |
@@ -343,6 +402,10 @@ Nomes de stores, entidades e campos seguem o RNF10 (inglês).
 | `lists` | `id` | `createdAt`, `templateId` |
 
 A preferência de tema fica no `localStorage`, na chave `cestinha.theme` (é lida antes da renderização, evitando "piscar" o tema errado).
+
+O critério de ordenação das listas (RF21) também fica no `localStorage`, na chave `cestinha.listSort`, com os valores `newest` (padrão), `oldest`, `updated` ou `name`. É uma preferência de interface, não um dado: não entra no IndexedDB, não exige nova versão do banco nem índice novo — a ordenação é feita em memória sobre `getAllLists()`, usando os campos `createdAt`, `updatedAt` e `name` que já existem. Leitura e escrita protegidas com `try/catch`; valor ausente ou inválido vira `newest`.
+
+O nome sugerido com a data (RN11) é só o valor inicial do campo: a lista guarda `name` como qualquer outro texto, sem campo novo. Listas já existentes mantêm seus nomes.
 
 **Convenções**
 - `id`: `crypto.randomUUID()` (facilita uma futura sincronização).
@@ -397,7 +460,7 @@ O conteúdo digitado pelo usuário (nomes de listas e itens) fica naturalmente e
 ```json
 {
   "id": "6f1c…",
-  "name": "Compra do mês · novembro",
+  "name": "08/11/2026",
   "templateId": "a92d…",
   "createdAt": "2026-11-08T15:30:00-03:00",
   "updatedAt": "2026-11-08T16:10:00-03:00",
@@ -422,7 +485,7 @@ GitHub Pages (HTTPS, arquivos estáticos)
 ┌─────────────────────────── Navegador (Android) ───────────────────────────┐
 │  Service Worker  ──cache──►  app shell (HTML, JS, CSS, ícones)            │
 │  UI (JS vanilla + Tailwind)  ◄──►  camada de dados (db.js)  ◄──►  IndexedDB│
-│  localStorage: preferência de tema                                        │
+│  localStorage: preferências de tema e de ordenação das listas             │
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -455,6 +518,8 @@ cestinha/
 - **Arredondamento:** calcular em centavos (`Math.round(quantidade * valorCentavos)`) para evitar diferenças de centavos nos totais.
 - **Tema com Tailwind:** para alternar o tema manualmente (e não só pelo sistema), configurar a variante `dark` baseada em classe no `html` (no Tailwind v4, via `@custom-variant dark (&:where(.dark, .dark *));`).
 - **Persistência:** chamar `navigator.storage.persist()` na primeira execução.
+- **Data do nome sugerido (RN11):** usar a data **local** do aparelho (`Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })`), nunca `toISOString().slice(…)`, que usa UTC e daria o dia seguinte a partir das 21h no horário de Brasília.
+- **Ordenação por nome (RN16):** usar `Intl.Collator('pt-BR', { sensitivity: 'base', numeric: true })` para ignorar acentos/maiúsculas e ordenar números de forma natural.
 
 ---
 
@@ -469,6 +534,9 @@ cestinha/
 | 5 | Pergunta | Ao aceitar a sugestão do RF14, levar também o valor para o template? | Padrão: não (valor fica só na lista); rever junto com o RF19 |
 | 6 | Futuro | Compartilhamento exigirá back-end, login e migração dos dados locais | Modelo já usa UUID e datas, o que facilita sincronização futura |
 | 7 | Futuro | Nome "Cestinha" pode conflitar com apps existentes | Só importa se um dia for publicado |
+| 8 | Pergunta | Com o nome sugerido sendo a data, o card de T01 repete a data ("10/11/2026 … 10 de nov. de 2026") | Mantido por enquanto; rever após uso (ex.: esconder a data quando o nome já é a data de criação, ou mostrar "alterada há X dias") |
+| 9 | Risco | Listas de templates diferentes criadas no mesmo dia ficam com o mesmo nome e só se distinguem abrindo | Aceito; o usuário pode editar o nome na criação ou renomear depois |
+| 10 | Risco | "Nome A–Z" com nomes em DD/MM/AAAA agrupa por dia, não em ordem cronológica ("01/12/2026" antes de "10/11/2026") | Aceito, pois a lista aceita qualquer nome; para ordem cronológica há "Mais recentes"/"Mais antigas" |
 
 ---
 
@@ -478,6 +546,11 @@ cestinha/
 - Quantidade aceita até 3 casas decimais; quantidade padrão 1 e unidade padrão `un`.
 - O valor informado é sempre preço por unidade ou por kg; não existe opção de digitar o "valor total" do item.
 - Nome da lista vem pré-preenchido e é editável pelo usuário.
+- (Revisão 10/11) A data sugerida é calculada ao abrir o painel "Nova lista"; se o painel ficar aberto na virada do dia, vale a data da abertura.
+- (Revisão 10/11) Trocar a origem no painel não altera o nome sugerido; um nome editado pelo usuário é mantido.
+- (Revisão 10/11) Listas criadas antes da revisão mantêm seus nomes; nada é migrado.
+- (Revisão 10/11) Renomear a lista conta como alteração e a leva ao topo em "Alteradas por último".
+- (Revisão 10/11) Critério de ordenação ausente ou inválido no `localStorage` volta para "Mais recentes".
 - Itens marcados ficam riscados e descem para o final da lista.
 - A sugestão do RF14 aparece no momento em que o item novo é adicionado, é não bloqueante e leva para o template apenas nome, quantidade e unidade.
 - Excluir template não exclui as listas geradas a partir dele.
