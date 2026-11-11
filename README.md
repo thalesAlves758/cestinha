@@ -13,7 +13,7 @@
 
 O Cestinha é um PWA (app da web instalável) de lista de compras para uso pessoal. A ideia central é separar os **templates** (a lista de sempre, com os itens que você costuma comprar) das **listas do dia**: a partir de um template você gera a lista da compra em segundos, ajusta o que precisar e usa no mercado, marcando o que vai para o carrinho e acompanhando quanto está gastando.
 
-Funciona 100% offline, não tem login nem servidor, e nenhum dado sai do aparelho.
+Funciona 100% offline, não tem login nem servidor, e nenhum dado sai do aparelho, a não ser o arquivo de backup que você mesmo envia.
 
 ## Funcionalidades
 
@@ -22,6 +22,7 @@ Funciona 100% offline, não tem login nem servidor, e nenhum dado sai do aparelh
 - **Modo compra:** marque os itens que foram para o carrinho (eles ficam riscados e descem para o fim), adicione itens na hora e informe ou ajuste valores.
 - **Totais:** subtotal por item, **total previsto** (todos os itens com valor) e **total no carrinho** (só os marcados), além de uma barra de progresso.
 - **Histórico:** todas as listas ficam na tela inicial, com ordenação por mais recentes, mais antigas, alteradas por último ou nome.
+- **Backup:** exporte todos os dados para um arquivo (pelo menu de compartilhar do celular) e importe-o em outro aparelho. Configurações mostra quando foi o último backup.
 - **Tema** claro, escuro ou automático (segue o sistema).
 - **Offline e instalável** no Android e no iPhone.
 
@@ -36,7 +37,9 @@ Funciona 100% offline, não tem login nem servidor, e nenhum dado sai do aparelh
 Quando sai uma versão nova, aparece um aviso no topo com o botão **"Atualizar"**. O app nunca se atualiza sozinho no meio de uma compra.
 
 > [!IMPORTANT]
-> **Seus dados ficam só no aparelho**, no armazenamento do navegador. Limpar os dados do navegador, desinstalar o app ou trocar de celular apaga as listas e os templates. No iPhone, use o app **instalado na tela de início**: usado direto no navegador, o iOS pode apagar os dados de sites que ficam 7 dias sem acesso. Exportar e importar backup está planejado ([CARD-017](docs/cards/05-configuracoes/CARD-017-exportar-backup.md) e [CARD-023](docs/cards/05-configuracoes/CARD-023-importar-backup.md)).
+> **Seus dados ficam só no aparelho**, no armazenamento do navegador. Limpar os dados do navegador ou desinstalar o app apaga as listas e os templates. No iPhone, use o app **instalado na tela de início**: usado direto no navegador, o iOS pode apagar os dados de sites que ficam 7 dias sem acesso.
+>
+> Para trocar de celular ou guardar uma cópia, use **Configurações › Backup**: "Exportar dados" gera um arquivo `cestinha-backup-AAAA-MM-DD.json`, e "Importar dados" no outro aparelho **substitui** todos os dados dele pelos do arquivo (com confirmação antes).
 
 ## Stack
 
@@ -86,6 +89,7 @@ sw.js                 Service Worker (cache do app shell)
 version.js            APP_VERSION: fonte única da versão
 src/
   app.js              tabela de rotas e inicialização
+  backup.js           exportar e importar o arquivo de backup
   router.js           roteador por hash (#/lists, #/list/:id, #/templates…)
   db.js               único módulo que acessa o IndexedDB
   model.js            fábricas de registros (template, lista, item)
