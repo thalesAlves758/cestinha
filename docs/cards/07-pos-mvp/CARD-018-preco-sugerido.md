@@ -7,12 +7,14 @@ camadas: [front, banco]
 complexidade: M
 prioridade: depois
 incerteza: media
-status: todo
+status: descartado
 requisitos: [RF19]
 depende_de: [CARD-011]
 ---
 
 # CARD-018 — Preço sugerido com base na última compra
+
+> **Descartado em 10/11/2026.** O RF19 saiu do escopo (agora é não-objetivo no refinamento). Este card fica só como registro e não deve ser implementado.
 
 ## Contexto
 No mercado, o usuário informa o valor de cada item. Muitos itens se repetem de uma compra para outra, então o valor da última compra é um bom ponto de partida e ajuda a estimar o total previsto antes de sair de casa.

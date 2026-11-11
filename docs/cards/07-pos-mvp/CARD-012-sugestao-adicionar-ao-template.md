@@ -7,12 +7,14 @@ camadas: [front, banco]
 complexidade: P
 prioridade: depois
 incerteza: baixa
-status: todo
+status: descartado
 requisitos: [RF14, RN08, RN10, RN13]
 depende_de: [CARD-010]
 ---
 
 # CARD-012 — Sugestão "adicionar ao template" (RF14)
+
+> **Descartado em 10/11/2026.** O RF14 saiu do escopo (agora é não-objetivo no refinamento). Este card fica só como registro e não deve ser implementado.
 
 ## Contexto
 Os templates devem se manter atualizados sem que o usuário precise editá-los à parte. Quando ele adiciona à lista do dia um item que não está no template de origem, o app oferece incluí-lo no template. Assim a base melhora a cada compra.

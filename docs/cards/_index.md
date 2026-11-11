@@ -1,7 +1,7 @@
 # 🧺 Cestinha — Quadro de cards
 
 > **Fonte:** [docs/refinamento.md](../refinamento.md), refinamento de 08/11/2026 (versão com RNF10, código em inglês), com a revisão de 10/11/2026 (nome sugerido com a data e ordenação das listas)
-> **Gerado em:** 08/11/2026 · **Atualizado em:** 10/11/2026 (CARD-021 e CARD-022) · **Total:** 22 cards (17 MVP + 5 depois)
+> **Gerado em:** 08/11/2026 · **Atualizado em:** 10/11/2026 (CARD-021 e CARD-022; CARD-012 e CARD-018 descartados) · **Total:** 22 cards (17 MVP + 3 depois + 2 descartados)
 
 ## Cards
 
@@ -25,10 +25,10 @@
 | [CARD-021](04-listas/CARD-021-nome-sugerido-com-data.md) | Nome sugerido da lista com a data de hoje | listas | feature | P | mvp | done | 009 | haiku |
 | [CARD-022](04-listas/CARD-022-ordenacao-das-listas.md) | Ordenação das listas na tela inicial | listas | feature | M | mvp | done | 008 | sonnet |
 | [CARD-017](07-pos-mvp/CARD-017-backup-exportar-importar.md) | Backup: exportar e importar dados | pos-mvp | feature | M | depois | todo | 002, 013 | — |
-| [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | Preço sugerido com base na última compra | pos-mvp | feature | M | depois | todo | 011 | — |
+| [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | ~~Preço sugerido com base na última compra~~ (descartado) | pos-mvp | feature | M | depois | descartado | 011 | — |
 | [CARD-019](07-pos-mvp/CARD-019-categorias-do-mercado.md) | Categorias/setores do mercado | pos-mvp | feature | M | depois | todo | 011 | — |
 | [CARD-020](07-pos-mvp/CARD-020-spike-compartilhamento.md) | Spike: compartilhamento e sincronização | pos-mvp | spike | M | depois | todo | 002 | — |
-| [CARD-012](07-pos-mvp/CARD-012-sugestao-adicionar-ao-template.md) | Sugestão "adicionar ao template" (RF14) — descartada do MVP | pos-mvp | feature | P | depois | todo | 010 | — |
+| [CARD-012](07-pos-mvp/CARD-012-sugestao-adicionar-ao-template.md) | ~~Sugestão "adicionar ao template" (RF14)~~ (descartado) | pos-mvp | feature | P | depois | descartado | 010 | — |
 
 ## Ordem sugerida de execução (ondas)
 
@@ -45,7 +45,7 @@ Os cards de uma mesma onda podem ser feitos em qualquer ordem, ou em paralelo.
 | 7 | 011 | Compra no mercado (F3) |
 | 8 | 015 · 016 | Offline (015, antes do 016) e **MVP publicado e validado no Android** |
 | 9 | 021 · 022 | Revisão de 10/11: nome sugerido com a data e ordenação das listas (independentes entre si); depois, deploy com `APP_VERSION` aumentado |
-| Pós-MVP | 012 · 017 · 018 · 019 · 020 | Conforme prioridade após o uso real |
+| Pós-MVP | 017 · 019 · 020 | Conforme prioridade após o uso real (012 e 018 foram descartados) |
 
 > **Nota (CARD-015 movido para a onda 8):** o CARD-015 saiu da onda 3 e deve ser feito imediatamente antes do CARD-016. A lista de arquivos do app shell que o Service Worker coloca em cache só fica estável quando todos os arquivos do app estão prontos; fazê-lo antes obrigaria a revisar a lista a cada card novo. As dependências (004, 014) já estão done.
 
@@ -82,15 +82,13 @@ flowchart TD
     C009 --> C021[021 Nome com a data]
     C008 --> C022[022 Ordenação das listas]
 
-    C010 -.-> C012[012 Sugestão RF14]
     C002 -.-> C017[017 Backup]
     C013 -.-> C017
-    C011 -.-> C018[018 Preço sugerido]
     C011 -.-> C019[019 Categorias]
     C002 -.-> C020[020 Spike compartilhamento]
 
     classDef depois fill:#eee,stroke:#999,color:#555;
-    class C012,C017,C018,C019,C020 depois;
+    class C017,C019,C020 depois;
 ```
 
 ## Matriz de rastreabilidade
@@ -112,12 +110,12 @@ flowchart TD
 | RF11 Informar valor | MVP | 005, 010 |
 | RF12 Subtotal | MVP | 003, 005, 010, 011 |
 | RF13 Totais previsto/no carrinho | MVP | 003, 011 |
-| RF14 Sugestão adicionar ao template | Depois (descartado do MVP) | 012 |
+| RF14 Sugestão adicionar ao template | Descartado | 012 (descartado) |
 | RF15 Tema | MVP | 013 |
 | RF16 Instalável e offline | MVP | 014, 015, 016 |
 | RF17 Lista compartilhada | Depois | 020 (spike) |
 | RF18 Categorias | Depois | 019 |
-| RF19 Preço sugerido | Depois | 018 |
+| RF19 Preço sugerido | Descartado | 018 (descartado) |
 | RF20 Exportar/importar | Depois | 017 |
 | RF21 Ordenar listas | MVP | 022 |
 
@@ -129,7 +127,7 @@ flowchart TD
 | RN04–RN07 Subtotal, totais, progresso | 003, 011 |
 | RN08 Lista é cópia independente | 002, 009, 010 |
 | RN09 Sem estado "finalizada" | 008, 011 |
-| RN10 Comparação de nomes normalizada | 003 |
+| RN10 Comparação de nomes normalizada (descartada com o RF14) | 003 |
 | RN11 Nome obrigatório e pré-preenchido (com a data de hoje desde a revisão 10/11) | 004, 006, 007, 009, 021 |
 | RN12 Listas ilimitadas | 008 |
 | RN13 Excluir template preserva listas | 002, 007 |
@@ -153,7 +151,6 @@ flowchart TD
 - [ ] **Repositório no GitHub** criado, com Pages habilitado (CARD-016).
 - [ ] Baixar o **Tailwind standalone v4** (`tailwindcss-windows-x64.exe`) e instalar a extensão **Live Server** no VS Code (CARD-001).
 - [ ] Pós-MVP: estratégia de importação, mesclar ou substituir (CARD-017).
-- [ ] Pós-MVP: UX do preço sugerido (CARD-018).
 - [ ] Pós-MVP: categorias fixas ou personalizáveis, e onde ficam os marcados (CARD-019).
 - [ ] Pós-MVP: decisão de abrir mão do "sem servidor/sem login" para o compartilhamento (CARD-020).
 
@@ -187,13 +184,14 @@ flowchart TD
 - (Revisão 10/11) O painel de opções (`openActionSheet`) ganha a propriedade opcional `selected` para marcar a opção atual com ✓. Os chamadores atuais não mudam (CARD-022).
 - (Revisão 10/11) Os cards 021 e 022 não têm testes automatizados (CLAUDE.md, "No unit tests"). A validação é manual, pelo roteiro de cada card.
 - Os cards criados até o CARD-020 não têm `modelo_sugerido` e são implementados direto na sessão principal. Os cards a partir do CARD-021 têm o campo e seguem a delegação a subagente descrita no CLAUDE.md.
+- (Revisão 10/11) CARD-012 (RF14) e CARD-018 (RF19) foram descartados: status `descartado`, arquivos mantidos só como registro. Não implementar.
 
 ## Perguntas em aberto (herdadas do refinamento)
 
 | # | Pergunta | Padrão adotado nos cards |
 |---|---|---|
 | 4 | Permitir item com nome repetido na mesma lista? | Permitir (CARD-007, CARD-010) |
-| 5 | Levar o valor para o template ao aceitar a sugestão do RF14? | Pendente: o CARD-012 foi movido para "depois" (a primeira versão foi removida por UX ruim) |
+| 5 | Levar o valor para o template ao aceitar a sugestão do RF14? | Encerrada: CARD-012 e CARD-018 descartados (10/11) |
 | Risco 2 | A tela inicial cresce sem limite | Renderizar tudo no MVP e reavaliar após o uso real (CARD-008). A ordenação (CARD-022) ajuda a achar listas, mas não resolve o crescimento |
 | 8 | Esconder a data repetida no card quando o nome já é a data? | Manter as duas por enquanto (CARD-021) |
 | Riscos 9 e 10 | Nomes iguais no mesmo dia; "Nome A–Z" não é cronológico com nomes em data | Aceitos (CARD-021, CARD-022) |
@@ -203,7 +201,8 @@ flowchart TD
 | | P | M | G | Total |
 |---|---|---|---|---|
 | **MVP** | 4 | 13 | 0 | 17 |
-| **Depois** | 1 | 4 | 0 | 5 |
+| **Depois** | 0 | 3 | 0 | 3 |
+| **Descartados** | 1 | 1 | 0 | 2 |
 | **Total** | 5 | 17 | 0 | **22** |
 
 Por tipo: 16 feature · 3 infra · 1 setup · 1 dados · 1 spike.

@@ -5,6 +5,8 @@
 > **Revisão 10/11/2026:** nome sugerido da lista passa a ser a data de hoje (RN11 alterada) e as listas ganham seletor de ordenação (RF09 alterado, RF21 e RN16 novos, T01 alterada).
 >
 > **Revisão 10/11/2026 (plataformas):** o iPhone passa a ser alvo oficial, junto com o Android (RNF01 e RF16 alterados, risco 11 novo).
+>
+> **Revisão 10/11/2026 (escopo):** RF14 (sugestão de adicionar ao template) e RF19 (preço sugerido com base na última compra) foram **descartados**: saem do "Depois" e passam a não-objetivos (RN08, RN10, RN13, T03 e riscos 3 e 5 ajustados).
 
 ---
 
@@ -14,18 +16,17 @@
 As compras de mercado se repetem muito de uma vez para outra: no geral são os mesmos itens, com alguns acréscimos e remoções. No app usado hoje (Listonic), não existe uma "lista padrão": para não montar tudo do zero, a saída é duplicar uma lista antiga. Só que a lista antiga reflete o que foi *planejado* naquele dia, inclusive itens que acabaram não sendo comprados, então a nova lista já nasce enviesada.
 
 **Solução**
-Um PWA de lista de compras, offline, em que o usuário mantém **templates** (listas padrão) separados das compras do dia. A partir de um template, ele gera a **lista do dia** com todos os itens já incluídos, ajusta o que precisar e usa a lista no mercado: marca o que coloca no carrinho, informa os valores e acompanha os totais. O template se ajusta com o tempo, porque o app sugere incluir nele os itens adicionados durante a compra.
+Um PWA de lista de compras, offline, em que o usuário mantém **templates** (listas padrão) separados das compras do dia. A partir de um template, ele gera a **lista do dia** com todos os itens já incluídos, ajusta o que precisar e usa a lista no mercado: marca o que coloca no carrinho, informa os valores e acompanha os totais. O template é mantido pelo próprio usuário, que o edita quando a rotina de compras muda.
 
 **Público-alvo**
 Uso pessoal (o próprio autor), em celular Android ou iPhone.
 
 **Proposta de valor**
-Lista do dia pronta em segundos a partir de uma base confiável, que melhora a cada compra, com o controle de gastos na hora (previsto x no carrinho).
+Lista do dia pronta em segundos a partir de uma base confiável, com o controle de gastos na hora (previsto x no carrinho).
 
 **Sinais de sucesso**
 - Montar a lista do dia a partir de um template em 1 a 2 minutos.
 - Listas geradas sem "itens fantasma" de compras anteriores.
-- Templates se mantendo atualizados via sugestão, sem precisar editá-los à parte.
 - Substituir de vez o Listonic no uso do dia a dia.
 
 ---
@@ -41,7 +42,6 @@ Lista do dia pronta em segundos a partir de uma base confiável, que melhora a c
 - Modo compra: marcar item como "no carrinho", adicionar item na hora, informar/editar valor.
 - Subtotal por item (quantidade × valor) e dois totais: **previsto** e **no carrinho**.
 - Barra de progresso por lista (itens marcados / total).
-- Sugestão de "adicionar ao template" ao incluir item novo numa lista gerada de template.
 - Lista única na tela inicial, que funciona também como histórico.
 - Ordenação das listas na tela inicial por critério (mais recentes, mais antigas, alteradas por último, nome A–Z), com a escolha lembrada.
 - Nome da lista nova sugerido com a data de hoje (DD/MM/AAAA).
@@ -51,7 +51,6 @@ Lista do dia pronta em segundos a partir de uma base confiável, que melhora a c
 ### ⏳ Depois
 - Lista compartilhada (exige login e sincronização).
 - Categorias/setores do mercado organizando a lista.
-- Preço sugerido com base na última compra.
 - Backup: exportar/importar dados.
 
 ### 🚫 Não-objetivos (MVP)
@@ -61,6 +60,8 @@ Lista do dia pronta em segundos a partir de uma base confiável, que melhora a c
 - Combinar vários templates numa mesma lista (para isso, cria-se um template novo).
 - Unidade em gramas (usa-se `kg` com decimais, ex.: 0,3 kg).
 - Histórico de preços por item.
+- Sugerir incluir no template os itens adicionados durante a compra (RF14, descartado).
+- Sugerir o valor de um item com base na última compra (RF19, descartado).
 - Reordenar listas manualmente (arrastar) ou fixar listas no topo — o seletor de critério atende à necessidade.
 - Ordenação na aba Templates (segue por data de alteração, da mais recente para a mais antiga).
 
@@ -93,12 +94,12 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF11 | Usuário informa ou edita o valor de um item (preço por unidade ou por kg) → valor é salvo e subtotal calculado | MVP |
 | RF12 | Sistema exibe o subtotal de cada item com valor (quantidade × valor) | MVP |
 | RF13 | Sistema exibe na lista o **total previsto** (todos os itens com valor) e o **total no carrinho** (itens marcados com valor) | MVP |
-| RF14 | Usuário adiciona à lista um item que não existe no template de origem → sistema pergunta se quer adicioná-lo também ao template; se sim, o item é incluído no template | Depois (descartado do MVP) |
+| RF14 | Usuário adiciona à lista um item que não existe no template de origem → sistema pergunta se quer adicioná-lo também ao template; se sim, o item é incluído no template | Descartado |
 | RF15 | Usuário troca o tema nas configurações (claro, escuro ou automático) → interface muda na hora e a escolha fica salva | MVP |
 | RF16 | Usuário instala o app na tela inicial do Android ou do iPhone e o utiliza sem internet → todas as funcionalidades continuam disponíveis | MVP |
 | RF17 | Usuário compartilha uma lista com outra pessoa, que pode editá-la em tempo real | Depois |
 | RF18 | Sistema organiza os itens da lista por categoria/setor do mercado | Depois |
-| RF19 | Sistema sugere o valor de um item com base na última compra | Depois |
+| RF19 | Sistema sugere o valor de um item com base na última compra | Descartado |
 | RF20 | Usuário exporta e importa seus dados em arquivo | Depois |
 | RF21 | Usuário escolhe a ordem das listas na tela inicial (Mais recentes, Mais antigas, Alteradas por último, Nome A–Z) → listas são reordenadas na hora e a escolha fica salva para as próximas aberturas | MVP |
 
@@ -108,7 +109,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 - **Dado** que existe o template "Compra do mês" com 20 itens
 - **Quando** o usuário toca em "+", escolhe esse template e confirma o nome da lista
 - **Então** é criada uma lista nova com os 20 itens (nome, quantidade, unidade e valor, quando houver), todos desmarcados, e ela aparece no topo da tela inicial
-- **E** alterações feitas nessa lista não alteram o template (exceto via RF14)
+- **E** alterações feitas nessa lista não alteram o template
 
 **RF10 — Marcar item**
 - **Dado** uma lista com 10 itens, nenhum marcado
@@ -121,13 +122,6 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 - **Quando** o usuário visualiza a lista
 - **Então** o total previsto é R$ 85,00 e o total no carrinho é R$ 25,00
 - **E** o item sem valor não entra em nenhum dos totais, mas conta para o progresso
-
-**RF14 — Sugestão de adicionar ao template**
-- **Dado** uma lista gerada a partir do template "Compra do mês"
-- **Quando** o usuário adiciona o item "Iogurte", que não existe nesse template
-- **Então** o app pergunta, de forma não bloqueante, "Adicionar 'Iogurte' ao template Compra do mês?"
-- **E** se o usuário aceitar, o item é incluído no template com nome, quantidade e unidade; se ignorar ou recusar, nada muda no template
-- **E** em listas criadas em branco, ou cujo template foi excluído, a sugestão não aparece
 
 **RF09 — Tela inicial**
 - **Dado** que existem 5 listas, de datas diferentes
@@ -162,12 +156,12 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RN05 | Total previsto = soma dos subtotais de **todos** os itens com valor. |
 | RN06 | Total no carrinho = soma dos subtotais dos itens **marcados** com valor. |
 | RN07 | Progresso = itens marcados ÷ total de itens da lista (independe de valor). Lista vazia exibe 0%. |
-| RN08 | Uma lista gerada de template é uma **cópia independente**: editar o template não altera listas existentes e editar a lista não altera o template (exceto via RF14 aceito). |
+| RN08 | Uma lista gerada de template é uma **cópia independente**: editar o template não altera listas existentes e editar a lista não altera o template. |
 | RN09 | Não existe estado "finalizada". A lista permanece como o usuário deixou, e o conjunto de listas forma o histórico. |
-| RN10 | A sugestão do RF14 só ocorre em listas cujo template de origem ainda existe, e compara nomes ignorando maiúsculas/minúsculas, acentos e espaços extras. |
+| RN10 | ~~A sugestão do RF14 só ocorre em listas cujo template de origem ainda existe, e compara nomes ignorando maiúsculas/minúsculas, acentos e espaços extras.~~ Descartada junto com o RF14. |
 | RN11 | Nome de lista e de template é obrigatório. Ao criar a lista (de template ou em branco), o nome vem pré-preenchido com a **data local do aparelho** no formato DD/MM/AAAA (ex.: 10/11/2026), calculada ao abrir o painel, e o usuário pode alterá-lo. Trocar a origem no painel não muda o nome sugerido. Nomes repetidos são permitidos. |
 | RN12 | Pode haver qualquer número de listas ao mesmo tempo. |
-| RN13 | Excluir um template não exclui as listas geradas a partir dele; essas listas apenas deixam de receber a sugestão do RF14. |
+| RN13 | Excluir um template não exclui as listas geradas a partir dele. |
 | RN14 | Na lista, itens marcados ficam riscados e descem para o final; itens desmarcados mantêm a ordem de inserção. |
 | RN15 | Valores são exibidos no formato monetário brasileiro (R$ 1.234,56) e quantidades com vírgula decimal (1,5 kg). |
 | RN16 | Ordenação das listas (RF21): **Mais recentes** = `createdAt` decrescente (padrão); **Mais antigas** = `createdAt` crescente; **Alteradas por último** = `updatedAt` decrescente (marcar item, editar item ou renomear contam como alteração); **Nome A–Z** = alfabética pt-BR ignorando maiúsculas/minúsculas e acentos, com ordem natural de números ("Feira 2" antes de "Feira 10"). Empates são desempatados pela mais recente (`createdAt` decrescente). A ordem é calculada na exibição, nunca armazenada. A escolha fica salva no aparelho; se estiver ausente ou inválida, vale "Mais recentes". |
@@ -340,12 +334,11 @@ flowchart TD
   - Resumo fixo no topo: barra de progresso, **total no carrinho** em destaque e **total previsto**.
   - Conteúdo: itens com checkbox, nome, quantidade + unidade, valor e subtotal; marcados riscados e no final.
   - Ações: tocar no checkbox marca/desmarca; tocar no item abre T04; campo/botão para adicionar item rápido; deslizar ou menu para remover item.
-  - Sugestão RF14: aviso não bloqueante ("Adicionar 'Iogurte' ao template Compra do mês?" com "Adicionar" / "Agora não").
 - **Estados:**
   - Vazio: convite para adicionar o primeiro item.
   - Tudo marcado: barra cheia, com destaque visual de conclusão.
   - Erro: falha ao salvar item, com opção de tentar de novo.
-- **RFs:** RF07, RF08, RF10, RF11, RF12, RF13, RF14.
+- **RFs:** RF07, RF08, RF10, RF11, RF12, RF13.
 
 ### T04 — Editor de item (painel inferior)
 - **Objetivo:** criar ou editar um item de lista ou de template.
@@ -385,7 +378,7 @@ flowchart TD
 | RF07 | T03, T04 |
 | RF08 | T01, T03 |
 | RF09, RF21 | T01 |
-| RF10, RF13, RF14 | T03 |
+| RF10, RF13 | T03 |
 | RF11, RF12 | T03, T04 |
 | RF15 | T07 |
 | RF16 | Transversal (todas as telas; ver RNF01 e RNF02) |
@@ -531,9 +524,9 @@ cestinha/
 |---|---|---|---|
 | 1 | Risco | Perda de dados ao limpar o navegador, desinstalar ou trocar de celular | Aceito no MVP; backup (RF20) no Depois |
 | 2 | Risco | Sem "finalizar" nem arquivamento, a tela inicial cresce indefinidamente | Avaliar após uso real: agrupar por mês, busca ou ocultar listas antigas |
-| 3 | Risco | Comparação por nome no RF14 pode errar (ex.: "Arroz 5kg" x "Arroz") | Normalização simples no MVP; o usuário sempre pode recusar a sugestão |
+| 3 | Risco | Comparação por nome no RF14 pode errar (ex.: "Arroz 5kg" x "Arroz") | Encerrado: RF14 descartado |
 | 4 | Pergunta | Permitir item com nome repetido na mesma lista, ou avisar/somar quantidade? | Definir durante o desenvolvimento; padrão: permitir |
-| 5 | Pergunta | Ao aceitar a sugestão do RF14, levar também o valor para o template? | Padrão: não (valor fica só na lista); rever junto com o RF19 |
+| 5 | Pergunta | Ao aceitar a sugestão do RF14, levar também o valor para o template? | Encerrada: RF14 e RF19 descartados |
 | 6 | Futuro | Compartilhamento exigirá back-end, login e migração dos dados locais | Modelo já usa UUID e datas, o que facilita sincronização futura |
 | 7 | Futuro | Nome "Cestinha" pode conflitar com apps existentes | Só importa se um dia for publicado |
 | 8 | Pergunta | Com o nome sugerido sendo a data, o card de T01 repete a data ("10/11/2026 … 10 de nov. de 2026") | Mantido por enquanto; rever após uso (ex.: esconder a data quando o nome já é a data de criação, ou mostrar "alterada há X dias") |
@@ -555,7 +548,6 @@ cestinha/
 - (Revisão 10/11) Renomear a lista conta como alteração e a leva ao topo em "Alteradas por último".
 - (Revisão 10/11) Critério de ordenação ausente ou inválido no `localStorage` volta para "Mais recentes".
 - Itens marcados ficam riscados e descem para o final da lista.
-- A sugestão do RF14 aparece no momento em que o item novo é adicionado, é não bloqueante e leva para o template apenas nome, quantidade e unidade.
 - Excluir template não exclui as listas geradas a partir dele.
 - O tema segue o sistema por padrão, com opção de fixar claro ou escuro; a preferência fica no `localStorage`.
 - Itens embutidos nos registros de template/lista no IndexedDB; valores em centavos.

@@ -14,19 +14,10 @@ import { BTN_PRIMARY, FIELD } from '../ui/buttons.js';
 
 const ICON_BTN = 'inline-flex items-center justify-center min-h-11 min-w-11 rounded-lg text-xl';
 
-/**
- * Extension point for RF14 (suggest adding the new item to the source template).
- * Called by addItem() after every item addition (quick or via the editor), once the item
- * is already in list.items. Intentionally empty: the behavior is implemented in CARD-012.
- */
-// eslint-disable-next-line no-unused-vars
-function onItemAdded(list, item) {}
-
 /** Single entry point for adding an item to a list (quick add and full editor). */
 function addItem(list, data) {
   const item = { ...createItem(data, nextOrder(list.items)), checked: false };
   list.items.push(item);
-  onItemAdded(list, item);
   return item;
 }
 

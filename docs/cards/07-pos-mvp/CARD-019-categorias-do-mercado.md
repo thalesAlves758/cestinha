@@ -25,7 +25,7 @@ Permitir atribuir uma categoria a cada item e agrupar os itens da lista por cate
   - campo opcional `category` (código em inglês, ex.: `produce`, `meat`, `bakery`, `dairy`, `pantry`, `cleaning`, `hygiene`, `drinks`, `frozen`, `other`) nos itens de template e de lista;
   - rótulos pt-BR mapeados em `src/categories.js`.
 - **Banco:** o campo é opcional e embutido, então não exige índice. Subir `DB_VERSION` para 2 só se for preciso migrar dados (ex.: definir `other` nos itens existentes). Senão, tratar `undefined` como "Outros".
-- **Cópias:** `listFromTemplate` e a sugestão do RF14 passam a copiar `category`.
+- **Cópias:** `listFromTemplate` passa a copiar `category`.
 - **Editor de item:** seletor de categoria.
 - **Tela da lista:**
   - itens agrupados por categoria, na ordem fixa dos setores, com cabeçalho por grupo;
