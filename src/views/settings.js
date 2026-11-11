@@ -9,6 +9,8 @@ const OPTIONS = [
 
 export function render(container) {
   const current = getThemeMode();
+  // Column layout so `mt-auto` pins the version to the bottom. Removed in cleanup: #view is shared.
+  container.classList.add('flex', 'flex-col');
   container.innerHTML = html`
     <div class="flex items-center gap-1 mb-4">
       <button type="button" data-back aria-label="Voltar" class="flex items-center justify-center w-11 h-11 -ml-2 text-xl rounded-full">←</button>
@@ -24,14 +26,17 @@ export function render(container) {
           </label>`)}
       </div>
     </fieldset>
-    <p class="text-sm text-muted">Versão ${self.APP_VERSION}</p>`;
+    <p class="mt-auto pb-[env(safe-area-inset-bottom)] text-sm text-muted">Versão ${self.APP_VERSION}</p>`;
 
   qs('[data-back]', container).addEventListener('click', () => {
     if (history.length > 1) history.back();
     else location.hash = '#/lists';
   });
   container.addEventListener('change', onChange);
-  return () => container.removeEventListener('change', onChange);
+  return () => {
+    container.removeEventListener('change', onChange);
+    container.classList.remove('flex', 'flex-col');
+  };
 }
 
 function onChange(e) {
