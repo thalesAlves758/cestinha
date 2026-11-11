@@ -109,6 +109,33 @@ export const getList = (id) => withStore('lists', 'readonly', (s) => promisify(s
 export const putList = (list) => put('lists', list);
 export const deleteList = (id) => withStore('lists', 'readwrite', (s) => promisify(s.delete(id)));
 
+/**
+ * Backup import (RN17): replaces everything in one transaction over both stores.
+ * Records are written as-is (no put() helper: it would overwrite updatedAt).
+ * If anything fails the transaction aborts and the old data stays.
+ */
+export async function replaceAllData({ templates, lists }) {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    let tx;
+    try {
+      tx = db.transaction(['templates', 'lists'], 'readwrite');
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error ?? new Error('Transaction aborted.'));
+      const templateStore = tx.objectStore('templates');
+      const listStore = tx.objectStore('lists');
+      templateStore.clear();
+      listStore.clear();
+      templates.forEach((record) => templateStore.put(record));
+      lists.forEach((record) => listStore.put(record));
+    } catch (err) {
+      try { tx?.abort(); } catch { /* already finished */ }
+      reject(err instanceof Error ? err : new Error(String(err)));
+    }
+  });
+}
+
 export async function requestPersistence() {
   try {
     if (navigator.storage?.persist) await navigator.storage.persist();

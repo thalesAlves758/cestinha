@@ -25,7 +25,7 @@
 | [CARD-021](04-listas/CARD-021-nome-sugerido-com-data.md) | Nome sugerido da lista com a data de hoje | listas | feature | P | mvp | done | 009 | haiku |
 | [CARD-022](04-listas/CARD-022-ordenacao-das-listas.md) | Ordenação das listas na tela inicial | listas | feature | M | mvp | done | 008 | sonnet |
 | [CARD-017](05-configuracoes/CARD-017-exportar-backup.md) | Backup: exportar dados | configuracoes | feature | M | mvp | done | 002, 013, 022 | sonnet |
-| [CARD-023](05-configuracoes/CARD-023-importar-backup.md) | Backup: importar dados | configuracoes | feature | M | mvp | todo | 017 | sonnet |
+| [CARD-023](05-configuracoes/CARD-023-importar-backup.md) | Backup: importar dados | configuracoes | feature | M | mvp | done | 017 | sonnet |
 | [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | ~~Preço sugerido com base na última compra~~ (descartado) | pos-mvp | feature | M | depois | descartado | 011 | — |
 | [CARD-019](07-pos-mvp/CARD-019-categorias-do-mercado.md) | Categorias/setores do mercado | pos-mvp | feature | M | depois | todo | 011 | — |
 | [CARD-020](07-pos-mvp/CARD-020-spike-compartilhamento.md) | Spike: compartilhamento e sincronização | pos-mvp | spike | M | depois | todo | 002 | — |

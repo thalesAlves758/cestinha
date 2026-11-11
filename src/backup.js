@@ -1,6 +1,7 @@
 // Manual backup (RF20): build the export file, share/download it, track the last backup date.
-import { getThemeMode } from './theme.js';
-import { getListSort } from './listSort.js';
+import { getThemeMode, setThemeMode } from './theme.js';
+import { getListSort, setListSort } from './listSort.js';
+import { replaceAllData } from './db.js';
 import { formatShortDate } from './calc.js';
 
 export const BACKUP_VERSION = 1;
@@ -53,6 +54,63 @@ export async function shareOrDownload(file) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 10000);
   return 'downloaded';
+}
+
+const isObject = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
+const isText = (v) => typeof v === 'string' && v.trim() !== '';
+const isDate = (v) => typeof v === 'string' && !Number.isNaN(Date.parse(v));
+
+function validItem(item, isListItem) {
+  return isObject(item)
+    && typeof item.id === 'string' && item.id !== ''
+    && isText(item.name)
+    && typeof item.quantity === 'number' && Number.isFinite(item.quantity) && item.quantity > 0
+    && (item.unit === 'un' || item.unit === 'kg')
+    && (item.priceCents === null || (Number.isInteger(item.priceCents) && item.priceCents >= 0))
+    && typeof item.order === 'number' && Number.isFinite(item.order)
+    && (!isListItem || typeof item.checked === 'boolean');
+}
+
+function validRecord(record, isList) {
+  return isObject(record)
+    && typeof record.id === 'string' && record.id !== ''
+    && isText(record.name)
+    && isDate(record.createdAt) && isDate(record.updatedAt)
+    && (!isList || record.templateId === null || typeof record.templateId === 'string')
+    && Array.isArray(record.items)
+    && record.items.every((item) => validItem(item, isList));
+}
+
+function validRecords(records, isList) {
+  if (!Array.isArray(records) || !records.every((r) => validRecord(r, isList))) return false;
+  return new Set(records.map((r) => r.id)).size === records.length;
+}
+
+/** Validates the whole file (untrusted data) before anything is written. */
+export function parseBackup(text) {
+  let data;
+  try { data = JSON.parse(text); } catch { return { ok: false, error: 'not-cestinha' }; }
+  if (!isObject(data) || data.app !== 'cestinha') return { ok: false, error: 'not-cestinha' };
+  const v = data.backupVersion;
+  if (Number.isInteger(v) && v > BACKUP_VERSION) return { ok: false, error: 'too-new' };
+  if (!Number.isInteger(v) || v < 1) return { ok: false, error: 'invalid' };
+  if (!validRecords(data.templates, false) || !validRecords(data.lists, true)) {
+    return { ok: false, error: 'invalid' };
+  }
+  return { ok: true, backup: data };
+}
+
+/** Converts older backup formats to the current one, version by version. Only v1 exists today. */
+export async function migrateBackup(backup) {
+  // if (backup.backupVersion < 2) { ...convert v1 -> v2...; backup.backupVersion = 2; }
+  return backup;
+}
+
+/** Replaces all data, then applies preferences (setters normalize unknown values). Leaves lastBackup alone. */
+export async function importBackup(backup) {
+  await replaceAllData({ templates: backup.templates, lists: backup.lists });
+  setThemeMode(backup.preferences?.theme);
+  setListSort(backup.preferences?.listSort);
 }
 
 export function getLastBackup() {

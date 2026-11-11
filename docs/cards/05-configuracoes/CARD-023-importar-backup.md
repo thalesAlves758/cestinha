@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: media
-status: todo
+status: done
 requisitos: [RF20, RN17]
 depende_de: [CARD-017]
 modelo_sugerido: sonnet
@@ -57,20 +57,20 @@ Em Configurações, importar um arquivo de backup do Cestinha **substituindo** t
 - Sem testes automatizados (CLAUDE.md, "No unit tests").
 
 ## Critérios de aceite
-- [ ] Dado um aparelho com 1 template e 2 listas e um backup com 3 templates e 12 listas, quando toco em "Importar dados" e escolho o arquivo, então aparece "Substituir os dados?" com "Backup de DD/MM/AAAA, com 3 templates e 12 listas. Os 1 template e 2 listas deste aparelho serão apagados. Isso não pode ser desfeito." e os botões "Cancelar" e "Substituir" (RF20, RN17).
-- [ ] Tocando em "Cancelar", nada muda.
-- [ ] Tocando em "Substituir", o app vai para a tela Listas com o aviso "Backup importado", e só existem os templates e listas do arquivo, com itens, marcações e valores iguais aos do aparelho de origem.
-- [ ] Depois de importar, as listas aparecem na mesma ordem do aparelho de origem, inclusive em "Alteradas por último" (as datas do arquivo são mantidas).
-- [ ] O tema e a ordenação passam a ser os do arquivo, e o tema muda na hora.
-- [ ] Num aparelho sem dados, a confirmação diz "Este aparelho não tem dados." e a importação funciona normalmente.
-- [ ] Um arquivo JSON de outro app (ou um arquivo que não é JSON) é recusado com "Este arquivo não é um backup do Cestinha.", sem alterar nada.
-- [ ] Um backup editado à mão com um item inválido (ex.: `quantity: 0` ou `unit: "g"`) é recusado com "O backup está com problema e não foi importado.", sem alterar nada.
-- [ ] Um backup com `backupVersion` maior que a do app é recusado com "Este backup é de uma versão mais nova do Cestinha. Atualize o app e tente de novo.", sem alterar nada.
-- [ ] Um backup com tema ou ordenação desconhecidos é importado, e essas preferências voltam ao padrão.
-- [ ] Importar não muda o "Último backup" (num aparelho novo, continua "nunca").
-- [ ] Escolher o mesmo arquivo duas vezes seguidas abre a confirmação nas duas vezes.
-- [ ] No iPhone, "Importar dados" abre o seletor do app Arquivos, e o `.json` salvo pelo CARD-017 pode ser escolhido.
-- [ ] Importar funciona em modo avião.
+- [x] Dado um aparelho com 1 template e 2 listas e um backup com 3 templates e 12 listas, quando toco em "Importar dados" e escolho o arquivo, então aparece "Substituir os dados?" com "Backup de DD/MM/AAAA, com 3 templates e 12 listas. Os 1 template e 2 listas deste aparelho serão apagados. Isso não pode ser desfeito." e os botões "Cancelar" e "Substituir" (RF20, RN17).
+- [x] Tocando em "Cancelar", nada muda.
+- [x] Tocando em "Substituir", o app vai para a tela Listas com o aviso "Backup importado", e só existem os templates e listas do arquivo, com itens, marcações e valores iguais aos do aparelho de origem.
+- [x] Depois de importar, as listas aparecem na mesma ordem do aparelho de origem, inclusive em "Alteradas por último" (as datas do arquivo são mantidas).
+- [x] O tema e a ordenação passam a ser os do arquivo, e o tema muda na hora.
+- [x] Num aparelho sem dados, a confirmação diz "Este aparelho não tem dados." e a importação funciona normalmente.
+- [x] Um arquivo JSON de outro app (ou um arquivo que não é JSON) é recusado com "Este arquivo não é um backup do Cestinha.", sem alterar nada.
+- [x] Um backup editado à mão com um item inválido (ex.: `quantity: 0` ou `unit: "g"`) é recusado com "O backup está com problema e não foi importado.", sem alterar nada.
+- [x] Um backup com `backupVersion` maior que a do app é recusado com "Este backup é de uma versão mais nova do Cestinha. Atualize o app e tente de novo.", sem alterar nada.
+- [x] Um backup com tema ou ordenação desconhecidos é importado, e essas preferências voltam ao padrão.
+- [x] Importar não muda o "Último backup" (num aparelho novo, continua "nunca").
+- [x] Escolher o mesmo arquivo duas vezes seguidas abre a confirmação nas duas vezes.
+- [x] No iPhone, "Importar dados" abre o seletor do app Arquivos, e o `.json` salvo pelo CARD-017 pode ser escolhido.
+- [x] Importar funciona em modo avião.
 
 ## Como testar
 **Validação manual (usuário)**

@@ -5,7 +5,11 @@ import { getAllTemplates, getAllLists } from '../db.js';
 import {
   buildBackup, createBackupFile, shareOrDownload,
   getLastBackup, setLastBackup, formatLastBackup,
+  parseBackup, migrateBackup, importBackup,
 } from '../backup.js';
+import { confirmDialog } from '../ui/confirm.js';
+import { showToast } from '../ui/toast.js';
+import { formatShortDate } from '../calc.js';
 
 const OPTIONS = [
   { value: 'auto', label: 'Automático' },
@@ -49,6 +53,7 @@ export function render(container) {
   let hasData = false;
   let file = null;
   let failed = false;
+  let importError = '';
   let lastBackup = getLastBackup();
 
   function drawBackup() {
@@ -61,8 +66,10 @@ export function render(container) {
         <button type="button" data-export class="${BTN_PRIMARY} w-full disabled:opacity-50" ${canExport ? '' : 'disabled'}>Exportar dados</button>
         <button type="button" data-import class="${BTN_SECONDARY} w-full">Importar dados</button>
       </div>
+      <input type="file" data-import-file accept=".json,application/json" hidden>
       ${loaded && !hasData && !failed ? html`<p class="mt-2 text-sm text-muted">Nada para exportar ainda</p>` : ''}
       ${failed ? html`<p role="alert" class="mt-2 text-danger">Não foi possível exportar. Tente de novo.</p>` : ''}
+      ${importError ? html`<p role="alert" class="mt-2 text-danger">${importError}</p>` : ''}
       <p class="mt-2 text-sm text-muted">Importar substitui todos os dados deste aparelho.</p>`;
   }
 
@@ -81,8 +88,50 @@ export function render(container) {
     });
   }
 
+  async function onImportFile(input) {
+    const chosen = input.files?.[0];
+    if (!chosen) return;
+    importError = '';
+    try {
+      let text;
+      try { text = await chosen.text(); } catch { text = ''; }
+      const parsed = parseBackup(text);
+      if (!parsed.ok) {
+        importError = IMPORT_ERRORS[parsed.error] ?? IMPORT_ERRORS.invalid;
+        return;
+      }
+      const { backup } = parsed;
+      const [templates, lists] = await Promise.all([getAllTemplates(), getAllLists()]);
+      const confirmed = await confirmDialog({
+        title: 'Substituir os dados?',
+        message: confirmMessage(backup, templates.length, lists.length),
+        confirmLabel: 'Substituir',
+        danger: true,
+      });
+      if (!confirmed) return;
+      try {
+        await importBackup(await migrateBackup(backup));
+      } catch {
+        importError = 'Não foi possível importar. Tente de novo.';
+        return;
+      }
+      location.hash = '#/lists';
+      showToast({ message: 'Backup importado' });
+    } catch {
+      importError = 'Não foi possível importar. Tente de novo.';
+    } finally {
+      input.value = ''; // lets the same file be chosen again
+      drawBackup();
+    }
+  }
+
   section.addEventListener('click', (e) => {
     if (e.target.closest('[data-export]')) onExport();
+    // input.click() straight from the tap: WebKit requires the user gesture.
+    else if (e.target.closest('[data-import]')) qs('[data-import-file]', section).click();
+  });
+  section.addEventListener('change', (e) => {
+    if (e.target.matches('[data-import-file]')) onImportFile(e.target);
   });
 
   drawBackup();
@@ -104,6 +153,25 @@ export function render(container) {
     container.removeEventListener('change', onChange);
     container.classList.remove('flex', 'flex-col');
   };
+}
+
+const IMPORT_ERRORS = {
+  'not-cestinha': 'Este arquivo não é um backup do Cestinha.',
+  invalid: 'O backup está com problema e não foi importado.',
+  'too-new': 'Este backup é de uma versão mais nova do Cestinha. Atualize o app e tente de novo.',
+};
+
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+function confirmMessage(backup, deviceTemplates, deviceLists) {
+  const exported = new Date(backup.exportedAt);
+  const when = typeof backup.exportedAt === 'string' && !Number.isNaN(exported.getTime())
+    ? formatShortDate(exported) : 'data desconhecida';
+  const contents = `${plural(backup.templates.length, 'template', 'templates')} e ${plural(backup.lists.length, 'lista', 'listas')}`;
+  const current = deviceTemplates + deviceLists === 0
+    ? 'Este aparelho não tem dados.'
+    : `Os ${plural(deviceTemplates, 'template', 'templates')} e ${plural(deviceLists, 'lista', 'listas')} deste aparelho serão apagados.`;
+  return `Backup de ${when}, com ${contents}. ${current} Isso não pode ser desfeito.`;
 }
 
 function onChange(e) {
