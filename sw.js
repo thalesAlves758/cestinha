@@ -16,6 +16,7 @@ const APP_SHELL = [
   'version.js',
   'styles/output.css',
   'src/app.js',
+  'src/backup.js',
   'src/calc.js',
   'src/db.js',
   'src/listSort.js',

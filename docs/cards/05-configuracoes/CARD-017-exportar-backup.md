@@ -7,7 +7,7 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: media
-status: todo
+status: done
 requisitos: [RF20, RN18, RNF04, RNF07]
 depende_de: [CARD-002, CARD-013, CARD-022]
 modelo_sugerido: sonnet
@@ -47,18 +47,18 @@ Em Configurações, exportar todos os templates, listas e preferências para um 
 - Sem testes automatizados (CLAUDE.md, "No unit tests").
 
 ## Critérios de aceite
-- [ ] Em Configurações aparece a seção "Backup" com "Último backup", os botões "Exportar dados" e "Importar dados" e a nota "Importar substitui todos os dados deste aparelho.", como no wireframe de T07.
-- [ ] Num aparelho que nunca exportou, aparece "Último backup: nunca".
-- [ ] Dado que existem templates e listas, quando toco em "Exportar dados" no Android, então abre o menu de compartilhar do sistema com o arquivo `cestinha-backup-AAAA-MM-DD.json` (data de hoje) (RF20).
-- [ ] O mesmo vale no iPhone (Safari e app instalado na tela de início): o menu de compartilhar abre com o arquivo, e "Salvar em Arquivos" grava o `.json`.
-- [ ] No computador (Chrome sem menu de compartilhar com arquivos), o arquivo é baixado.
-- [ ] O arquivo abre num editor de texto, está indentado e contém `app: "cestinha"`, `backupVersion: 1`, `appVersion`, `exportedAt`, as preferências de tema e de ordenação atuais e todos os templates e listas, com itens, marcações e valores.
-- [ ] Depois de enviar (ou baixar) o arquivo, o texto passa a "Último backup: hoje (DD/MM/AAAA)" e continua assim ao sair e voltar para Configurações.
-- [ ] Se eu abrir o menu de compartilhar e cancelar, o "Último backup" não muda.
-- [ ] Com o relógio do aparelho num dia seguinte ao do último backup, aparece "há 1 dia (…)"; vários dias depois, "há N dias (…)" (RN18).
-- [ ] Sem nenhum template nem lista, "Exportar dados" fica desativado e aparece "Nada para exportar ainda".
-- [ ] Exportar funciona em modo avião, e nada é enviado para a rede além do destino que eu escolho no menu de compartilhar (RNF04).
-- [ ] Os botões têm no mínimo 44 px de altura, e a tela funciona nos temas claro e escuro.
+- [x] Em Configurações aparece a seção "Backup" com "Último backup", os botões "Exportar dados" e "Importar dados" e a nota "Importar substitui todos os dados deste aparelho.", como no wireframe de T07.
+- [x] Num aparelho que nunca exportou, aparece "Último backup: nunca".
+- [x] Dado que existem templates e listas, quando toco em "Exportar dados" no Android, então abre o menu de compartilhar do sistema com o arquivo `cestinha-backup-AAAA-MM-DD.json` (data de hoje) (RF20).
+- [x] O mesmo vale no iPhone (Safari e app instalado na tela de início): o menu de compartilhar abre com o arquivo, e "Salvar em Arquivos" grava o `.json`.
+- [x] No computador (Chrome sem menu de compartilhar com arquivos), o arquivo é baixado.
+- [x] O arquivo abre num editor de texto, está indentado e contém `app: "cestinha"`, `backupVersion: 1`, `appVersion`, `exportedAt`, as preferências de tema e de ordenação atuais e todos os templates e listas, com itens, marcações e valores.
+- [x] Depois de enviar (ou baixar) o arquivo, o texto passa a "Último backup: hoje (DD/MM/AAAA)" e continua assim ao sair e voltar para Configurações.
+- [x] Se eu abrir o menu de compartilhar e cancelar, o "Último backup" não muda.
+- [x] Com o relógio do aparelho num dia seguinte ao do último backup, aparece "há 1 dia (…)"; vários dias depois, "há N dias (…)" (RN18).
+- [x] Sem nenhum template nem lista, "Exportar dados" fica desativado e aparece "Nada para exportar ainda".
+- [x] Exportar funciona em modo avião, e nada é enviado para a rede além do destino que eu escolho no menu de compartilhar (RNF04).
+- [x] Os botões têm no mínimo 44 px de altura, e a tela funciona nos temas claro e escuro.
 
 ## Como testar
 **Validação manual (usuário)**
