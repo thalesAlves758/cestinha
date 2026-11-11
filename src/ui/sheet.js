@@ -53,14 +53,18 @@ export function openSheet({ title, render, onClose }) {
 
   const sheet = { dialog, pushed: false, closed: false };
 
-  // Keyboard handling is left to the platform: Android shrinks the layout (interactive-widget=resizes-content
-  // in index.html) and iOS pans to the focused field. Lifting the sheet here as well doubled the shift on iOS.
-  // We only cap the height to the visible area, so the whole sheet fits above the keyboard on iOS.
+  // Pins the sheet's bottom edge to the bottom of the *visible* area (visual viewport, in layout-viewport
+  // coordinates), instead of computing a keyboard height. Works whether the platform shrank the layout
+  // (Android with interactive-widget=resizes-content: offsetTop 0, so this equals bottom: 0) or panned/scrolled
+  // the page (iOS, which ignores interactive-widget). Re-run on viewport resize/scroll and on sheet resize.
   function fitViewport() {
     const vv = window.visualViewport;
-    if (!vv) return;
+    if (!vv || sheet.closed) return;
     dialog.style.maxHeight = `${Math.round(vv.height * 0.9)}px`;
+    dialog.style.bottom = 'auto';
+    dialog.style.top = `${Math.round(vv.offsetTop + vv.height - dialog.offsetHeight)}px`;
   }
+  const resizeObserver = new ResizeObserver(fitViewport);
   // Scrolls only the sheet itself: scrollIntoView() would also pan the page on iOS.
   function onFocusIn(event) {
     const el = event.target;
@@ -79,6 +83,8 @@ export function openSheet({ title, render, onClose }) {
     const i = stack.indexOf(sheet);
     if (i !== -1) stack.splice(i, 1);
     window.visualViewport?.removeEventListener('resize', fitViewport);
+    window.visualViewport?.removeEventListener('scroll', fitViewport);
+    resizeObserver.disconnect();
     dialog.removeEventListener('focusin', onFocusIn);
     if (dialog.open) dialog.close();
     dialog.remove();
@@ -102,6 +108,8 @@ export function openSheet({ title, render, onClose }) {
   dialog.showModal();
   fitViewport();
   window.visualViewport?.addEventListener('resize', fitViewport);
+  window.visualViewport?.addEventListener('scroll', fitViewport);
+  resizeObserver.observe(dialog);
 
   if (pendingBacks > 0) waiting.push(() => { if (!sheet.closed) pushEntry(sheet); });
   else pushEntry(sheet);
