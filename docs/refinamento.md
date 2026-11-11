@@ -7,6 +7,8 @@
 > **Revisão 10/11/2026 (plataformas):** o iPhone passa a ser alvo oficial, junto com o Android (RNF01 e RF16 alterados, risco 11 novo).
 >
 > **Revisão 10/11/2026 (escopo):** RF14 (sugestão de adicionar ao template) e RF19 (preço sugerido com base na última compra) foram **descartados**: saem do "Depois" e passam a não-objetivos (RN08, RN10, RN13, T03 e riscos 3 e 5 ajustados).
+>
+> **Revisão 10/11/2026 (backup):** o backup manual (RF20) sai do "Depois" e entra no MVP: exportar todos os dados para um arquivo JSON pelo menu de compartilhar do celular e importá-lo substituindo os dados do aparelho (RF20 alterado, RN17 e RN18 novas, RNF04 e RNF07 ajustados, fluxo F6 novo, T07 alterada, formato do arquivo na seção 11, riscos 1, 11 a 14). O fluxo F3 e o diagrama central deixam de citar a sugestão do RF14 (descartado).
 
 ---
 
@@ -47,11 +49,11 @@ Lista do dia pronta em segundos a partir de uma base confiável, com o controle 
 - Nome da lista nova sugerido com a data de hoje (DD/MM/AAAA).
 - Tema claro e escuro.
 - Funcionamento 100% offline e instalável no celular.
+- Backup manual: exportar todos os dados para um arquivo e importá-lo de volta, inclusive em outro celular (substitui os dados do aparelho).
 
 ### ⏳ Depois
 - Lista compartilhada (exige login e sincronização).
 - Categorias/setores do mercado organizando a lista.
-- Backup: exportar/importar dados.
 
 ### 🚫 Não-objetivos (MVP)
 - Contas, login ou qualquer servidor/back-end.
@@ -64,6 +66,11 @@ Lista do dia pronta em segundos a partir de uma base confiável, com o controle 
 - Sugerir o valor de um item com base na última compra (RF19, descartado).
 - Reordenar listas manualmente (arrastar) ou fixar listas no topo — o seletor de critério atende à necessidade.
 - Ordenação na aba Templates (segue por data de alteração, da mais recente para a mais antiga).
+- Backup automático ou em nuvem (exigiria servidor); o backup é sempre um toque do usuário.
+- Juntar (mesclar) os dados do arquivo com os do aparelho na importação; importar sempre substitui tudo.
+- Exportar só parte dos dados (templates ou listas escolhidos).
+- Importar dados de outros apps (ex.: Listonic) ou de planilhas.
+- Lembrete ativo de backup atrasado (aviso ou faixa); Configurações só mostra a data do último backup.
 
 ---
 
@@ -100,7 +107,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF17 | Usuário compartilha uma lista com outra pessoa, que pode editá-la em tempo real | Depois |
 | RF18 | Sistema organiza os itens da lista por categoria/setor do mercado | Depois |
 | RF19 | Sistema sugere o valor de um item com base na última compra | Descartado |
-| RF20 | Usuário exporta e importa seus dados em arquivo | Depois |
+| RF20 | Usuário exporta todos os seus dados (templates, listas e preferências) para um arquivo, enviado pelo menu de compartilhar do celular, e importa esse arquivo neste ou em outro aparelho → os dados do aparelho são substituídos pelos do arquivo, após confirmação | MVP |
 | RF21 | Usuário escolhe a ordem das listas na tela inicial (Mais recentes, Mais antigas, Alteradas por último, Nome A–Z) → listas são reordenadas na hora e a escolha fica salva para as próximas aberturas | MVP |
 
 ### Critérios de aceite (principais)
@@ -143,6 +150,21 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 - **E** a tela volta ao topo, o botão passa a exibir o critério escolhido e, ao fechar e reabrir o app, a ordem escolhida é mantida
 - **E** com 0 ou 1 lista, o seletor não aparece
 
+**RF20 — Exportar backup**
+- **Dado** que existem 3 templates e 12 listas, e o tema está fixado em "Escuro"
+- **Quando** o usuário toca em "Exportar dados" em Configurações
+- **Então** abre o menu de compartilhar do celular com o arquivo `cestinha-backup-2026-11-10.json` (ou, onde o menu não existir, o arquivo é baixado), e o arquivo abre num editor de texto mostrando os 3 templates, as 12 listas e as preferências
+- **E** ao concluir o envio, Configurações passa a mostrar "Último backup: hoje (10/11/2026)"; se o usuário cancelar o menu de compartilhar, o "Último backup" não muda
+- **E** sem nenhum template nem lista, o botão fica desativado com o texto "Nada para exportar ainda"
+
+**RF20 — Importar backup**
+- **Dado** um celular com 1 template e 2 listas, e o arquivo exportado acima
+- **Quando** o usuário toca em "Importar dados" e escolhe o arquivo
+- **Então** aparece a confirmação "Backup de 10/11/2026, com 3 templates e 12 listas. Os 1 template e 2 listas deste aparelho serão apagados. Isso não pode ser desfeito." com "Cancelar" e "Substituir"
+- **E** ao tocar em "Substituir", o app vai para a tela Listas com o aviso "Backup importado", mostrando as 12 listas na mesma ordem do celular de origem, com itens, marcações e valores iguais, e o tema passa a "Escuro"
+- **E** ao tocar em "Cancelar", nada muda
+- **E** um arquivo que não é backup do Cestinha, um backup com registro inválido ou de uma versão mais nova do app é recusado com mensagem clara, sem alterar nenhum dado (RN17)
+
 ---
 
 ## 5. Regras de negócio
@@ -165,6 +187,8 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RN14 | Na lista, itens marcados ficam riscados e descem para o final; itens desmarcados mantêm a ordem de inserção. |
 | RN15 | Valores são exibidos no formato monetário brasileiro (R$ 1.234,56) e quantidades com vírgula decimal (1,5 kg). |
 | RN16 | Ordenação das listas (RF21): **Mais recentes** = `createdAt` decrescente (padrão); **Mais antigas** = `createdAt` crescente; **Alteradas por último** = `updatedAt` decrescente (marcar item, editar item ou renomear contam como alteração); **Nome A–Z** = alfabética pt-BR ignorando maiúsculas/minúsculas e acentos, com ordem natural de números ("Feira 2" antes de "Feira 10"). Empates são desempatados pela mais recente (`createdAt` decrescente). A ordem é calculada na exibição, nunca armazenada. A escolha fica salva no aparelho; se estiver ausente ou inválida, vale "Mais recentes". |
+| RN17 | Importação de backup (RF20): é **tudo ou nada** e **substitui** todos os templates, listas e preferências do aparelho, numa única operação; se algo falhar, nada muda. Só ocorre após confirmação que mostra a data do backup, o que ele contém e o que será apagado. O arquivo é recusado inteiro, sem alterar dados, quando: não é um backup do Cestinha; tem algum template, lista ou item inválido (pelas regras RN01–RN03 e RN11); ou foi gerado por um formato mais novo do que o app conhece (a mensagem pede para atualizar o app). Backups de formatos mais antigos são sempre aceitos, convertidos na hora. Datas de criação e de alteração do arquivo são mantidas. Preferências desconhecidas ou inválidas voltam ao padrão, sem recusar o arquivo. |
+| RN18 | Exportação de backup (RF20): inclui sempre **todos** os templates e listas e as preferências de tema e de ordenação. Só fica disponível quando há pelo menos um template ou uma lista. O "Último backup" é registrado no aparelho apenas quando o envio pelo menu de compartilhar é concluído ou o download acontece (cancelar não conta); não vai no arquivo, então um aparelho recém-importado mostra "nunca". É exibido como tempo relativo em dias de calendário mais a data: "hoje (10/11/2026)", "há 1 dia (09/11/2026)", "há 12 dias (29/10/2026)" ou "nunca". |
 
 ---
 
@@ -175,10 +199,10 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RNF01 | **Plataforma:** PWA instalável (Web App Manifest + ícones), com alvo no **Chrome para Android** e no **iPhone** (Safari e Chrome, que no iOS usam o mesmo motor WebKit). Toda mudança de interface deve funcionar nos dois; comportamentos que só um sistema tem (ex.: teclado virtual) ficam a cargo da plataforma sempre que possível, em vez de compensados à mão. |
 | RNF02 | **Offline total:** Service Worker com cache do app shell; nenhuma funcionalidade depende de rede após o primeiro acesso. |
 | RNF03 | **Armazenamento:** dados locais em IndexedDB (API nativa, sem bibliotecas). Sem servidor e sem login. |
-| RNF04 | **Privacidade/LGPD:** nenhum dado sai do aparelho; sem analytics, rastreamento ou chamadas externas. |
+| RNF04 | **Privacidade/LGPD:** nenhum dado sai do aparelho por conta do app; sem analytics, rastreamento ou chamadas externas. A única saída é o arquivo de backup (RF20), gerado localmente e enviado só para onde o próprio usuário escolher no menu de compartilhar. |
 | RNF05 | **Desempenho:** ações frequentes (marcar item, editar valor) com resposta imediata na interface; app abre rápido, mesmo offline. |
 | RNF06 | **Uso no mercado:** alvos de toque com no mínimo 44 px, uso confortável com uma mão e teclado numérico decimal (`inputmode="decimal"`) para quantidade e valor. |
-| RNF07 | **Persistência:** solicitar `navigator.storage.persist()` para reduzir o risco de o navegador limpar os dados. Perda de dados é um risco aceito no MVP. |
+| RNF07 | **Persistência:** solicitar `navigator.storage.persist()` para reduzir o risco de o navegador limpar os dados. A perda de dados é reduzida pelo backup manual (RF20), que depende de o usuário exportar de vez em quando. |
 | RNF08 | **Acessibilidade básica:** contraste mínimo WCAG AA nos dois temas, campos com rótulos e estados não indicados só por cor (ex.: item marcado também fica riscado). |
 | RNF09 | **Tema:** claro e escuro, seguindo o sistema por padrão, com opção de fixar manualmente. |
 | RNF10 | **Idioma do código:** todo o código em **inglês** (variáveis, funções, arquivos, pastas, rotas, stores e campos do banco, comentários). Apenas os textos exibidos na interface ficam em **português (pt-BR)**. Detalhes na seção 12. |
@@ -218,7 +242,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 1. Abre a lista (funciona offline).
 2. Pega um item na prateleira:
    - se já está na lista → marca como "no carrinho" e informa/ajusta o valor;
-   - se não está → adiciona o item na hora (com valor) e já marca; se a lista veio de um template, o app sugere incluí-lo no template.
+   - se não está → adiciona o item na hora (com valor) e já marca.
 3. Acompanha a barra de progresso, o total no carrinho e o total previsto.
 4. Ao terminar, simplesmente fecha o app: a lista fica salva como parou e passa a fazer parte do histórico.
 
@@ -231,6 +255,31 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 2. Escolhe o critério no painel de opções (o atual aparece com ✓).
 3. As listas são reordenadas na hora e a tela volta ao topo; o botão passa a mostrar o critério escolhido.
 4. Nas próximas aberturas do app, a tela inicial já abre nesse critério.
+
+### F6 — Levar os dados para outro celular (backup)
+1. No celular atual: engrenagem → **Configurações** → seção **Backup** → **"Exportar dados"**.
+2. Abre o menu de compartilhar do celular; o usuário envia o arquivo para onde quiser (Drive, WhatsApp, e-mail, "Salvar em Arquivos"). O "Último backup" passa a "hoje".
+3. No celular novo: instala o Cestinha → **Configurações** → **"Importar dados"** → escolhe o arquivo.
+4. Confere o resumo da confirmação (data do backup, o que vem e o que será apagado) → **"Substituir"**.
+5. O app abre a tela **Listas** com o aviso "Backup importado", com tudo como estava no celular antigo.
+
+```mermaid
+flowchart TD
+    A[Configurações › Exportar dados] --> B{Menu de compartilhar disponível?}
+    B -- Sim --> C[Usuário escolhe o destino]
+    B -- Não --> D[Arquivo baixado]
+    C -- Concluído --> E[Último backup = hoje]
+    C -- Cancelado --> F([Nada muda])
+    D --> E
+    E --> G[No outro aparelho: Configurações › Importar dados]
+    G --> H[Escolhe o arquivo]
+    H --> I{Arquivo válido? RN17}
+    I -- Não --> J([Mensagem de erro; nada muda])
+    I -- Sim --> K[Confirmação com o resumo]
+    K -- Cancelar --> F
+    K -- Substituir --> L[Substitui tudo numa única operação]
+    L --> M([Tela Listas + aviso Backup importado])
+```
 
 ### Diagrama do fluxo central (F2 + F3)
 
@@ -247,10 +296,7 @@ flowchart TD
     H --> I{Item já está na lista?}
     I -- Sim --> J[Marca como no carrinho]
     I -- Não --> K[Adiciona item novo]
-    K --> L{Lista veio de template e o item não existe nele?}
-    L -- Sim --> M[Sugere: adicionar ao template?]
-    L -- Não --> J
-    M --> J
+    K --> J
     J --> N[Informa ou ajusta o valor]
     N --> O[Progresso e totais atualizados]
     O --> P{Mais itens?}
@@ -362,9 +408,54 @@ flowchart TD
 - **RFs:** RF02, RF03.
 
 ### T07 — Configurações
-- **Objetivo:** personalização.
-- **Elementos:** seletor de tema (Automático / Claro / Escuro); versão do app.
-- **RFs:** RF15.
+- **Objetivo:** personalização e backup dos dados.
+- **Elementos:**
+  - Cabeçalho: voltar e título "Configurações".
+  - Seção **Tema:** seletor Automático / Claro / Escuro.
+  - Seção **Backup:** texto "Último backup: há 12 dias (29/10/2026)" (ou "hoje (…)", "nunca", RN18); botão principal **"Exportar dados"**; botão secundário **"Importar dados"** (abre o seletor de arquivos do sistema); nota "Importar substitui todos os dados deste aparelho."
+  - Rodapé: versão do app, presa ao fim da tela.
+- **Wireframe (validado):**
+  ```
+  ┌────────────────────────────────┐
+  │ ←  Configurações               │
+  │                                │
+  │ Tema                           │
+  │ [Automático][ Claro ][ Escuro ]│
+  │                                │
+  │ Backup                         │
+  │ Último backup: há 12 dias      │
+  │ (29/10/2026)                   │
+  │ [        Exportar dados      ] │  ← botão principal
+  │ [        Importar dados      ] │  ← botão secundário
+  │ Importar substitui todos os    │
+  │ dados deste aparelho.          │
+  │                                │
+  │ Versão 0.3.0                   │
+  └────────────────────────────────┘
+
+  Confirmação ao importar (diálogo):
+  ┌────────────────────────────────┐
+  │ Substituir os dados?           │
+  │                                │
+  │ Backup de 10/11/2026, com      │
+  │ 3 templates e 12 listas.       │
+  │ Os 1 template e 2 listas deste │
+  │ aparelho serão apagados. Isso  │
+  │ não pode ser desfeito.         │
+  │                                │
+  │    [Cancelar]  [Substituir]    │  ← "Substituir" como ação de perigo
+  └────────────────────────────────┘
+  ```
+- **Estados:**
+  - Sem dados: "Exportar dados" desativado, com o texto "Nada para exportar ainda" (o "Importar dados" continua disponível).
+  - Aparelho sem dados ao importar: a confirmação diz "Este aparelho não tem dados." em vez da linha do que será apagado.
+  - Erro ao importar: mensagem clara, sem alterar dados:
+    - "Este arquivo não é um backup do Cestinha."
+    - "O backup está com problema e não foi importado."
+    - "Este backup é de uma versão mais nova do Cestinha. Atualize o app e tente de novo."
+  - Erro ao exportar ou ao gravar: aviso "Não foi possível exportar/importar. Tente de novo."
+  - Sucesso ao importar: vai para T01 com o aviso "Backup importado".
+- **RFs:** RF15, RF20.
 
 ### Rastreabilidade (RF de MVP → tela)
 
@@ -380,7 +471,7 @@ flowchart TD
 | RF09, RF21 | T01 |
 | RF10, RF13 | T03 |
 | RF11, RF12 | T03, T04 |
-| RF15 | T07 |
+| RF15, RF20 | T07 |
 | RF16 | Transversal (todas as telas; ver RNF01 e RNF02) |
 
 ---
@@ -401,6 +492,42 @@ A preferência de tema fica no `localStorage`, na chave `cestinha.theme` (é lid
 O critério de ordenação das listas (RF21) também fica no `localStorage`, na chave `cestinha.listSort`, com os valores `newest` (padrão), `oldest`, `updated` ou `name`. É uma preferência de interface, não um dado: não entra no IndexedDB, não exige nova versão do banco nem índice novo — a ordenação é feita em memória sobre `getAllLists()`, usando os campos `createdAt`, `updatedAt` e `name` que já existem. Leitura e escrita protegidas com `try/catch`; valor ausente ou inválido vira `newest`.
 
 O nome sugerido com a data (RN11) é só o valor inicial do campo: a lista guarda `name` como qualquer outro texto, sem campo novo. Listas já existentes mantêm seus nomes.
+
+A data do último backup (RN18) fica no `localStorage`, na chave `cestinha.lastBackup` (data ISO 8601). Não entra no IndexedDB nem no arquivo de backup; valor ausente ou ilegível é exibido como "nunca".
+
+**Arquivo de backup (RF20)**
+
+O backup é uma "fotografia" dos dados: o banco não muda (sem nova versão do IndexedDB nem índice novo). O arquivo é um JSON legível (indentado), com o nome `cestinha-backup-AAAA-MM-DD.json` (data local da exportação; ano-mês-dia para os arquivos ficarem em ordem cronológica numa pasta).
+
+| Campo | Tipo | Conteúdo |
+|---|---|---|
+| `app` | string | Sempre `"cestinha"`; identifica o arquivo. Outro valor → recusado. |
+| `backupVersion` | int | Versão do **formato do arquivo**; começa em `1` e só sobe quando o modelo mudar (ex.: categorias). Maior que a conhecida pelo app → recusado (RN17); menor → convertido na importação. |
+| `appVersion` | string | `APP_VERSION` de quem exportou; só informativo. |
+| `exportedAt` | string | Data ISO 8601 da exportação; exibida na confirmação ("Backup de 10/11/2026"). |
+| `preferences` | objeto | `{ "theme": "auto" \| "light" \| "dark", "listSort": "newest" \| "oldest" \| "updated" \| "name" }`. Valores ausentes ou inválidos → padrão. |
+| `templates` | array | Registros do store `templates`, exatamente como estão no banco. |
+| `lists` | array | Registros do store `lists`, exatamente como estão no banco. |
+
+```json
+{
+  "app": "cestinha",
+  "backupVersion": 1,
+  "appVersion": "0.3.0",
+  "exportedAt": "2026-11-10T18:00:00.000Z",
+  "preferences": { "theme": "dark", "listSort": "newest" },
+  "templates": [
+    { "id": "a92d…", "name": "Compra do mês", "createdAt": "…", "updatedAt": "…",
+      "items": [ { "id": "9f…", "name": "Arroz", "quantity": 1, "unit": "un", "priceCents": 2500, "order": 0 } ] }
+  ],
+  "lists": [
+    { "id": "6f1c…", "name": "10/11/2026", "templateId": "a92d…", "createdAt": "…", "updatedAt": "…",
+      "items": [ { "id": "1b…", "name": "Arroz", "quantity": 1, "unit": "un", "priceCents": 2500, "checked": true, "order": 0 } ] }
+  ]
+}
+```
+
+**Importação:** esvazia os stores `templates` e `lists` e grava todos os registros do arquivo numa **única transação** sobre os dois stores (falhou, nada muda); só depois aplica as preferências. Os registros são gravados como vieram, **sem** atualizar `updatedAt` (diferente do `put*` normal), para manter a ordem "Alteradas por último". `templateId` de uma lista pode apontar para um template que não existe mais, como no uso normal (RN13).
 
 **Convenções**
 - `id`: `crypto.randomUUID()` (facilita uma futura sincronização).
@@ -480,7 +607,8 @@ GitHub Pages (HTTPS, arquivos estáticos)
 ┌─────────────────────────── Navegador (Android) ───────────────────────────┐
 │  Service Worker  ──cache──►  app shell (HTML, JS, CSS, ícones)            │
 │  UI (JS vanilla + Tailwind)  ◄──►  camada de dados (db.js)  ◄──►  IndexedDB│
-│  localStorage: preferências de tema e de ordenação das listas             │
+│  localStorage: preferências de tema e de ordenação, data do último backup │
+│  Backup: arquivo JSON ──► menu de compartilhar do sistema (ou download)  │
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -515,6 +643,11 @@ cestinha/
 - **Persistência:** chamar `navigator.storage.persist()` na primeira execução.
 - **Data do nome sugerido (RN11):** usar a data **local** do aparelho (`Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })`), nunca `toISOString().slice(…)`, que usa UTC e daria o dia seguinte a partir das 21h no horário de Brasília.
 - **Ordenação por nome (RN16):** usar `Intl.Collator('pt-BR', { sensitivity: 'base', numeric: true })` para ignorar acentos/maiúsculas e ordenar números de forma natural.
+- **Exportar no celular (RF20):** usar `navigator.share({ files: [file] })` quando `navigator.canShare({ files })` for verdadeiro (Android Chrome e iOS). Se o usuário cancelar (`AbortError`), não registrar o backup; em qualquer outra falha, ou sem suporte, cair para o download via `<a download>` com `URL.createObjectURL`. No iPhone, o download dentro do app instalado é pouco confiável, por isso o menu de compartilhar vem primeiro. Gerar o arquivo com tipo `application/json`.
+- **Importar no iPhone:** o `<input type="file">` deve aceitar `.json,application/json`; filtrar só pelo tipo às vezes deixa arquivos `.json` desativados no app Arquivos.
+- **Validação do arquivo:** tratar o conteúdo como dado não confiável; validar a estrutura de cada template, lista e item (tipos, `unit`, `quantity > 0`, `priceCents` inteiro ≥ 0 ou `null`, nome não vazio) antes de abrir a transação. Nomes vindos do arquivo continuam passando pelo escape do `html` na exibição.
+- **Importação atômica:** a gravação usa uma transação sobre os dois stores (`db.transaction(['templates', 'lists'], 'readwrite')`) com `clear()` e `put()` direto, sem passar por `putTemplate`/`putList` (que sobrescrevem `updatedAt`). Fica em `db.js`, o único módulo que acessa o IndexedDB.
+- **Tema após importar:** aplicar a preferência importada na hora (mesma rotina da troca manual de tema).
 
 ---
 
@@ -522,7 +655,7 @@ cestinha/
 
 | # | Tipo | Descrição | Encaminhamento |
 |---|---|---|---|
-| 1 | Risco | Perda de dados ao limpar o navegador, desinstalar ou trocar de celular | Aceito no MVP; backup (RF20) no Depois |
+| 1 | Risco | Perda de dados ao limpar o navegador, desinstalar ou trocar de celular | Reduzido pelo backup manual (RF20); o que mudou depois do último backup ainda se perde |
 | 2 | Risco | Sem "finalizar" nem arquivamento, a tela inicial cresce indefinidamente | Avaliar após uso real: agrupar por mês, busca ou ocultar listas antigas |
 | 3 | Risco | Comparação por nome no RF14 pode errar (ex.: "Arroz 5kg" x "Arroz") | Encerrado: RF14 descartado |
 | 4 | Pergunta | Permitir item com nome repetido na mesma lista, ou avisar/somar quantidade? | Definir durante o desenvolvimento; padrão: permitir |
@@ -532,7 +665,10 @@ cestinha/
 | 8 | Pergunta | Com o nome sugerido sendo a data, o card de T01 repete a data ("10/11/2026 … 10 de nov. de 2026") | Mantido por enquanto; rever após uso (ex.: esconder a data quando o nome já é a data de criação, ou mostrar "alterada há X dias") |
 | 9 | Risco | Listas de templates diferentes criadas no mesmo dia ficam com o mesmo nome e só se distinguem abrindo | Aceito; o usuário pode editar o nome na criação ou renomear depois |
 | 10 | Risco | "Nome A–Z" com nomes em DD/MM/AAAA agrupa por dia, não em ordem cronológica ("01/12/2026" antes de "10/11/2026") | Aceito, pois a lista aceita qualquer nome; para ordem cronológica há "Mais recentes"/"Mais antigas" |
-| 11 | Risco | No iPhone, o WebKit pode apagar os dados de sites usados **no navegador** depois de 7 dias sem acesso; apps adicionados à tela de início ficam fora dessa regra | Usar o Cestinha instalado na tela de início ("Compartilhar › Adicionar à Tela de Início"); backup (RF20) reduz o risco |
+| 11 | Risco | No iPhone, o WebKit pode apagar os dados de sites usados **no navegador** depois de 7 dias sem acesso; apps adicionados à tela de início ficam fora dessa regra | Usar o Cestinha instalado na tela de início ("Compartilhar › Adicionar à Tela de Início"); o backup (RF20) reduz o risco |
+| 12 | Risco | O usuário esquece de exportar, e o backup fica desatualizado | Aceito: os dados de compra são de baixa importância; Configurações mostra "Último backup: há N dias" (RN18). Lembrete ativo é não-objetivo |
+| 13 | Risco | Importar o arquivo errado (ex.: um backup antigo) apaga dados mais novos do aparelho | Confirmação com a data do backup e o que será apagado (RN17); não há desfazer |
+| 14 | Risco | O menu de compartilhar com arquivo e o seletor de arquivos se comportam diferente no Android e no iPhone | Download como alternativa ao compartilhar; `accept=".json,application/json"`; validar nos dois aparelhos após o deploy |
 
 ---
 
@@ -547,6 +683,14 @@ cestinha/
 - (Revisão 10/11) Listas criadas antes da revisão mantêm seus nomes; nada é migrado.
 - (Revisão 10/11) Renomear a lista conta como alteração e a leva ao topo em "Alteradas por último".
 - (Revisão 10/11) Critério de ordenação ausente ou inválido no `localStorage` volta para "Mais recentes".
+- (Revisão backup) Uso principal do backup: levar os dados para outro celular; a proteção contra perda é secundária.
+- (Revisão backup) Textos das mensagens de erro e do aviso "Backup importado" (T07) propostos pelo assistente.
+- (Revisão backup) Preferências inválidas no arquivo voltam ao padrão em vez de recusar o arquivo; só templates e listas são validados de forma estrita.
+- (Revisão backup) O tema importado é aplicado na hora.
+- (Revisão backup) "Há N dias" conta dias de calendário; data ilegível no aparelho vira "nunca".
+- (Revisão backup) Falha no menu de compartilhar que não seja cancelamento cai para o download.
+- (Revisão backup) O seletor de arquivos aceita `.json,application/json` por causa do iPhone.
+- (Revisão backup) "Importar dados" fica disponível mesmo sem dados no aparelho (é o caso do celular novo).
 - Itens marcados ficam riscados e descem para o final da lista.
 - Excluir template não exclui as listas geradas a partir dele.
 - O tema segue o sistema por padrão, com opção de fixar claro ou escuro; a preferência fica no `localStorage`.
