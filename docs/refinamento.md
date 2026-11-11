@@ -3,6 +3,8 @@
 > **Data:** 08/11/2026 · **Autor:** Thales Alves · **Status:** MVP refinado, pronto para iniciar o desenvolvimento
 >
 > **Revisão 10/11/2026:** nome sugerido da lista passa a ser a data de hoje (RN11 alterada) e as listas ganham seletor de ordenação (RF09 alterado, RF21 e RN16 novos, T01 alterada).
+>
+> **Revisão 10/11/2026 (plataformas):** o iPhone passa a ser alvo oficial, junto com o Android (RNF01 e RF16 alterados, risco 11 novo).
 
 ---
 
@@ -15,7 +17,7 @@ As compras de mercado se repetem muito de uma vez para outra: no geral são os m
 Um PWA de lista de compras, offline, em que o usuário mantém **templates** (listas padrão) separados das compras do dia. A partir de um template, ele gera a **lista do dia** com todos os itens já incluídos, ajusta o que precisar e usa a lista no mercado: marca o que coloca no carrinho, informa os valores e acompanha os totais. O template se ajusta com o tempo, porque o app sugere incluir nele os itens adicionados durante a compra.
 
 **Público-alvo**
-Uso pessoal (o próprio autor), em celular Android.
+Uso pessoal (o próprio autor), em celular Android ou iPhone.
 
 **Proposta de valor**
 Lista do dia pronta em segundos a partir de uma base confiável, que melhora a cada compra, com o controle de gastos na hora (previsto x no carrinho).
@@ -93,7 +95,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF13 | Sistema exibe na lista o **total previsto** (todos os itens com valor) e o **total no carrinho** (itens marcados com valor) | MVP |
 | RF14 | Usuário adiciona à lista um item que não existe no template de origem → sistema pergunta se quer adicioná-lo também ao template; se sim, o item é incluído no template | Depois (descartado do MVP) |
 | RF15 | Usuário troca o tema nas configurações (claro, escuro ou automático) → interface muda na hora e a escolha fica salva | MVP |
-| RF16 | Usuário instala o app na tela inicial do Android e o utiliza sem internet → todas as funcionalidades continuam disponíveis | MVP |
+| RF16 | Usuário instala o app na tela inicial do Android ou do iPhone e o utiliza sem internet → todas as funcionalidades continuam disponíveis | MVP |
 | RF17 | Usuário compartilha uma lista com outra pessoa, que pode editá-la em tempo real | Depois |
 | RF18 | Sistema organiza os itens da lista por categoria/setor do mercado | Depois |
 | RF19 | Sistema sugere o valor de um item com base na última compra | Depois |
@@ -176,7 +178,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 
 | ID | Requisito |
 |---|---|
-| RNF01 | **Plataforma:** PWA instalável (Web App Manifest + ícones), com alvo principal no Chrome para Android. |
+| RNF01 | **Plataforma:** PWA instalável (Web App Manifest + ícones), com alvo no **Chrome para Android** e no **iPhone** (Safari e Chrome, que no iOS usam o mesmo motor WebKit). Toda mudança de interface deve funcionar nos dois; comportamentos que só um sistema tem (ex.: teclado virtual) ficam a cargo da plataforma sempre que possível, em vez de compensados à mão. |
 | RNF02 | **Offline total:** Service Worker com cache do app shell; nenhuma funcionalidade depende de rede após o primeiro acesso. |
 | RNF03 | **Armazenamento:** dados locais em IndexedDB (API nativa, sem bibliotecas). Sem servidor e sem login. |
 | RNF04 | **Privacidade/LGPD:** nenhum dado sai do aparelho; sem analytics, rastreamento ou chamadas externas. |
@@ -537,6 +539,7 @@ cestinha/
 | 8 | Pergunta | Com o nome sugerido sendo a data, o card de T01 repete a data ("10/11/2026 … 10 de nov. de 2026") | Mantido por enquanto; rever após uso (ex.: esconder a data quando o nome já é a data de criação, ou mostrar "alterada há X dias") |
 | 9 | Risco | Listas de templates diferentes criadas no mesmo dia ficam com o mesmo nome e só se distinguem abrindo | Aceito; o usuário pode editar o nome na criação ou renomear depois |
 | 10 | Risco | "Nome A–Z" com nomes em DD/MM/AAAA agrupa por dia, não em ordem cronológica ("01/12/2026" antes de "10/11/2026") | Aceito, pois a lista aceita qualquer nome; para ordem cronológica há "Mais recentes"/"Mais antigas" |
+| 11 | Risco | No iPhone, o WebKit pode apagar os dados de sites usados **no navegador** depois de 7 dias sem acesso; apps adicionados à tela de início ficam fora dessa regra | Usar o Cestinha instalado na tela de início ("Compartilhar › Adicionar à Tela de Início"); backup (RF20) reduz o risco |
 
 ---
 
