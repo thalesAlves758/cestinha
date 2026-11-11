@@ -36,7 +36,7 @@ Funciona 100% offline, não tem login nem servidor, e nenhum dado sai do aparelh
 Quando sai uma versão nova, aparece um aviso no topo com o botão **"Atualizar"**. O app nunca se atualiza sozinho no meio de uma compra.
 
 > [!IMPORTANT]
-> **Seus dados ficam só no aparelho**, no armazenamento do navegador. Limpar os dados do navegador, desinstalar o app ou trocar de celular apaga as listas e os templates. No iPhone, use o app **instalado na tela de início**: usado direto no navegador, o iOS pode apagar os dados de sites que ficam 7 dias sem acesso. Exportar e importar backup está planejado ([CARD-017](docs/cards/07-pos-mvp/CARD-017-backup-exportar-importar.md)).
+> **Seus dados ficam só no aparelho**, no armazenamento do navegador. Limpar os dados do navegador, desinstalar o app ou trocar de celular apaga as listas e os templates. No iPhone, use o app **instalado na tela de início**: usado direto no navegador, o iOS pode apagar os dados de sites que ficam 7 dias sem acesso. Exportar e importar backup está planejado ([CARD-017](docs/cards/05-configuracoes/CARD-017-exportar-backup.md) e [CARD-023](docs/cards/05-configuracoes/CARD-023-importar-backup.md)).
 
 ## Stack
 
