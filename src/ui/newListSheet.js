@@ -79,12 +79,15 @@ export async function openNewListSheet() {
             <input id="${nameId}" name="name" type="text" autocomplete="off" aria-describedby="${nameId}-error" class="${FIELD}">
             <p id="${nameId}-error" role="alert" class="text-danger text-sm" hidden></p>
           </div>
+          <p data-submit-error role="alert" class="text-danger text-sm" hidden></p>
           <button type="submit" class="${BTN_PRIMARY}">Criar</button>
         </form>`.toString();
 
       const form = body.querySelector('form');
       const nameInput = body.querySelector(`#${CSS.escape(nameId)}`);
       const error = body.querySelector(`#${CSS.escape(nameId)}-error`);
+      // Shown inside the sheet: a toast would render behind the modal <dialog> (top layer).
+      const submitError = body.querySelector('[data-submit-error]');
       const radios = [...body.querySelectorAll('input[type="radio"]')];
 
       const templateById = (id) => templates.find((t) => t.id === id) ?? null;
@@ -118,6 +121,7 @@ export async function openNewListSheet() {
           return;
         }
         busy = true;
+        submitError.hidden = true;
         try {
           const template = templateById(selected);
           const list = template ? listFromTemplate(template, name) : createList({ name });
@@ -126,7 +130,8 @@ export async function openNewListSheet() {
           navigateAfterSheet(`#/list/${list.id}`);
         } catch {
           busy = false;
-          showToast({ message: 'Não foi possível criar a lista.' });
+          submitError.textContent = 'Não foi possível criar a lista. Tente de novo.';
+          submitError.hidden = false;
         }
       });
     },
