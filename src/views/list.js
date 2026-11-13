@@ -1,11 +1,11 @@
 import { html, qs } from '../ui/dom.js';
-import { getList, putList, deleteList } from '../db.js';
+import { getList, putList } from '../db.js';
+import { deleteListWithUndo, offerItemUndo, onRestored } from '../undo.js';
 import { createItem, nextOrder } from '../model.js';
 import {
   formatQuantity, formatMoney, itemSubtotalCents, listTotals, listProgress, sortItemsForDisplay,
 } from '../calc.js';
 import { promptText } from '../ui/prompt.js';
-import { confirmDialog } from '../ui/confirm.js';
 import { openActionSheet } from '../ui/actionSheet.js';
 import { openItemEditor } from '../ui/itemEditor.js';
 import { renderFab } from '../ui/fab.js';
@@ -185,12 +185,7 @@ export function render(container, { id } = {}) {
     if (busy) return;
     busy = true;
     try {
-      const ok = await confirmDialog({
-        title: 'Excluir lista?',
-        message: `A lista '${list.name}' será excluída. O template de origem não será afetado.`,
-      });
-      if (!ok) return;
-      await deleteList(list.id);
+      await deleteListWithUndo(list);
       location.hash = '#/lists';
     } catch {
       showError();
@@ -220,9 +215,10 @@ export function render(container, { id } = {}) {
         Object.assign(item, data);
         return save();
       },
-      onDelete: () => {
+      onDelete: async () => {
         list.items = list.items.filter((it) => it.id !== itemId);
-        return save();
+        await save();
+        offerItemUndo({ owner: 'list', ownerId: list.id, item });
       },
     });
   }
@@ -239,8 +235,21 @@ export function render(container, { id } = {}) {
     draw();
   }).catch(showError);
 
+  // An undo restored data behind this view's back: reload so later saves keep it.
+  const offRestored = onRestored(async () => {
+    try {
+      const fresh = await getList(id);
+      if (disposed || !fresh || !list) return;
+      list = fresh;
+      draw();
+    } catch {
+      // Keep the in-memory state; the next save writes it as before.
+    }
+  });
+
   return () => {
     disposed = true;
+    offRestored();
     fab?.remove();
     container.classList.remove('flex', 'flex-col');
   };

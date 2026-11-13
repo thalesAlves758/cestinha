@@ -26,7 +26,7 @@
 | [CARD-022](04-listas/CARD-022-ordenacao-das-listas.md) | Ordenação das listas na tela inicial | listas | feature | M | mvp | done | 008 | sonnet |
 | [CARD-017](05-configuracoes/CARD-017-exportar-backup.md) | Backup: exportar dados | configuracoes | feature | M | mvp | done | 002, 013, 022 | sonnet |
 | [CARD-023](05-configuracoes/CARD-023-importar-backup.md) | Backup: importar dados | configuracoes | feature | M | mvp | done | 017 | sonnet |
-| [CARD-024](08-exclusao/CARD-024-exclusao-com-desfazer.md) | Exclusão imediata com "Desfazer" | exclusao | feature | M | mvp | todo | 004, 005, 007, 008, 010 | sonnet |
+| [CARD-024](08-exclusao/CARD-024-exclusao-com-desfazer.md) | Exclusão imediata com "Desfazer" | exclusao | feature | M | mvp | done | 004, 005, 007, 008, 010 | sonnet |
 | [CARD-025](08-exclusao/CARD-025-arrastar-para-excluir-itens.md) | Arrastar para excluir: componente e itens | exclusao | feature | M | mvp | todo | 024 | opus |
 | [CARD-026](08-exclusao/CARD-026-arrastar-para-excluir-cards.md) | Arrastar para excluir: cards de lista e de template | exclusao | feature | P | mvp | todo | 025 | sonnet |
 | [CARD-018](07-pos-mvp/CARD-018-preco-sugerido.md) | ~~Preço sugerido com base na última compra~~ (descartado) | pos-mvp | feature | M | depois | descartado | 011 | — |

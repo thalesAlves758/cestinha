@@ -24,6 +24,7 @@ const APP_SHELL = [
   'src/pwa.js',
   'src/router.js',
   'src/theme.js',
+  'src/undo.js',
   'src/ui/actionSheet.js',
   'src/ui/buttons.js',
   'src/ui/confirm.js',
