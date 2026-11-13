@@ -109,10 +109,6 @@ export const getList = (id) => withStore('lists', 'readonly', (s) => promisify(s
 export const putList = (list) => put('lists', list);
 export const deleteList = (id) => withStore('lists', 'readwrite', (s) => promisify(s.delete(id)));
 
-// Undo of a deletion: written as-is, keeping the original updatedAt (RN19).
-export const restoreTemplate = (record) => withStore('templates', 'readwrite', (s) => promisify(s.put(record)));
-export const restoreList = (record) => withStore('lists', 'readwrite', (s) => promisify(s.put(record)));
-
 /**
  * Backup import (RN17): replaces everything in one transaction over both stores.
  * Records are written as-is (no put() helper: it would overwrite updatedAt).

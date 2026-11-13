@@ -1,8 +1,8 @@
 import { html, qs } from '../ui/dom.js';
-import { getAllLists, putList } from '../db.js';
-import { deleteListWithUndo, onRestored } from '../undo.js';
+import { getAllLists, putList, deleteList } from '../db.js';
 import { listProgress, listTotals, formatMoney } from '../calc.js';
 import { promptText } from '../ui/prompt.js';
+import { confirmDialog } from '../ui/confirm.js';
 import { openActionSheet } from '../ui/actionSheet.js';
 import { showToast } from '../ui/toast.js';
 import { renderFab } from '../ui/fab.js';
@@ -99,7 +99,12 @@ export function render(container) {
 
   async function remove(list) {
     try {
-      await deleteListWithUndo(list);
+      const ok = await confirmDialog({
+        title: 'Excluir lista',
+        message: `Excluir "${list.name}"? Esta ação não pode ser desfeita.`,
+      });
+      if (!ok) return;
+      await deleteList(list.id);
       await load();
     } catch {
       showToast({ message: 'Não foi possível excluir.' });
@@ -143,11 +148,9 @@ export function render(container) {
       ${[0, 1, 2].map(() => html`<li class="h-24 rounded-lg bg-surface border border-line animate-pulse"></li>`)}
     </ul>`;
   load();
-  const offRestored = onRestored(load);
 
   return () => {
     disposed = true;
-    offRestored();
     container.removeEventListener('click', onClick);
     fab.remove();
   };

@@ -10,7 +10,7 @@
 >
 > **Revisão 10/11/2026 (backup):** o backup manual (RF20) sai do "Depois" e entra no MVP: exportar todos os dados para um arquivo JSON pelo menu de compartilhar do celular e importá-lo substituindo os dados do aparelho (RF20 alterado, RN17 e RN18 novas, RNF04 e RNF07 ajustados, fluxo F6 novo, T07 alterada, formato do arquivo na seção 11, riscos 1, 11 a 14). O fluxo F3 e o diagrama central deixam de citar a sugestão do RF14 (descartado).
 >
-> **Revisão 12/11/2026 (excluir arrastando):** itens, listas e templates podem ser excluídos arrastando para a esquerda, como atalho além do menu e do editor; toda exclusão passa a ser imediata, sem confirmação, com "Desfazer" no aviso (RF22, RF23 e RN19 novos; RF02, RF03, RF07 e RF08 alterados; fluxo F7 novo; T01, T03, T04, T05 e T06 alteradas; riscos 15 a 17).
+> **Revisão 13/11/2026 (excluir arrastando descontinuado):** a revisão de 12/11/2026, que trazia excluir arrastando para a esquerda (RF22) e exclusão imediata com "Desfazer" (RF23, RN19), foi **descontinuada** depois de não funcionar no teste no celular. A primeira parte chegou a ser publicada na versão 0.4.0 e foi revertida: o app volta ao comportamento da 0.3.0 (listas e templates excluídos com confirmação; item excluído pelo editor sem confirmação). RF22, RF23 e RN19 ficam registrados como descartados.
 
 ---
 
@@ -52,12 +52,10 @@ Lista do dia pronta em segundos a partir de uma base confiável, com o controle 
 - Tema claro e escuro.
 - Funcionamento 100% offline e instalável no celular.
 - Backup manual: exportar todos os dados para um arquivo e importá-lo de volta, inclusive em outro celular (substitui os dados do aparelho).
-- Excluir itens, listas e templates arrastando para a esquerda (atalho), com toda exclusão imediata e "Desfazer" no aviso.
 
 ### ⏳ Depois
 - Lista compartilhada (exige login e sincronização).
 - Categorias/setores do mercado organizando a lista.
-- Arrastar um item da lista para a **direita** para marcar/desmarcar.
 
 ### 🚫 Não-objetivos (MVP)
 - Contas, login ou qualquer servidor/back-end.
@@ -75,8 +73,7 @@ Lista do dia pronta em segundos a partir de uma base confiável, com o controle 
 - Exportar só parte dos dados (templates ou listas escolhidos).
 - Importar dados de outros apps (ex.: Listonic) ou de planilhas.
 - Lembrete ativo de backup atrasado (aviso ou faixa); Configurações só mostra a data do último backup.
-- Desfazer várias exclusões de uma vez ou um histórico de "lixeira"; só a última exclusão pode ser desfeita.
-- Arrastar para revelar um botão "Excluir" (o gesto exclui ao soltar) e o gesto como único caminho para excluir (menu e editor continuam).
+- Excluir arrastando para a esquerda e "Desfazer" após excluir (RF22, RF23, descartados na revisão 13/11).
 
 ---
 
@@ -95,13 +92,13 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | ID | Requisito (ação → resposta do sistema) | Prioridade |
 |---|---|---|
 | RF01 | Usuário cria um template informando o nome → template é salvo vazio e aparece na aba Templates | MVP |
-| RF02 | Usuário edita um template (renomear; adicionar, editar e remover itens) → alterações são salvas na hora; remover item segue o RF23 | MVP |
-| RF03 | Usuário exclui um template → sistema remove o template na hora, com opção de desfazer (RF23), sem afetar listas já geradas | MVP |
+| RF02 | Usuário edita um template (renomear; adicionar, editar e remover itens) → alterações são salvas na hora | MVP |
+| RF03 | Usuário exclui um template → sistema pede confirmação e remove o template, sem afetar listas já geradas | MVP |
 | RF04 | Usuário abre a aba Templates → sistema exibe todos os templates com nome e quantidade de itens | MVP |
 | RF05 | Usuário cria uma lista a partir de um template → sistema cria uma lista nova com cópia de todos os itens do template, todos incluídos e desmarcados | MVP |
 | RF06 | Usuário cria uma lista em branco → sistema cria uma lista vazia | MVP |
-| RF07 | Usuário adiciona, edita ou remove itens de uma lista → lista é atualizada e totais/progresso recalculados; remover item segue o RF23 | MVP |
-| RF08 | Usuário renomeia ou exclui uma lista → sistema aplica a alteração (exclusão imediata, com opção de desfazer, RF23) | MVP |
+| RF07 | Usuário adiciona, edita ou remove itens de uma lista → lista é atualizada e totais/progresso recalculados | MVP |
+| RF08 | Usuário renomeia ou exclui uma lista → sistema aplica a alteração (exclusão com confirmação) | MVP |
 | RF09 | Usuário abre o app → tela inicial exibe todas as listas, na ordem escolhida pelo RF21 (padrão: da mais recente para a mais antiga), com barra de progresso e total previsto | MVP |
 | RF10 | Usuário marca/desmarca um item → item muda de estado ("no carrinho"), progresso e total no carrinho são recalculados | MVP |
 | RF11 | Usuário informa ou edita o valor de um item (preço por unidade ou por kg) → valor é salvo e subtotal calculado | MVP |
@@ -115,8 +112,8 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RF19 | Sistema sugere o valor de um item com base na última compra | Descartado |
 | RF20 | Usuário exporta todos os seus dados (templates, listas e preferências) para um arquivo, enviado pelo menu de compartilhar do celular, e importa esse arquivo neste ou em outro aparelho → os dados do aparelho são substituídos pelos do arquivo, após confirmação | MVP |
 | RF21 | Usuário escolhe a ordem das listas na tela inicial (Mais recentes, Mais antigas, Alteradas por último, Nome A–Z) → listas são reordenadas na hora e a escolha fica salva para as próximas aberturas | MVP |
-| RF22 | Usuário arrasta para a esquerda um item (da lista ou do template) ou um card (de lista ou de template) e solta depois do ponto de exclusão → o elemento é excluído na hora, como atalho além do menu e do editor | MVP |
-| RF23 | Usuário exclui um item, uma lista ou um template, por qualquer caminho (gesto, menu ou editor) → a exclusão é imediata, sem confirmação, e um aviso oferece "Desfazer" por 6 segundos; desfazer devolve o que foi excluído | MVP |
+| RF22 | Usuário arrasta um item ou card para a esquerda e solta → o elemento é excluído | Descartado (revisão 13/11) |
+| RF23 | Toda exclusão é imediata, sem confirmação, com "Desfazer" no aviso | Descartado (revisão 13/11) |
 
 ### Critérios de aceite (principais)
 
@@ -173,26 +170,6 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 - **E** ao tocar em "Cancelar", nada muda
 - **E** um arquivo que não é backup do Cestinha, um backup com registro inválido ou de uma versão mais nova do app é recusado com mensagem clara, sem alterar nenhum dado (RN17)
 
-**RF22 — Excluir arrastando**
-- **Dado** uma lista com "Arroz", "Feijão" e "Café"
-- **Quando** o usuário arrasta "Feijão" para a esquerda
-- **Então** surge atrás do item um fundo vermelho com "Excluir"; ao passar de 40% da largura, o texto muda para "Solte para excluir" (e o celular vibra de leve, no Android)
-- **E** ao soltar depois desse ponto, o item sai pela esquerda, "Café" sobe para o lugar dele e aparece o aviso "\"Feijão\" excluído" com "Desfazer"
-- **E** ao soltar antes desse ponto, o item volta ao lugar, nada é excluído e o editor não abre
-- **E** um movimento principalmente vertical rola a tela, sem arrastar o item
-- **E** o mesmo vale para os itens do template e para os cards de lista (T01) e de template (T05)
-
-**RF23 — Desfazer exclusão**
-- **Dado** que o usuário acabou de excluir "Feijão", que estava marcado, pelo gesto ou pelo editor
-- **Quando** toca em "Desfazer" em até 6 segundos
-- **Então** "Feijão" volta para a mesma posição, marcado, com quantidade e valor, e os totais e o progresso voltam a contá-lo
-- **E** se o usuário marcou outro item nesse meio-tempo, essa marcação é mantida
-- **Dado** que o usuário excluiu a lista "10/11/2026" pelo menu dentro dela
-- **Quando** o app volta para a tela inicial com o aviso "Lista \"10/11/2026\" excluída" e o usuário toca em "Desfazer"
-- **Então** o card reaparece na mesma posição da ordenação, com todos os itens, e o usuário continua na tela inicial
-- **E** excluir outra coisa antes de desfazer troca o aviso, e a exclusão anterior fica definitiva
-- **E** a exclusão de listas e templates não pede mais confirmação
-
 ---
 
 ## 5. Regras de negócio
@@ -217,7 +194,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RN16 | Ordenação das listas (RF21): **Mais recentes** = `createdAt` decrescente (padrão); **Mais antigas** = `createdAt` crescente; **Alteradas por último** = `updatedAt` decrescente (marcar item, editar item ou renomear contam como alteração); **Nome A–Z** = alfabética pt-BR ignorando maiúsculas/minúsculas e acentos, com ordem natural de números ("Feira 2" antes de "Feira 10"). Empates são desempatados pela mais recente (`createdAt` decrescente). A ordem é calculada na exibição, nunca armazenada. A escolha fica salva no aparelho; se estiver ausente ou inválida, vale "Mais recentes". |
 | RN17 | Importação de backup (RF20): é **tudo ou nada** e **substitui** todos os templates, listas e preferências do aparelho, numa única operação; se algo falhar, nada muda. Só ocorre após confirmação que mostra a data do backup, o que ele contém e o que será apagado. O arquivo é recusado inteiro, sem alterar dados, quando: não é um backup do Cestinha; tem algum template, lista ou item inválido (pelas regras RN01–RN03 e RN11); ou foi gerado por um formato mais novo do que o app conhece (a mensagem pede para atualizar o app). Backups de formatos mais antigos são sempre aceitos, convertidos na hora. Datas de criação e de alteração do arquivo são mantidas. Preferências desconhecidas ou inválidas voltam ao padrão, sem recusar o arquivo. |
 | RN18 | Exportação de backup (RF20): inclui sempre **todos** os templates e listas e as preferências de tema e de ordenação. Só fica disponível quando há pelo menos um template ou uma lista. O "Último backup" é registrado no aparelho apenas quando o envio pelo menu de compartilhar é concluído ou o download acontece (cancelar não conta); não vai no arquivo, então um aparelho recém-importado mostra "nunca". É exibido como tempo relativo em dias de calendário mais a data: "hoje (10/11/2026)", "há 1 dia (09/11/2026)", "há 12 dias (29/10/2026)" ou "nunca". |
-| RN19 | Exclusão e desfazer (RF22, RF23): toda exclusão de item, lista ou template é gravada **na hora**, sem confirmação, e mostra o aviso "\"Nome\" excluído" (item), "Lista \"Nome\" excluída" ou "Template \"Nome\" excluído" com "Desfazer" por 6 segundos. Só a **última** exclusão pode ser desfeita: um novo aviso substitui o anterior e torna a exclusão anterior definitiva. Desfazer grava de volta o mesmo registro (mesmo `id`, `order`, `checked`, quantidade, unidade e valor). **Item:** é reinserido na lista ou no template como estão no momento do desfazer (mudanças feitas nesse meio-tempo são mantidas), e isso conta como alteração (`updatedAt` atualizado); se a lista ou o template não existir mais, o desfazer não faz nada. **Lista ou template:** volta com as datas originais (`createdAt` e `updatedAt`), ocupando a mesma posição na ordenação; um template restaurado volta a ser a origem das listas que guardam seu `id`. O aviso e o desfazer continuam valendo se o usuário trocar de tela. Excluir uma lista ou um template de dentro da própria tela volta para a tela anterior (T01 ou T05), e desfazer só faz o card reaparecer lá, sem reabrir. |
+| RN19 | ~~Exclusão imediata, sem confirmação, com "Desfazer" por 6 segundos (RF22, RF23).~~ Descartada junto com o RF22 e o RF23. |
 
 ---
 
@@ -232,7 +209,7 @@ Não há login nem distinção de permissões. Os dados pertencem ao navegador/a
 | RNF05 | **Desempenho:** ações frequentes (marcar item, editar valor) com resposta imediata na interface; app abre rápido, mesmo offline. |
 | RNF06 | **Uso no mercado:** alvos de toque com no mínimo 44 px, uso confortável com uma mão e teclado numérico decimal (`inputmode="decimal"`) para quantidade e valor. |
 | RNF07 | **Persistência:** solicitar `navigator.storage.persist()` para reduzir o risco de o navegador limpar os dados. A perda de dados é reduzida pelo backup manual (RF20), que depende de o usuário exportar de vez em quando. |
-| RNF08 | **Acessibilidade básica:** contraste mínimo WCAG AA nos dois temas, campos com rótulos e estados não indicados só por cor (ex.: item marcado também fica riscado). Gestos (RF22) são sempre atalhos: toda ação feita por gesto também existe por toque (menu ou editor). Animações respeitam a preferência do sistema por menos movimento. |
+| RNF08 | **Acessibilidade básica:** contraste mínimo WCAG AA nos dois temas, campos com rótulos e estados não indicados só por cor (ex.: item marcado também fica riscado). |
 | RNF09 | **Tema:** claro e escuro, seguindo o sistema por padrão, com opção de fixar manualmente. |
 | RNF10 | **Idioma do código:** todo o código em **inglês** (variáveis, funções, arquivos, pastas, rotas, stores e campos do banco, comentários). Apenas os textos exibidos na interface ficam em **português (pt-BR)**. Detalhes na seção 12. |
 
@@ -310,25 +287,6 @@ flowchart TD
     L --> M([Tela Listas + aviso Backup importado])
 ```
 
-### F7 — Excluir arrastando e desfazer
-1. Em qualquer lista de itens (lista ou template) ou de cards (Listas ou Templates), o usuário arrasta o elemento para a esquerda, começando pelo meio dele.
-2. Aparece o fundo vermelho com "Excluir"; ao passar de 40% da largura, vira "Solte para excluir" (vibra no Android).
-3. Solta → o elemento sai pela esquerda, os de baixo sobem e aparece o aviso "… excluído" com "Desfazer" por 6 segundos. Soltar antes do ponto faz o elemento voltar ao lugar.
-4. Se foi engano, toca em "Desfazer" → o elemento volta para a mesma posição, como estava.
-
-```mermaid
-flowchart TD
-    A[Arrasta o elemento] --> B{Movimento horizontal?}
-    B -- Não --> C([Rola a tela])
-    B -- Sim --> D[Fundo vermelho: Excluir]
-    D --> E{Soltou depois de 40%?}
-    E -- Não --> F([Volta ao lugar; nada muda])
-    E -- Sim --> G[Excluído na hora + aviso com Desfazer]
-    G --> H{Desfazer em até 6 s?}
-    H -- Sim --> I([Elemento volta como estava])
-    H -- Não --> J([Exclusão definitiva])
-```
-
 ### Diagrama do fluxo central (F2 + F3)
 
 ```mermaid
@@ -377,7 +335,7 @@ flowchart TD
   - Cabeçalho: nome do app e ícone de engrenagem.
   - Linha do título: "Listas" à esquerda; à direita, botão de ordenação com ícone e o critério atual ("⇅ Mais recentes ▾"), visível só com 2 ou mais listas. O botão abre o painel de opções (o mesmo componente do menu do card) com título "Ordenar por" e os quatro critérios, o atual marcado com ✓ (não só por cor).
   - Conteúdo: cards de lista na ordem escolhida (RN16), cada um com nome, data, barra de progresso, contagem "marcados/total" e total previsto. A data continua no card mesmo quando repete o nome.
-  - Ações: tocar no card abre a lista; botão "+" abre T02; menu do card permite renomear e excluir; arrastar o card para a esquerda exclui a lista (RF22); toda exclusão mostra "Lista \"Nome\" excluída" com "Desfazer" (RN19); trocar o critério reordena na hora e volta ao topo.
+  - Ações: tocar no card abre a lista; botão "+" abre T02; menu do card permite renomear e excluir; trocar o critério reordena na hora e volta ao topo.
   - Rodapé: abas Listas · Templates.
 - **Wireframe (validado):**
   ```
@@ -412,7 +370,7 @@ flowchart TD
   - Uma lista só: card sem seletor.
   - Carregando: esqueleto dos cards (leitura do IndexedDB).
   - Erro: aviso caso o armazenamento esteja indisponível.
-- **RFs:** RF06, RF08, RF09, RF21, RF22, RF23.
+- **RFs:** RF06, RF08, RF09, RF21.
 
 ### T02 — Nova lista (painel inferior)
 - **Objetivo:** escolher a origem da lista e dar um nome.
@@ -427,50 +385,33 @@ flowchart TD
   - Cabeçalho: nome da lista (editável), voltar, menu (renomear, excluir).
   - Resumo fixo no topo: barra de progresso, **total no carrinho** em destaque e **total previsto**.
   - Conteúdo: itens com checkbox, nome, quantidade + unidade, valor e subtotal; marcados riscados e no final.
-  - Ações: tocar no checkbox marca/desmarca; tocar no item abre T04; campo/botão para adicionar item rápido; remover item pelo editor (T04) ou arrastando para a esquerda (RF22), inclusive itens marcados; excluir a lista pelo menu volta para T01 com o aviso de desfazer (RN19).
-- **Gesto de excluir (validado; o mesmo em T01, T05 e T06):**
-  ```
-  Arrastando (antes do ponto de exclusão):
-  ┌────────────────────────────────────┐
-  │ ☐ Arroz            1 un    R$ 25,00│
-  │ ☐ Feij│████████████  Excluir  🗑 ██│  ← fundo vermelho surgindo à direita
-  │ ☐ Café             1 un    R$ 18,90│
-  └────────────────────────────────────┘
-
-  Passou de 40% (vibra no Android):
-  │ ☐ F│██████  Solte para excluir  🗑 ██│
-
-  Ao soltar: o item sai pela esquerda, os de baixo sobem, e aparece o aviso:
-  ┌────────────────────────────────────┐
-  │ "Feijão" excluído       [Desfazer] │
-  └────────────────────────────────────┘
-  ```
+  - Ações: tocar no checkbox marca/desmarca; tocar no item abre T04; campo/botão para adicionar item rápido; deslizar ou menu para remover item.
 - **Estados:**
   - Vazio: convite para adicionar o primeiro item.
   - Tudo marcado: barra cheia, com destaque visual de conclusão.
   - Erro: falha ao salvar item, com opção de tentar de novo.
-- **RFs:** RF07, RF08, RF10, RF11, RF12, RF13, RF22, RF23.
+- **RFs:** RF07, RF08, RF10, RF11, RF12, RF13.
 
 ### T04 — Editor de item (painel inferior)
 - **Objetivo:** criar ou editar um item de lista ou de template.
-- **Elementos:** nome; quantidade (teclado decimal); seletor `un` / `kg`; valor (R$, teclado decimal, rótulo muda para "por un" ou "por kg"); subtotal calculado ao vivo; botões Salvar e Excluir. "Excluir" fecha o editor e mostra o aviso com "Desfazer" (RN19).
+- **Elementos:** nome; quantidade (teclado decimal); seletor `un` / `kg`; valor (R$, teclado decimal, rótulo muda para "por un" ou "por kg"); subtotal calculado ao vivo; botões Salvar e Excluir.
 - **Estados:**
   - Validação: nome vazio ou quantidade ≤ 0 bloqueiam o salvar com mensagem no campo.
-- **RFs:** RF02, RF07, RF11, RF12, RF23.
+- **RFs:** RF02, RF07, RF11, RF12.
 
 ### T05 — Templates
 - **Objetivo:** ver e criar templates.
-- **Elementos:** lista de templates com nome e quantidade de itens; botão "+" para novo template; arrastar um card para a esquerda exclui o template (RF22), com o aviso "Template \"Nome\" excluído" e "Desfazer".
+- **Elementos:** lista de templates com nome e quantidade de itens; botão "+" para novo template.
 - **Estados:**
   - Vazio: explicação curta do que é um template e botão para criar o primeiro.
-- **RFs:** RF01, RF03, RF04, RF22, RF23.
+- **RFs:** RF01, RF04.
 
 ### T06 — Template (detalhe)
 - **Objetivo:** manter os itens de um template.
-- **Elementos:** nome (editável); lista de itens (nome, quantidade + unidade, valor opcional); adicionar item; arrastar um item para a esquerda o exclui (RF22); menu com excluir template, que volta para T05 com o aviso de desfazer (RN19).
+- **Elementos:** nome (editável); lista de itens (nome, quantidade + unidade, valor opcional); adicionar item; menu com excluir template.
 - **Estados:**
   - Vazio: convite para adicionar itens.
-- **RFs:** RF02, RF03, RF22, RF23.
+- **RFs:** RF02, RF03.
 
 ### T07 — Configurações
 - **Objetivo:** personalização e backup dos dados.
@@ -537,7 +478,6 @@ flowchart TD
 | RF10, RF13 | T03 |
 | RF11, RF12 | T03, T04 |
 | RF15, RF20 | T07 |
-| RF22, RF23 | T01, T03, T04 (só RF23), T05, T06 |
 | RF16 | Transversal (todas as telas; ver RNF01 e RNF02) |
 
 ---
@@ -714,11 +654,6 @@ cestinha/
 - **Validação do arquivo:** tratar o conteúdo como dado não confiável; validar a estrutura de cada template, lista e item (tipos, `unit`, `quantity > 0`, `priceCents` inteiro ≥ 0 ou `null`, nome não vazio) antes de abrir a transação. Nomes vindos do arquivo continuam passando pelo escape do `html` na exibição.
 - **Importação atômica:** a gravação usa uma transação sobre os dois stores (`db.transaction(['templates', 'lists'], 'readwrite')`) com `clear()` e `put()` direto, sem passar por `putTemplate`/`putList` (que sobrescrevem `updatedAt`). Fica em `db.js`, o único módulo que acessa o IndexedDB.
 - **Tema após importar:** aplicar a preferência importada na hora (mesma rotina da troca manual de tema).
-- **Arrastar para excluir (RF22):** usar Pointer Events (`pointerdown`/`pointermove`/`pointerup`/`pointercancel`) com `touch-action: pan-y` no elemento, para o navegador continuar cuidando da rolagem vertical. Só entrar em modo arraste depois de um deslocamento horizontal claro (ex.: > 10 px e maior que o vertical); enquanto arrasta, mover o elemento com `transform: translateX`. Ponto de exclusão em 40% da largura do elemento. Se houve arraste, cancelar o `click` seguinte (não abrir o editor nem a lista). Um único componente reutilizável em `src/ui/` serve às quatro telas.
-- **Vibração:** `navigator.vibrate?.(10)` ao cruzar o ponto, protegido por checagem (existe no Android; no iPhone não existe e é ignorado).
-- **Animação:** saída lateral e recolhimento da altura em cerca de 200 ms; com `prefers-reduced-motion: reduce`, sem animação.
-- **Fundo vermelho:** usar o token de perigo do tema; se for preciso texto claro sobre ele, criar tokens semânticos novos (ex.: `bg-danger`/`text-on-danger`) com contraste AA nos dois temas, em vez de cores fixas.
-- **Desfazer (RF23):** a exclusão grava na hora; o aviso guarda uma cópia do registro excluído (e, no item, o `id` da lista/template de origem) e, em "Desfazer", grava de volta. Lista e template restaurados não podem passar por `putList`/`putTemplate` (que sobrescrevem `updatedAt`): é preciso uma gravação "como veio", em `db.js`. O aviso de 6 segundos já existe (`showToast` com ação); ele vive fora da view, por isso sobrevive à troca de tela.
 
 ---
 
@@ -740,9 +675,6 @@ cestinha/
 | 12 | Risco | O usuário esquece de exportar, e o backup fica desatualizado | Aceito: os dados de compra são de baixa importância; Configurações mostra "Último backup: há N dias" (RN18). Lembrete ativo é não-objetivo |
 | 13 | Risco | Importar o arquivo errado (ex.: um backup antigo) apaga dados mais novos do aparelho | Confirmação com a data do backup e o que será apagado (RN17); não há desfazer |
 | 14 | Risco | O menu de compartilhar com arquivo e o seletor de arquivos se comportam diferente no Android e no iPhone | Download como alternativa ao compartilhar; `accept=".json,application/json"`; validar nos dois aparelhos após o deploy |
-| 15 | Risco | Arrastar a partir da borda direita da tela dispara o "voltar" do Android (navegação por gestos) ou o "avançar" do Safari fora do app instalado; o app não consegue bloquear | Aceito: o gesto começa pelo meio do card, que é o movimento natural; validar nos dois aparelhos |
-| 16 | Risco | Exclusão acidental ao rolar uma lista longa | O arraste só começa com movimento claramente horizontal, exige passar de 40% e tem "Desfazer" |
-| 17 | Risco | Sem confirmação, uma lista ou template inteiro se perde se o usuário não vir o aviso de 6 segundos ou excluir outra coisa logo depois | Aceito pelo usuário (6 s para tudo); o backup (RF20) reduz o impacto |
 
 ---
 
@@ -765,12 +697,6 @@ cestinha/
 - (Revisão backup) Falha no menu de compartilhar que não seja cancelamento cai para o download.
 - (Revisão backup) O seletor de arquivos aceita `.json,application/json` por causa do iPhone.
 - (Revisão backup) "Importar dados" fica disponível mesmo sem dados no aparelho (é o caso do celular novo).
-- (Revisão 12/11) Se houve arraste, soltar não abre o item nem a lista; só um elemento é arrastado por vez, e a tela não rola durante o arraste.
-- (Revisão 12/11) Itens marcados também podem ser excluídos arrastando.
-- (Revisão 12/11) "Excluir" no editor de item fecha o editor e mostra o aviso com "Desfazer".
-- (Revisão 12/11) O botão "Desfazer" tem no mínimo 44 px, e o aviso fica na posição atual (acima da barra de adicionar item e do botão "+").
-- (Revisão 12/11) Desfazer a exclusão de um item cuja lista ou template já não existe não faz nada.
-- (Revisão 12/11) O fundo vermelho do gesto usa a cor de perigo do tema, com contraste AA nos dois temas.
 - Itens marcados ficam riscados e descem para o final da lista.
 - Excluir template não exclui as listas geradas a partir dele.
 - O tema segue o sistema por padrão, com opção de fixar claro ou escuro; a preferência fica no `localStorage`.

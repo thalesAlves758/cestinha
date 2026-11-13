@@ -7,13 +7,15 @@ camadas: [front]
 complexidade: M
 prioridade: mvp
 incerteza: alta
-status: todo
+status: descartado
 requisitos: [RF22, RNF06, RNF08]
 depende_de: [CARD-024]
 modelo_sugerido: opus
 ---
 
 # CARD-025 — Arrastar para excluir: componente e itens da lista e do template
+
+> **Descartado em 13/11/2026.** A funcionalidade "excluir arrastando com Desfazer" (RF22, RF23, RN19) foi descontinuada depois de não funcionar no teste no celular. O CARD-024 chegou a ser implementado e publicado na versão 0.4.0 e foi revertido (o app voltou à 0.3.0). Este card fica só como registro e não deve ser implementado.
 
 ## Contexto
 Excluir no Cestinha é lento: abrir o editor, achar o botão. A revisão de 12/11/2026 do refinamento trouxe um gesto de arrastar para a esquerda como **atalho** de exclusão (RF22), além do menu e do editor, que continuam. Toda exclusão já é imediata e tem "Desfazer" no aviso ([CARD-024](CARD-024-exclusao-com-desfazer.md)). Este card cria o componente do gesto e o aplica aos itens. Os cards de lista e de template vêm no [CARD-026](CARD-026-arrastar-para-excluir-cards.md).

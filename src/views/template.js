@@ -1,9 +1,9 @@
 import { html, qs } from '../ui/dom.js';
-import { getTemplate, putTemplate } from '../db.js';
-import { deleteTemplateWithUndo, offerItemUndo, onRestored } from '../undo.js';
+import { getTemplate, putTemplate, deleteTemplate } from '../db.js';
 import { createItem, nextOrder } from '../model.js';
 import { formatQuantity, formatMoney } from '../calc.js';
 import { promptText } from '../ui/prompt.js';
+import { confirmDialog } from '../ui/confirm.js';
 import { openActionSheet } from '../ui/actionSheet.js';
 import { openItemEditor } from '../ui/itemEditor.js';
 import { renderFab } from '../ui/fab.js';
@@ -94,7 +94,12 @@ export function render(container, { id } = {}) {
     if (busy) return;
     busy = true;
     try {
-      await deleteTemplateWithUndo(template);
+      const ok = await confirmDialog({
+        title: 'Excluir template?',
+        message: `O template '${template.name}' será excluído. Listas já criadas a partir dele não serão afetadas.`,
+      });
+      if (!ok) return;
+      await deleteTemplate(template.id);
       location.hash = '#/templates';
     } catch {
       showError();
@@ -126,7 +131,6 @@ export function render(container, { id } = {}) {
       onDelete: async () => {
         template.items = template.items.filter((it) => it.id !== itemId);
         await save();
-        offerItemUndo({ owner: 'template', ownerId: template.id, item });
       },
     });
   }
@@ -141,21 +145,8 @@ export function render(container, { id } = {}) {
     draw();
   }).catch(showError);
 
-  // An undo restored data behind this view's back: reload so later saves keep it.
-  const offRestored = onRestored(async () => {
-    try {
-      const fresh = await getTemplate(id);
-      if (disposed || !fresh || !template) return;
-      template = fresh;
-      draw();
-    } catch {
-      // Keep the in-memory state; the next save writes it as before.
-    }
-  });
-
   return () => {
     disposed = true;
-    offRestored();
     fab?.remove();
   };
 }

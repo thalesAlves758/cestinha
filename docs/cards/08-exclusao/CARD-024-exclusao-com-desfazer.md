@@ -7,13 +7,15 @@ camadas: [front, banco]
 complexidade: M
 prioridade: mvp
 incerteza: baixa
-status: done
+status: descartado
 requisitos: [RF23, RN19, RF02, RF03, RF07, RF08]
 depende_de: [CARD-004, CARD-005, CARD-007, CARD-008, CARD-010]
 modelo_sugerido: sonnet
 ---
 
 # CARD-024 — Exclusão imediata com "Desfazer"
+
+> **Descartado em 13/11/2026.** A funcionalidade "excluir arrastando com Desfazer" (RF22, RF23, RN19) foi descontinuada depois de não funcionar no teste no celular. O CARD-024 chegou a ser implementado e publicado na versão 0.4.0 e foi revertido (o app voltou à 0.3.0). Este card fica só como registro e não deve ser implementado.
 
 ## Contexto
 Excluir no Cestinha é lento: abrir o menu ou o editor, achar o botão e, em listas e templates, ainda confirmar. A revisão de 12/11/2026 do refinamento trouxe duas mudanças: um gesto de arrastar para a esquerda como atalho de exclusão (RF22) e, para todas as exclusões, a troca da confirmação por um "Desfazer" no aviso (RF23, RN19). Este card faz a parte do "Desfazer", nos caminhos de exclusão que já existem; o gesto vem nos [CARD-025](CARD-025-arrastar-para-excluir-itens.md) e [CARD-026](CARD-026-arrastar-para-excluir-cards.md).
@@ -50,18 +52,18 @@ Fazer toda exclusão existente (item pelo editor, lista pelo menu do card e pela
 - Sem testes automatizados (CLAUDE.md).
 
 ## Critérios de aceite
-- [x] Dado a lista "10/11/2026" na tela inicial, quando escolho ⋮ › Excluir, então ela some na hora, sem confirmação, e aparece "Lista \"10/11/2026\" excluída" com "Desfazer" (RF23).
-- [x] Tocando em "Desfazer" em até 6 segundos, o card volta na mesma posição da ordenação (inclusive em "Alteradas por último"), com todos os itens, marcações e valores.
-- [x] Sem tocar em "Desfazer", o aviso some depois de cerca de 6 segundos e a lista continua excluída depois de reabrir o app.
-- [x] Dentro de uma lista, ⋮ › Excluir volta para a tela inicial com o mesmo aviso; "Desfazer" faz o card reaparecer lá, e o app continua na tela inicial.
-- [x] Dentro de um template, ⋮ › Excluir template volta para Templates com "Template \"Compra do mês\" excluído"; "Desfazer" o traz de volta, e as listas geradas dele continuam ligadas a ele.
-- [x] Excluir "Feijão" (marcado) pelo editor de item fecha o painel e mostra "\"Feijão\" excluído"; "Desfazer" o devolve na mesma posição, marcado, com quantidade e valor, e os totais e o progresso voltam a contá-lo.
-- [x] Se eu excluir "Feijão", marcar "Arroz" e depois tocar em "Desfazer", "Feijão" volta e "Arroz" continua marcado.
-- [x] O mesmo vale para itens do template.
-- [x] Excluir outra coisa antes de desfazer troca o aviso, e a primeira exclusão fica definitiva.
-- [x] Excluo um item, vou para outra tela antes de o aviso sumir e toco em "Desfazer": o item volta, e ao abrir a lista ele está lá.
-- [x] Nenhuma exclusão de item, lista ou template pede confirmação. A importação do backup continua pedindo.
-- [x] O botão "Desfazer" tem no mínimo 44 px, e o aviso funciona nos temas claro e escuro.
+- [ ] Dado a lista "10/11/2026" na tela inicial, quando escolho ⋮ › Excluir, então ela some na hora, sem confirmação, e aparece "Lista \"10/11/2026\" excluída" com "Desfazer" (RF23).
+- [ ] Tocando em "Desfazer" em até 6 segundos, o card volta na mesma posição da ordenação (inclusive em "Alteradas por último"), com todos os itens, marcações e valores.
+- [ ] Sem tocar em "Desfazer", o aviso some depois de cerca de 6 segundos e a lista continua excluída depois de reabrir o app.
+- [ ] Dentro de uma lista, ⋮ › Excluir volta para a tela inicial com o mesmo aviso; "Desfazer" faz o card reaparecer lá, e o app continua na tela inicial.
+- [ ] Dentro de um template, ⋮ › Excluir template volta para Templates com "Template \"Compra do mês\" excluído"; "Desfazer" o traz de volta, e as listas geradas dele continuam ligadas a ele.
+- [ ] Excluir "Feijão" (marcado) pelo editor de item fecha o painel e mostra "\"Feijão\" excluído"; "Desfazer" o devolve na mesma posição, marcado, com quantidade e valor, e os totais e o progresso voltam a contá-lo.
+- [ ] Se eu excluir "Feijão", marcar "Arroz" e depois tocar em "Desfazer", "Feijão" volta e "Arroz" continua marcado.
+- [ ] O mesmo vale para itens do template.
+- [ ] Excluir outra coisa antes de desfazer troca o aviso, e a primeira exclusão fica definitiva.
+- [ ] Excluo um item, vou para outra tela antes de o aviso sumir e toco em "Desfazer": o item volta, e ao abrir a lista ele está lá.
+- [ ] Nenhuma exclusão de item, lista ou template pede confirmação. A importação do backup continua pedindo.
+- [ ] O botão "Desfazer" tem no mínimo 44 px, e o aviso funciona nos temas claro e escuro.
 
 ## Como testar
 **Validação manual (usuário)**
